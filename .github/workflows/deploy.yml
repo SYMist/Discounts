@@ -2,22 +2,25 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Replace Google API Key in script.js
-        run: |
-          sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|g' outlet-web/script.js
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload GitHub Pages artifacts
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: outlet-web  # 🔥 여기 중요: outlet-web 폴더만 업로드
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./outlet-web
+        uses: actions/deploy-pages@v2
