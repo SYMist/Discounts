@@ -123,7 +123,7 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
     except gspread.exceptions.WorksheetNotFound:
         worksheet = spreadsheet.add_worksheet(title=sheet_name, rows="1000", cols="20")
 
-    headers = ["제목", "기간", "상세 제목", "상세 기간", "썸네일", "상세 링크", "혜택 설명", "브랜드", "제품명", "가격", "이미지", "업데이트 날짜"]
+    headers = ["제목", "기간", "상세 제목", "상세 기간", "썸네일", "상세 링크", "혜택 설명", "event_id", "브랜드", "제품명", "가격", "이미지", "업데이트 날짜"]
     try:
         existing_data = worksheet.get_all_values()
         if existing_data and existing_data[0] == headers:
@@ -162,8 +162,12 @@ def crawl_outlet(branchCd, sheet_name):
             image_url = img_tag["src"] if img_tag else ""
             detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
             detail = fetch_event_detail(driver, detail_url)
-            raw_id = (title + detail_url).encode("utf-8")
-            event_id = md5(raw_id).hexdigest()[:10]
+
+            try:
+                event_id = image_url.split("/")[-1].split(".")[0]  # 썸네일에서 UUID 추출
+            except:
+                event_id = md5((title + detail_url).encode("utf-8")).hexdigest()[:10]
+
             detail_data = {
                 "id": event_id,
                 "제목": title,
@@ -175,14 +179,27 @@ def crawl_outlet(branchCd, sheet_name):
                 "혜택 설명": " / ".join(detail["텍스트 설명"]),
                 "상품 리스트": detail["상품 리스트"]
             }
+
             generate_html(detail_data, event_id)
-            base_info = [title, period, detail["상세 제목"], detail["상세 기간"], image_url, detail_url, detail_data["혜택 설명"]]
+
+            base_info = [
+                title,
+                period,
+                detail["상세 제목"],
+                detail["상세 기간"],
+                image_url,
+                detail_url,
+                detail_data["혜택 설명"],
+                event_id
+            ]
+
             if detail["상품 리스트"]:
                 for p in detail["상품 리스트"]:
                     row = base_info + [p["브랜드"], p["제품명"], p["가격"], p["이미지"]]
                     new_rows.append(row)
             else:
                 new_rows.append(base_info + ["", "", "", ""])
+
     driver.quit()
     upload_to_google_sheet("outlet-data", sheet_name, new_rows)
 
