@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       events: events,
       eventClick: function (info) {
-        const eventId = info.event.extendedProps.event_id;
-        if (eventId) {
-          window.open(`pages/event-${eventId}.html`, "_blank");
+        const id = info.event.extendedProps.event_id;
+        if (id) {
+          window.open(`/Discounts/pages/event-${id}.html`, "_blank");
         } else {
-          alert("상세 페이지가 없습니다.");
+          alert("상세 페이지를 찾을 수 없습니다.");
         }
       },
     });
@@ -45,17 +45,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const grouped = {};
 
     for (const row of rows) {
-      if (row.length < 12 || !row[0] || !row[1]) continue;
+      if (row.length < 11 || !row[0] || !row[1]) continue;
 
-      const [title, period, , , thumbnail, , desc, brand, product, price, , event_id] = row;
+      const [title, period, , , thumbnail, , desc, brand, product, price, img] = row;
       const dates = period.split("~");
       if (dates.length !== 2) continue;
 
       const start = parseDate(dates[0]);
       const end = parseDate(dates[1]);
-      if (!start || !end) continue;
+      if (!start || !end) {
+        console.log("❌ 날짜 파싱 제외 대상:", period);
+        continue;
+      }
 
+      const eventId = extractEventId(thumbnail);
       const key = `${title}_${start}_${end}`;
+
       if (!grouped[key]) {
         grouped[key] = {
           title: `[${outletName}] ${title}`,
@@ -65,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
           outlet: outletName,
           items: [],
           thumbnail,
-          event_id,
+          event_id: eventId,
         };
       }
 
@@ -73,6 +78,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     return Object.values(grouped);
+  }
+
+  function extractEventId(thumbnail) {
+    try {
+      const segments = thumbnail.split("/");
+      const uuid = segments[segments.length - 1].split(".")[0]; // f5ca0db20aab.jpg → f5ca0db20aab
+      return uuid;
+    } catch {
+      return null;
+    }
   }
 
   function parseDate(str) {
@@ -98,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Promise.all(
           sheets.map((s) =>
             gapi.client.request({
-              path: `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${s.name}!A2:L`,
+              path: `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${s.name}!A2:K`,
             }).then((response) => parseSheetData(response.result, s.outlet))
           )
         ).then((results) => {
