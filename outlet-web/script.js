@@ -15,7 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       events: events,
       eventClick: function (info) {
-        showModal(info.event);
+        const eventId = info.event.extendedProps.event_id;
+        if (eventId) {
+          window.open(`pages/event-${eventId}.html`, "_blank");
+        } else {
+          alert("상세 페이지가 없습니다.");
+        }
       },
     });
     calendar.render();
@@ -40,18 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const grouped = {};
 
     for (const row of rows) {
-      if (row.length < 11 || !row[0] || !row[1]) continue;
+      if (row.length < 12 || !row[0] || !row[1]) continue;
 
-      const [title, period, , , thumbnail, , desc, brand, product, price] = row;
+      const [title, period, , , thumbnail, , desc, brand, product, price, , event_id] = row;
       const dates = period.split("~");
       if (dates.length !== 2) continue;
 
       const start = parseDate(dates[0]);
       const end = parseDate(dates[1]);
-      if (!start || !end) {
-        console.log("❌ 날짜 파싱 제외 대상:", period);
-        continue;
-      }
+      if (!start || !end) continue;
 
       const key = `${title}_${start}_${end}`;
       if (!grouped[key]) {
@@ -63,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
           outlet: outletName,
           items: [],
           thumbnail,
+          event_id,
         };
       }
 
@@ -95,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Promise.all(
           sheets.map((s) =>
             gapi.client.request({
-              path: `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${s.name}!A2:K`,
+              path: `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${s.name}!A2:L`,
             }).then((response) => parseSheetData(response.result, s.outlet))
           )
         ).then((results) => {
@@ -107,43 +110,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   loadAllSheets();
-
-  function showModal(event) {
-    const modal = document.getElementById("event-modal");
-    const overlay = document.getElementById("modal-overlay");
-
-    document.getElementById("modal-title").innerText = event.title;
-
-    const thumb = event.extendedProps.thumbnail;
-    document.getElementById("modal-thumbnail").src = thumb;
-
-    let html = "";
-    if (event.extendedProps.description) {
-      html += `<p>${event.extendedProps.description}</p>`;
-    }
-
-    event.extendedProps.items.forEach((item) => {
-      const hasAnyDetail = item.product || item.brand || item.price;
-      if (!hasAnyDetail) return;
-
-      if (item.product) html += `<div><strong>상품명:</strong> ${item.product}</div>`;
-      if (item.brand) html += `<div><strong>브랜드:</strong> ${item.brand}</div>`;
-      if (item.price) html += `<div><strong>가격:</strong> ${item.price}</div>`;
-      if (hasAnyDetail) html += `<hr/>`;
-    });
-
-    document.getElementById("modal-desc").innerHTML = html;
-
-    modal.classList.add("show");
-    overlay.style.display = "block";
-    document.body.style.overflow = "hidden";
-  }
-
-  window.closeModal = function () {
-    document.getElementById("event-modal").classList.remove("show");
-    document.getElementById("modal-overlay").style.display = "none";
-    document.body.style.overflow = "auto";
-  };
-
-  document.getElementById("modal-overlay").addEventListener("click", closeModal);
 });
