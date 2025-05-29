@@ -29,6 +29,12 @@ jobs:
         with:
           path: outlet-web
 
+      - name: Pre-load upload-artifact@v3 (workaround)
+        uses: actions/upload-artifact@v3
+        with:
+          name: dummy
+          path: .gitignore  # 아무 텍스트 파일이면 OK
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
