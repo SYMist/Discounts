@@ -1,6 +1,7 @@
 import time
 import gspread
 import os
+import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
@@ -157,7 +158,8 @@ def crawl_outlet(branchCd, sheet_name):
             img_tag = event.select_one("img")
             link_tag = event.select_one("a")
             title = title_tag.get_text(separator=" ", strip=True) if title_tag else ""
-            period = period_tag.get_text(strip=True) if period_tag else ""
+            raw_period = period_tag.get_text(strip=True) if period_tag else ""
+            period = re.sub(r"\([^)]*\)", "", raw_period).strip()
             image_url = img_tag["src"] if img_tag else ""
             detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
             detail = fetch_event_detail(driver, detail_url)
