@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>아울렛 할인 캘린더</title>
+
+  <!-- FullCalendar CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- Google API -->
+  <script src="https://apis.google.com/js/api.js"></script>
+
+  <!-- 사용자 정의 CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1 style="text-align:center">최신 아울렛 할인 캘린더 🎉</h1>
+  
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterEvents('ALL')">전체</button>
+    <button class="filter-btn" onclick="filterEvents('송도')">송도</button>
+    <button class="filter-btn" onclick="filterEvents('김포')">김포</button>
+    <button class="filter-btn" onclick="filterEvents('스페이스원')">스페이스원</button>
+  </div>
+
+  <div id="calendar"></div>
+
+  <!-- 모달 오버레이 -->
+  <div id="modal-overlay"></div>
+
+  <!-- 모달 콘텐츠 -->
+  <div id="event-modal">
+    <div class="modal-content">
+      <img id="modal-thumbnail" src="" alt="썸네일" class="modal-thumb" />
+      <h2 id="modal-title"></h2>
+      <div id="modal-desc"></div>
+      <button onclick="closeModal()" class="modal-close-btn">닫기</button>
+    </div>
+  </div>
+
+  <!-- 사용자 정의 JS -->
+  <script src="script.js"></script>
+</body>
+</html>
