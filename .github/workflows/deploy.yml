@@ -24,6 +24,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Replace GOOGLE_API_KEY in script.js
+        run: |
+          sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|g' outlet-web/script.js
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
