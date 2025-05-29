@@ -10,6 +10,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,7 +21,7 @@ jobs:
       - name: Upload GitHub Pages artifacts
         uses: actions/upload-pages-artifact@v2
         with:
-          path: outlet-web  # 🔥 여기 중요: outlet-web 폴더만 업로드
+          path: outlet-web
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
