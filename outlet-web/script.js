@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadAllSheets() {
     const sheetId = "16JLl5-GVDSSQsdMowjZkTAzOmi6qkkz93to_GxMjQ18";
-    const apiKey = "";
+    const apiKey = "{{GOOGLE_API_KEY}}";
     const sheets = [
       { name: "Sheet1", outlet: "송도" },
       { name: "Sheet2", outlet: "김포" },
