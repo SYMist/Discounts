@@ -77,6 +77,8 @@ def fetch_event_detail(driver, url):
 # --- HTML 페이지 생성
 def generate_html(detail_data, event_id):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    
+    # template.html 위치: outlet-crawler/template.html
     template_path = os.path.join(BASE_DIR, "template.html")
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
@@ -102,8 +104,11 @@ def generate_html(detail_data, event_id):
         """
     html = html.replace("{{상품 목록}}", product_html)
 
-    os.makedirs("pages", exist_ok=True)
-    filename = f"pages/event-{event_id}.html"
+    # ✅ outlet-web 내부에 pages 폴더 생성 및 저장
+    output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
+    os.makedirs(output_dir, exist_ok=True)
+    filename = os.path.join(output_dir, f"event-{event_id}.html")
+
     with open(filename, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✔ HTML 생성 완료: {filename}")
