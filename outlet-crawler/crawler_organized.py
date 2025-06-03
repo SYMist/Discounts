@@ -1,7 +1,6 @@
 import time
 import gspread
 import os
-import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
@@ -132,7 +131,7 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
         existing_data = []
 
     existing_links = {row[5] for row in existing_data if len(row) >= 6}
-    filtered_new_rows = [row + [today_str, row[-1]] for row in new_rows if len(row) >= 6 and row[5] not in existing_links]
+    filtered_new_rows = [row for row in new_rows if len(row) >= 6 and row[5] not in existing_links]
     print(f"✨ [{sheet_name}] 새로 추가할 항목 수: {len(filtered_new_rows)}개")
 
     if not filtered_new_rows:
@@ -158,8 +157,7 @@ def crawl_outlet(branchCd, sheet_name):
             img_tag = event.select_one("img")
             link_tag = event.select_one("a")
             title = title_tag.get_text(separator=" ", strip=True) if title_tag else ""
-            raw_period = period_tag.get_text(strip=True) if period_tag else ""
-            period = re.sub(r"\([^)]*\)", "", raw_period).strip()
+            period = period_tag.get_text(strip=True) if period_tag else ""
             image_url = img_tag["src"] if img_tag else ""
             detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
             detail = fetch_event_detail(driver, detail_url)
@@ -180,10 +178,10 @@ def crawl_outlet(branchCd, sheet_name):
             base_info = [title, period, detail["상세 제목"], detail["상세 기간"], image_url, detail_url, detail_data["혜택 설명"]]
             if detail["상품 리스트"]:
                 for p in detail["상품 리스트"]:
-                    row = base_info + [p["브랜드"], p["제품명"], p["가격"], p["이미지"], event_id]
+                    row = base_info + [p["브랜드"], p["제품명"], p["가격"], p["이미지"], datetime.today().strftime('%Y-%m-%d'), event_id]
                     new_rows.append(row)
             else:
-                new_rows.append(base_info + ["", "", "", "", event_id])
+                new_rows.append(base_info + ["", "", "", "", datetime.today().strftime('%Y-%m-%d'), event_id])
     driver.quit()
     upload_to_google_sheet("outlet-data", sheet_name, new_rows)
 
