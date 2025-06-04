@@ -3,7 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="{{제목}} 행사 정보입니다. 최신 쇼핑 소식을 확인해보세요." />
+
+  <!-- 기본 SEO 메타태그 -->
+  <meta name="description" content="{{제목}} | {{혜택 설명}}" />
+  <meta name="keywords" content="{{제목}}, 아울렛 세일, 현대아울렛, 할인 행사">
+  <meta name="author" content="SY Outlet Bot">
+
+  <!-- Open Graph 메타태그 -->
+  <meta property="og:title" content="{{제목}}">
+  <meta property="og:description" content="{{혜택 설명}}">
+  <meta property="og:image" content="{{썸네일}}">
+  <meta property="og:url" content="https://symist.github.io/Discounts/pages/event-{{event_id}}.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card 메타태그 -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{제목}}">
+  <meta name="twitter:description" content="{{혜택 설명}}">
+  <meta name="twitter:image" content="{{썸네일}}">
+
+  <!-- JSON-LD 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "{{제목}}",
+    "startDate": "{{시작일}}",
+    "endDate": "{{종료일}}",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "현대 프리미엄 아울렛 {{지점명}}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KR"
+      }
+    },
+    "image": ["{{썸네일}}"],
+    "description": "{{혜택 설명}}",
+    "organizer": {
+      "@type": "Organization",
+      "name": "현대백화점",
+      "url": "https://www.ehyundai.com"
+    }
+  }
+  </script>
+
   <title>{{제목}} | 현대 프리미엄 아울렛 행사 정보</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
