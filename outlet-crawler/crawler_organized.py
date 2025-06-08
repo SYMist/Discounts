@@ -106,14 +106,6 @@ def generate_html(detail_data, event_id):
         """
     html = html.replace("{{상품 목록}}", product_html)
 
-    output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
-    os.makedirs(output_dir, exist_ok=True)
-    filename = os.path.join(output_dir, f"event-{event_id}.html")
-
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"✔ HTML 생성 완료: {filename}")
-
     # ✅ outlet-web 내부에 pages 폴더 생성 및 저장
     output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
     os.makedirs(output_dir, exist_ok=True)
@@ -122,6 +114,32 @@ def generate_html(detail_data, event_id):
     with open(filename, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✔ HTML 생성 완료: {filename}")
+
+def generate_sitemap(pages_dir, base_url, output_path):
+    urls = []
+    for filename in os.listdir(pages_dir):
+        if filename.endswith(".html"):
+            filepath = os.path.join(pages_dir, filename)
+            lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
+            url = f"{base_url}/{filename}"
+            urls.append((url, lastmod))
+
+    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+    for url, lastmod in urls:
+        sitemap.append("  <url>")
+        sitemap.append(f"    <loc>{url}</loc>")
+        sitemap.append(f"    <lastmod>{lastmod}</lastmod>")
+        sitemap.append("    <changefreq>daily</changefreq>")
+        sitemap.append("    <priority>0.8</priority>")
+        sitemap.append("  </url>")
+
+    sitemap.append('</urlset>')
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(sitemap))
+    print(f"✔ sitemap.xml 생성 완료: {output_path}")
 
 # --- Google Sheets 업로드
 def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
@@ -209,7 +227,14 @@ def main():
     ]
     for branchCd, sheet_name in OUTLET_TARGETS:
         crawl_outlet(branchCd, sheet_name)
-    print("\n🎉 전체 아울렛 크롤링 및 저장 완료!")
+
+    # ✅ sitemap.xml 생성
+    generate_sitemap(
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
+        base_url="https://symist.github.io/Discounts/pages",
+        output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
+    )
+    print("\n🎉 전체 아울렛 크롤링 및 저장 + sitemap 생성 완료!")
 
 if __name__ == "__main__":
     main()
