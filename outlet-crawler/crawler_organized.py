@@ -100,7 +100,7 @@ def generate_html(detail_data, event_id):
         <div class='product'>
             <img src="{p['이미지']}" alt="{p['제품명']}" />
             <p class='brand'>{p['브랜드']}</p>
-            <p class='name'>{p['제품명']}</p>
+            <h3 class='name'>{p['제품명']}</h3>
             <p class='price'>{p['가격']}</p>
         </div>
         """
