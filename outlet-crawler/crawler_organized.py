@@ -1,6 +1,8 @@
 import time
 import gspread
 import os
+import requests
+import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
@@ -49,7 +51,11 @@ def fetch_event_detail(driver, url):
         title = soup.select_one("section.fixArea h2")
         period = soup.select_one("table.info td")
         noimg_block = soup.select("article.noImgProduct tr")
-        noimg_list = [f"{row.find('th').text.strip()}: {row.find('td').text.strip()}" for row in noimg_block if row.find('th') and row.find('td')]
+        noimg_list = [
+            f"{row.find('th').text.strip()}: {row.find('td').text.strip()}"
+            for row in noimg_block
+            if row.find('th') and row.find('td')
+        ]
         product_blocks = soup.select("article.twoProduct figure")
         products = []
         for p in product_blocks:
@@ -81,12 +87,13 @@ def generate_html(detail_data, event_id):
     with open(template_path, "r", encoding="utf-8") as f:
         template = f.read()
 
+    # 템플릿 변수 치환
     html = template
     html = html.replace("{{제목}}", detail_data["제목"])
     html = html.replace("{{기간}}", detail_data["기간"])
     html = html.replace("{{상세 제목}}", detail_data["상세 제목"])
     html = html.replace("{{상세 기간}}", detail_data["상세 기간"])
-    html = html.replace("{{썸네일}}", detail_data["썸네일"])
+    html = html.replace("{{썸네일}}", detail_data.get("썸네일", ""))
     html = html.replace("{{혜택 설명}}", detail_data["혜택 설명"].replace("\n", "<br>"))
     html = html.replace("{{업데이트 날짜}}", datetime.today().strftime('%Y-%m-%d'))
     html = html.replace("{{시작일}}", detail_data.get("시작일", ""))
@@ -94,26 +101,30 @@ def generate_html(detail_data, event_id):
     html = html.replace("{{지점명}}", detail_data.get("지점명", ""))
     html = html.replace("{{event_id}}", detail_data.get("id", ""))
 
+    # 상품 리스트 HTML 생성 (이미지 저장 없이 URL만 사용)
     product_html = ""
     for p in detail_data["상품 리스트"]:
         product_html += f"""
         <div class='product'>
-            <img src="{p['이미지']}" alt="{p['제품명']}" />
-            <p class='brand'>{p['브랜드']}</p>
-            <h3 class='name'>{p['제품명']}</h3>
-            <p class='price'>{p['가격']}</p>
+          <img
+            src="{p['이미지']}"
+            alt="{p['제품명']} 행사 이미지"
+            loading="lazy" width="800" height="800"
+          />
+          <h3 class='name'>{p['제품명']}</h3>
+          <p class='price'>{p['가격']}</p>
         </div>
         """
+
     html = html.replace("{{상품 목록}}", product_html)
 
-    # ✅ outlet-web 내부에 pages 폴더 생성 및 저장
+    # 최종 HTML 파일 저장
     output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
     os.makedirs(output_dir, exist_ok=True)
-    filename = os.path.join(output_dir, f"event-{event_id}.html")
-
-    with open(filename, "w", encoding="utf-8") as f:
+    filename_html = os.path.join(output_dir, f"event-{event_id}.html")
+    with open(filename_html, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"✔ HTML 생성 완료: {filename}")
+    print(f"✔ HTML 생성 완료: {filename_html}")
 
 def generate_sitemap(pages_dir, base_url, output_path):
     urls = []
@@ -126,7 +137,6 @@ def generate_sitemap(pages_dir, base_url, output_path):
 
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
     sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-
     for url, lastmod in urls:
         sitemap.append("  <url>")
         sitemap.append(f"    <loc>{url}</loc>")
@@ -134,7 +144,6 @@ def generate_sitemap(pages_dir, base_url, output_path):
         sitemap.append("    <changefreq>daily</changefreq>")
         sitemap.append("    <priority>0.8</priority>")
         sitemap.append("  </url>")
-
     sitemap.append('</urlset>')
 
     with open(output_path, "w", encoding="utf-8") as f:
@@ -155,7 +164,8 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
     except gspread.exceptions.WorksheetNotFound:
         worksheet = spreadsheet.add_worksheet(title=sheet_name, rows="1000", cols="20")
 
-    headers = ["제목", "기간", "상세 제목", "상세 기간", "썸네일", "상세 링크", "혜택 설명", "브랜드", "제품명", "가격", "이미지", "업데이트 날짜", "event_id"]
+    headers = ["제목", "기간", "상세 제목", "상세 기간", "썸네일", "상세 링크", "혜택 설명",
+               "브랜드", "제품명", "가격", "이미지", "업데이트 날짜", "event_id"]
     try:
         existing_data = worksheet.get_all_values()
         if existing_data and existing_data[0] == headers:
@@ -194,7 +204,7 @@ def crawl_outlet(branchCd, sheet_name):
             image_url = img_tag["src"] if img_tag else ""
             detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
             detail = fetch_event_detail(driver, detail_url)
-            thumbnail_id = image_url.split("/")[-1].split(".")[0][-12:]  # 썸네일에서 ID 추출
+            thumbnail_id = image_url.split("/")[-1].split(".")[0][-12:]
             event_id = thumbnail_id
             detail_data = {
                 "id": event_id,
@@ -208,13 +218,17 @@ def crawl_outlet(branchCd, sheet_name):
                 "상품 리스트": detail["상품 리스트"]
             }
             generate_html(detail_data, event_id)
-            base_info = [title, period, detail["상세 제목"], detail["상세 기간"], image_url, detail_url, detail_data["혜택 설명"]]
+            base_info = [title, period, detail["상세 제목"], detail["상세 기간"],
+                         image_url, detail_url, detail_data["혜택 설명"]]
             if detail["상품 리스트"]:
                 for p in detail["상품 리스트"]:
-                    row = base_info + [p["브랜드"], p["제품명"], p["가격"], p["이미지"], datetime.today().strftime('%Y-%m-%d'), event_id]
+                    row = base_info + [
+                        p["브랜드"], p["제품명"], p["가격"], p["이미지"],
+                        datetime.today().strftime('%Y-%m-%d'), event_id]
                     new_rows.append(row)
             else:
-                new_rows.append(base_info + ["", "", "", "", datetime.today().strftime('%Y-%m-%d'), event_id])
+                new_rows.append(base_info + ["", "", "", "",
+                                 datetime.today().strftime('%Y-%m-%d'), event_id])
     driver.quit()
     upload_to_google_sheet("outlet-data", sheet_name, new_rows)
 
