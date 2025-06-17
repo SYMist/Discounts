@@ -65,6 +65,25 @@
 </head>
 <body>
   <div class="container">
+
+    <p style="margin-bottom:1rem;">
+      <!-- 1) 이전 페이지가 있으면 뒤로, 없으면 목록으로 -->
+      <button
+        onclick="if(history.length>1){history.back()}else{location.href='../index.html'}"
+        style="background:none; border:none; color:#555; font-size:1rem; cursor:pointer;"
+      >
+        ← 뒤로가기
+      </button>
+
+      <!-- 2) 언제나 목록으로 -->
+      <a
+        href="../index.html"
+        style="margin-left:1rem; color:#555; text-decoration:none; font-size:1rem;"
+      >
+        목록으로 돌아가기
+      </a>
+    </p>
+
     <h1>[POP-UP] 빌리(Bily)</h1>
     <div class="period">06.13(금) ~ 06.19(목)</div>
     <img
@@ -72,8 +91,6 @@
       src="https://imgprism.ehyundai.com/derivedImage/fileValue/202506/09/10298b83-aaf9-4594-8f89-75bfbb7784a5_02.jpg"
       alt="[POP-UP] 빌리(Bily) 행사 이미지"
       loading="lazy"
-      width="1200"
-      height="800"
     >
 
     <div class="description">
@@ -133,7 +150,7 @@
     </div>
 
     <footer>
-      © 현대 프리미엄 아울렛 행사 정보, 2025-06-16
+      © 현대 프리미엄 아울렛 행사 정보, 2025-06-17
     </footer>
   </div>
 </body>

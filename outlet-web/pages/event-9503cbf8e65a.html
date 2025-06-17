@@ -71,6 +71,25 @@
 </head>
 <body>
   <div class="container">
+
+    <p style="margin-bottom:1rem;">
+      <!-- 1) 이전 페이지가 있으면 뒤로, 없으면 목록으로 -->
+      <button
+        onclick="if(history.length>1){history.back()}else{location.href='../index.html'}"
+        style="background:none; border:none; color:#555; font-size:1rem; cursor:pointer;"
+      >
+        ← 뒤로가기
+      </button>
+
+      <!-- 2) 언제나 목록으로 -->
+      <a
+        href="../index.html"
+        style="margin-left:1rem; color:#555; text-decoration:none; font-size:1rem;"
+      >
+        목록으로 돌아가기
+      </a>
+    </p>
+
     <h1>짱구랑
 현대아울렛으로 놀러 가요!</h1>
     <div class="period"></div>
@@ -80,8 +99,6 @@
       alt="짱구랑
 현대아울렛으로 놀러 가요! 행사 이미지"
       loading="lazy"
-      width="1200"
-      height="800"
     >
 
     <div class="description">
@@ -101,7 +118,7 @@
     </div>
 
     <footer>
-      © 현대 프리미엄 아울렛 행사 정보, 2025-06-16
+      © 현대 프리미엄 아울렛 행사 정보, 2025-06-17
     </footer>
   </div>
 </body>
