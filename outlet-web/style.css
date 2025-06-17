@@ -146,3 +146,47 @@ h1 {
     padding: 16px;
   }
 }
+
+/* 컨테이너 최대 폭과 패딩 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 메인 썸네일: 화면 폭 100%에 맞춰 비율 유지 */
+.thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* 상품 리스트를 그리드로 배치: 최소 200px, 최대 1fr */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* 상품 이미지도 그리드 셀에 맞춰 반응형 */
+.product img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 상품명·가격 영역 여백 조정 */
+.product .name,
+.product .price {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* 버튼이나 링크도 터치 영역 충분히 확보 */
+.btn-back,
+.btn-home {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
