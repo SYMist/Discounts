@@ -100,6 +100,7 @@ def generate_html(detail_data, event_id):
     html = html.replace("{{종료일}}", detail_data.get("종료일", ""))
     html = html.replace("{{지점명}}", detail_data.get("지점명", ""))
     html = html.replace("{{event_id}}", detail_data.get("id", ""))
+    html = html.replace("{{상세 링크}}", detail_data.get("상세 링크", "#"))
 
     # 상품 리스트 HTML 생성 (이미지 저장 없이 URL만 사용)
     product_html = ""

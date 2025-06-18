@@ -190,3 +190,16 @@ h1 {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
 }
+
+/* 이미지 버튼 배너 */
+.event-banner .banner-image {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform .2s ease;
+}
+.event-banner .banner-image:hover {
+  transform: scale(1.02);
+}
