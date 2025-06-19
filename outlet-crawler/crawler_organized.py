@@ -46,40 +46,95 @@ def fetch_event_list(driver, branchCd, page):
 def fetch_event_detail(driver, url):
     try:
         driver.get(url)
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, "article")))
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "article"))
+        )
         soup = BeautifulSoup(driver.page_source, "html.parser")
+
         title = soup.select_one("section.fixArea h2")
         period = soup.select_one("table.info td")
-        noimg_block = soup.select("article.noImgProduct tr")
         noimg_list = [
-            f"{row.find('th').text.strip()}: {row.find('td').text.strip()}"
-            for row in noimg_block
-            if row.find('th') and row.find('td')
+            f"{r.find('th').text.strip()}: {r.find('td').text.strip()}"
+            for r in soup.select("article.noImgProduct tr")
+            if r.find('th') and r.find('td')
         ]
-        product_blocks = soup.select("article.twoProduct figure")
+
         products = []
-        for p in product_blocks:
-            brand = p.select_one(".p_brandNm")
-            name = p.select_one(".p_productNm")
-            price = p.select_one(".p_productPrc")
-            img = p.select_one(".p_productImg")
-            price_text = price.get_text(" ", strip=True) if price else ""
+        for p in soup.select("article.twoProduct figure"):
+            # 1) 줄바꿈 제거: 공백 하나로 통일
+            brand_text = (
+                p.select_one(".p_brandNm").get_text(" ", strip=True)
+                if p.select_one(".p_brandNm")
+                else ""
+            )
+            name_text = (
+                p.select_one(".p_productNm").get_text(" ", strip=True)
+                if p.select_one(".p_productNm")
+                else ""
+            )
+
+            # 2) 해시태그 제거
+            brand_text = " ".join(w for w in brand_text.split() if not w.startswith("#"))
+
+            # 3) 분류 토큰 제거
+            if brand_text.upper() in ("MEN", "WOMEN", "MEN/WOMEN"):
+                brand_text = ""
+
+            # 4) name_text가 비어있으면 brand_text → name_text
+            if not name_text and brand_text:
+                name_text, brand_text = brand_text, ""
+
+            # 5) '[브랜드]' 둘러싼 경우 대괄호 제거
+            if re.fullmatch(r"\[[^\]]+\]", brand_text):
+                brand_text = brand_text[1:-1].strip()
+
+            # 6) brand_text 없을 때 '[브랜드]제품명' 분리
+            if not brand_text:
+                m = re.match(r"^\[([^\]]+)\]\s*(.+)$", name_text)
+                if m:
+                    brand_text = m.group(1).strip()
+                    name_text = m.group(2).strip()
+
+            # 7) 변형 정보만 있는 경우(슬래시 포함) 합치기
+            if brand_text and "/" in name_text:
+                name_text = f"{brand_text} {name_text}"
+                brand_text = ""
+
+            # 8) 프로모션/증정 항목 건너뛰기
+            if "증정" in brand_text or "구매시" in name_text or name_text.startswith("「"):
+                continue
+
+            # 9) SKU 코드만 있으면 건너뛰기
+            if re.fullmatch(r"[A-Z0-9]+", name_text):
+                continue
+
+            # 가격 및 이미지 URL
+            price_tag = p.select_one(".p_productPrc")
+            price_txt = price_tag.get_text(" ", strip=True) if price_tag else ""
+            img_tag = p.select_one(".p_productImg")
+            img_url = img_tag["src"] if img_tag else ""
+
+            # 최종 공백 정리
+            name_text = " ".join(name_text.split())
+
             products.append({
-                "브랜드": brand.text.strip() if brand else "",
-                "제품명": name.text.strip() if name else "",
-                "가격": process_price_text(price_text),
-                "이미지": img["src"] if img else ""
+                "브랜드": brand_text,
+                "제품명": name_text,
+                "가격": process_price_text(price_txt),
+                "이미지": img_url
             })
+
         return {
             "상세 제목": title.text.strip() if title else "",
             "상세 기간": period.text.strip() if period else "",
             "텍스트 설명": noimg_list,
             "상품 리스트": products
         }
+
     except Exception as e:
         print(f"❌ 상세페이지 크롤링 실패: {e}")
         return {"상세 제목": "", "상세 기간": "", "텍스트 설명": [], "상품 리스트": []}
-
+    
 # --- HTML 페이지 생성
 def generate_html(detail_data, event_id):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
