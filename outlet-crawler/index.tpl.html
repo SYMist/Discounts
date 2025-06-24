@@ -41,11 +41,13 @@
   <!-- FullCalendar 렌더 위치 -->
   <div id="calendar"></div>
 
-  <!-- 정적 이벤트 링크 목록 -->
-  <h2>이벤트 목록</h2>
-  <ul>
-    {{EVENT_LINKS}}
-  </ul>
+  <!-- 정적 이벤트 링크 목록 (SEO 및 크롤러용, 화면에는 숨김) -->
+  <div id="static-event-links" style="display:none;">
+    <h2>이벤트 목록</h2>
+    <ul>
+      {{EVENT_LINKS}}
+    </ul>
+  </div>
 
   <script src="script.js"></script>
 </body>
