@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-    <!-- 모바일 화면에 맞춰 렌더링 비율 설정 -->
+  <!-- 모바일 렌더링 비율 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- SEO용 설명 메타태그 -->
@@ -27,19 +27,108 @@
 
   <h1 style="text-align:center">최신 아울렛 할인 캘린더 🎉</h1>
   
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterEvents('ALL')">전체</button>
-    <button class="filter-btn" onclick="filterEvents('송도')">송도</button>
-    <button class="filter-btn" onclick="filterEvents('김포')">김포</button>
-    <button class="filter-btn" onclick="filterEvents('스페이스원')">스페이스원</button>
+  <!-- 지점 필터 바 -->
+  <div id="branch-filter-bar" class="filter-bar">
+    <button class="filter-btn active" data-branch="ALL" onclick="filterEvents('ALL')">전체</button>
+    <button class="filter-btn" data-branch="송도" onclick="filterEvents('송도')">송도</button>
+    <button class="filter-btn" data-branch="김포" onclick="filterEvents('김포')">김포</button>
+    <button class="filter-btn" data-branch="스페이스원" onclick="filterEvents('스페이스원')">스페이스원</button>
   </div>
 
-  <!-- ② 브랜드 필터 추가 (JS가 동적으로 버튼을 채워 넣습니다) -->
+  <!-- 브랜드 필터 바 (JS 동적 생성) -->
   <div id="brand-filter-bar" class="filter-bar"></div>
 
+  <!-- FullCalendar 렌더 위치 -->
   <div id="calendar"></div>
 
-  <!-- 사용자 정의 JS -->
+  <!-- 정적 이벤트 링크 목록 -->
+  <h2>이벤트 목록</h2>
+  <ul>
+    <li><a href="pages/event-0053227c91f9.html">0053227c91f9</a></li>
+<li><a href="pages/event-01c27a609f90.html">01c27a609f90</a></li>
+<li><a href="pages/event-0cdbc7de5_02.html">0cdbc7de5_02</a></li>
+<li><a href="pages/event-124064553_02.html">124064553_02</a></li>
+<li><a href="pages/event-1641006f7_02.html">1641006f7_02</a></li>
+<li><a href="pages/event-19fbbc7f0_02.html">19fbbc7f0_02</a></li>
+<li><a href="pages/event-1c1303065_02.html">1c1303065_02</a></li>
+<li><a href="pages/event-1d1a09d45_02.html">1d1a09d45_02</a></li>
+<li><a href="pages/event-1df34dcd1_02.html">1df34dcd1_02</a></li>
+<li><a href="pages/event-22dda21735e4.html">22dda21735e4</a></li>
+<li><a href="pages/event-249382c4ac3a.html">249382c4ac3a</a></li>
+<li><a href="pages/event-32cb4d4a4_02.html">32cb4d4a4_02</a></li>
+<li><a href="pages/event-339b4dcf7_02.html">339b4dcf7_02</a></li>
+<li><a href="pages/event-3b6795220_02.html">3b6795220_02</a></li>
+<li><a href="pages/event-3edec94c2acc.html">3edec94c2acc</a></li>
+<li><a href="pages/event-4198aa2b1940.html">4198aa2b1940</a></li>
+<li><a href="pages/event-46d01930b_02.html">46d01930b_02</a></li>
+<li><a href="pages/event-46e665ed3_02.html">46e665ed3_02</a></li>
+<li><a href="pages/event-4cb447a1bd53.html">4cb447a1bd53</a></li>
+<li><a href="pages/event-523654909d35.html">523654909d35</a></li>
+<li><a href="pages/event-56238be3904d.html">56238be3904d</a></li>
+<li><a href="pages/event-56e6d91c2_02.html">56e6d91c2_02</a></li>
+<li><a href="pages/event-56fd52643e4b.html">56fd52643e4b</a></li>
+<li><a href="pages/event-585442f1b9df.html">585442f1b9df</a></li>
+<li><a href="pages/event-59668e59cf6f.html">59668e59cf6f</a></li>
+<li><a href="pages/event-5d8b88ec4_02.html">5d8b88ec4_02</a></li>
+<li><a href="pages/event-5f040135c_02.html">5f040135c_02</a></li>
+<li><a href="pages/event-6367ceaf39ad.html">6367ceaf39ad</a></li>
+<li><a href="pages/event-65db5c3347fb.html">65db5c3347fb</a></li>
+<li><a href="pages/event-67199100c164.html">67199100c164</a></li>
+<li><a href="pages/event-68dc89fe5c89.html">68dc89fe5c89</a></li>
+<li><a href="pages/event-6a5bf0239ce9.html">6a5bf0239ce9</a></li>
+<li><a href="pages/event-7022ed19d106.html">7022ed19d106</a></li>
+<li><a href="pages/event-70855bd7fe28.html">70855bd7fe28</a></li>
+<li><a href="pages/event-73bc0b3fb_02.html">73bc0b3fb_02</a></li>
+<li><a href="pages/event-7d6adb797_02.html">7d6adb797_02</a></li>
+<li><a href="pages/event-7e68953f2_02.html">7e68953f2_02</a></li>
+<li><a href="pages/event-81b7cdb2a390.html">81b7cdb2a390</a></li>
+<li><a href="pages/event-83bb270e1_02.html">83bb270e1_02</a></li>
+<li><a href="pages/event-86ab24991_02.html">86ab24991_02</a></li>
+<li><a href="pages/event-8915eda7c_02.html">8915eda7c_02</a></li>
+<li><a href="pages/event-8b97b00b8_02.html">8b97b00b8_02</a></li>
+<li><a href="pages/event-8f59859c379f.html">8f59859c379f</a></li>
+<li><a href="pages/event-932d7a760903.html">932d7a760903</a></li>
+<li><a href="pages/event-93541cbd4_02.html">93541cbd4_02</a></li>
+<li><a href="pages/event-94ce787b16fb.html">94ce787b16fb</a></li>
+<li><a href="pages/event-9503cbf8e65a.html">9503cbf8e65a</a></li>
+<li><a href="pages/event-98bbe21a9e6e.html">98bbe21a9e6e</a></li>
+<li><a href="pages/event-a3430f2728c3.html">a3430f2728c3</a></li>
+<li><a href="pages/event-aa71ab207286.html">aa71ab207286</a></li>
+<li><a href="pages/event-ad14b8fd8_02.html">ad14b8fd8_02</a></li>
+<li><a href="pages/event-ad9f0094e79f.html">ad9f0094e79f</a></li>
+<li><a href="pages/event-aef12e132910.html">aef12e132910</a></li>
+<li><a href="pages/event-af9fa813d_02.html">af9fa813d_02</a></li>
+<li><a href="pages/event-b4eecae5bf85.html">b4eecae5bf85</a></li>
+<li><a href="pages/event-b5695401d127.html">b5695401d127</a></li>
+<li><a href="pages/event-bac9b3c224a0.html">bac9b3c224a0</a></li>
+<li><a href="pages/event-badaad564ede.html">badaad564ede</a></li>
+<li><a href="pages/event-bc5f4bb0313a.html">bc5f4bb0313a</a></li>
+<li><a href="pages/event-bf4be28137a6.html">bf4be28137a6</a></li>
+<li><a href="pages/event-c0c489c59b69.html">c0c489c59b69</a></li>
+<li><a href="pages/event-c0e332eee8c0.html">c0e332eee8c0</a></li>
+<li><a href="pages/event-c5935706e_02.html">c5935706e_02</a></li>
+<li><a href="pages/event-c768457e2e2a.html">c768457e2e2a</a></li>
+<li><a href="pages/event-cc523f8065e8.html">cc523f8065e8</a></li>
+<li><a href="pages/event-cca3f8ced_02.html">cca3f8ced_02</a></li>
+<li><a href="pages/event-ccc3cdb09_02.html">ccc3cdb09_02</a></li>
+<li><a href="pages/event-cee90c36d3e2.html">cee90c36d3e2</a></li>
+<li><a href="pages/event-cf6fd65c5409.html">cf6fd65c5409</a></li>
+<li><a href="pages/event-dadd2496dfca.html">dadd2496dfca</a></li>
+<li><a href="pages/event-dee6656585f3.html">dee6656585f3</a></li>
+<li><a href="pages/event-df81c3544480.html">df81c3544480</a></li>
+<li><a href="pages/event-e1d56b045_02.html">e1d56b045_02</a></li>
+<li><a href="pages/event-e753e84fe2a9.html">e753e84fe2a9</a></li>
+<li><a href="pages/event-e94dac469769.html">e94dac469769</a></li>
+<li><a href="pages/event-eb0401a16_02.html">eb0401a16_02</a></li>
+<li><a href="pages/event-ecca37dd32d2.html">ecca37dd32d2</a></li>
+<li><a href="pages/event-f1618a8ef190.html">f1618a8ef190</a></li>
+<li><a href="pages/event-f26d3422c_02.html">f26d3422c_02</a></li>
+<li><a href="pages/event-f327bc7af_02.html">f327bc7af_02</a></li>
+<li><a href="pages/event-f35cee899_02.html">f35cee899_02</a></li>
+<li><a href="pages/event-f6702a418068.html">f6702a418068</a></li>
+<li><a href="pages/event-fadf41657d79.html">fadf41657d79</a></li>
+  </ul>
+
   <script src="script.js"></script>
 </body>
 </html>
