@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-    <!-- 모바일 화면에 맞춰 렌더링 비율 설정 -->
+  <!-- 모바일 렌더링 비율 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- SEO용 설명 메타태그 -->
@@ -27,19 +27,26 @@
 
   <h1 style="text-align:center">최신 아울렛 할인 캘린더 🎉</h1>
   
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterEvents('ALL')">전체</button>
-    <button class="filter-btn" onclick="filterEvents('송도')">송도</button>
-    <button class="filter-btn" onclick="filterEvents('김포')">김포</button>
-    <button class="filter-btn" onclick="filterEvents('스페이스원')">스페이스원</button>
+  <!-- 지점 필터 바 -->
+  <div id="branch-filter-bar" class="filter-bar">
+    <button class="filter-btn active" data-branch="ALL" onclick="filterEvents('ALL')">전체</button>
+    <button class="filter-btn" data-branch="송도" onclick="filterEvents('송도')">송도</button>
+    <button class="filter-btn" data-branch="김포" onclick="filterEvents('김포')">김포</button>
+    <button class="filter-btn" data-branch="스페이스원" onclick="filterEvents('스페이스원')">스페이스원</button>
   </div>
 
-  <!-- ② 브랜드 필터 추가 (JS가 동적으로 버튼을 채워 넣습니다) -->
+  <!-- 브랜드 필터 바 (JS 동적 생성) -->
   <div id="brand-filter-bar" class="filter-bar"></div>
 
+  <!-- FullCalendar 렌더 위치 -->
   <div id="calendar"></div>
 
-  <!-- 사용자 정의 JS -->
+  <!-- 정적 이벤트 링크 목록 -->
+  <h2>이벤트 목록</h2>
+  <ul>
+    {{EVENT_LINKS}}
+  </ul>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -206,6 +206,28 @@ def generate_sitemap(pages_dir, base_url, output_path):
         f.write("\n".join(sitemap))
     print(f"✔ sitemap.xml 생성 완료: {output_path}")
 
+def generate_index(pages_dir, index_path):
+    import os
+    # 1) pages 디렉토리에서 event-*.html 파일 스캔
+    links = []
+    for fn in sorted(os.listdir(pages_dir)):
+        if fn.startswith("event-") and fn.endswith(".html"):
+            # 파일명에서 임시 제목 추출 (원하시면 HTML을 파싱해서 진짜 <h1>을 뽑아도 됩니다)
+            title = fn.replace("event-", "").replace(".html", "")
+            url   = f"pages/{fn}"
+            links.append((title, url))
+
+    # 2) index.tpl.html 템플릿 로드
+    tpl = open(os.path.join(os.path.dirname(__file__), "index.tpl.html"), encoding="utf-8").read()
+    # 3) 플레이스홀더 교체
+    lis = "\n".join(f'<li><a href="{u}">{t}</a></li>' for t,u in links)
+    html = tpl.replace("{{EVENT_LINKS}}", lis)
+
+    # 4) outlet-web/index.html에 저장
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"✔ index.html 생성 완료: {index_path}")
+
 # --- Google Sheets 업로드
 def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
     today_str = datetime.today().strftime('%Y-%m-%d')
@@ -304,6 +326,13 @@ def main():
         base_url="https://symist.github.io/Discounts/pages",
         output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
     )
+
+    # ✅ index.html (정적 이벤트 링크 목록) 생성
+    generate_index(
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
+        index_path=os.path.join(os.path.dirname(__file__), "../outlet-web/index.html")
+    )
+
     print("\n🎉 전체 아울렛 크롤링 및 저장 + sitemap 생성 완료!")
 
 if __name__ == "__main__":
