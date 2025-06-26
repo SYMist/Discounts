@@ -323,7 +323,7 @@ def main():
     # ✅ sitemap.xml 생성
     generate_sitemap(
         pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
-        base_url="https://symist.github.io/Discounts/pages",
+        base_url="https://discounts.deluxo.co.kr/pages",
         output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
     )
 
