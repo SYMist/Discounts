@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://symist.github.io/Discounts/sitemap.xml
+Sitemap: https://discounts.deluxo.co.kr/sitemap.xml
