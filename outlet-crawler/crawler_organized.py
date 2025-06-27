@@ -12,6 +12,25 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+def parse_period(period_text):
+    # 1) 줄바꿈 제거
+    clean = period_text.replace("\n", "").replace("\r", "")
+    # 2) 괄호 안 설명 모두 제거
+    clean = re.sub(r"\([^)]*\)", "", clean)
+    # 3) 공백(스페이스) 전부 제거
+    clean = clean.replace(" ", "")
+    # 4) '~' 기준으로 분리
+    parts = clean.split("~")
+    if len(parts) != 2:
+        return "", ""
+    # 5) ISO 포맷으로 변환
+    def to_iso(s):
+        if "." not in s:
+            return ""
+        m, d = s.split(".")
+        return f"2025-{m.zfill(2)}-{d.zfill(2)}"
+    return to_iso(parts[0]), to_iso(parts[1])
+
 # --- WebDriver 설정
 def setup_driver():
     options = Options()
@@ -51,8 +70,17 @@ def fetch_event_detail(driver, url):
         )
         soup = BeautifulSoup(driver.page_source, "html.parser")
 
-        title = soup.select_one("section.fixArea h2")
-        period = soup.select_one("table.info td")
+        # ① 제목 가져오기 (fixAreas → fixArea)
+        title_el = soup.select_one("section.fixArea h2")
+        title_text = title_el.text.strip() if title_el else ""
+
+        # ② 기간 문자열 가져오기
+        period_el = soup.select_one("table.info td")
+        period_text = period_el.text.strip() if period_el else ""
+
+        # ③ ISO 포맷 날짜 파싱 & 텍스트 설명 수집
+        start_iso, end_iso = parse_period(period_text)
+
         noimg_list = [
             f"{r.find('th').text.strip()}: {r.find('td').text.strip()}"
             for r in soup.select("article.noImgProduct tr")
@@ -125,16 +153,18 @@ def fetch_event_detail(driver, url):
             })
 
         return {
-            "상세 제목": title.text.strip() if title else "",
-            "상세 기간": period.text.strip() if period else "",
+            "상세 제목": title_text,
+            "상세 기간": period_text,
+            "시작일": start_iso,
+            "종료일": end_iso,
             "텍스트 설명": noimg_list,
             "상품 리스트": products
         }
 
     except Exception as e:
         print(f"❌ 상세페이지 크롤링 실패: {e}")
-        return {"상세 제목": "", "상세 기간": "", "텍스트 설명": [], "상품 리스트": []}
-    
+        return {"상세 제목": "", "상세 기간": "", "시작일":"", "종료일":"", "텍스트 설명": [], "상품 리스트": []}
+        
 # --- HTML 페이지 생성
 def generate_html(detail_data, event_id):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -266,7 +296,7 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
     print(f"🔗 시트 링크: https://docs.google.com/spreadsheets/d/{spreadsheet.id}/edit")
 
 # --- 아울렛 크롤링
-def crawl_outlet(branchCd, sheet_name):
+def crawl_outlet(branchCd, outletName, sheet_name):
     driver = setup_driver()
     new_rows = []
     for page in range(1, 5):
@@ -285,14 +315,17 @@ def crawl_outlet(branchCd, sheet_name):
             thumbnail_id = image_url.split("/")[-1].split(".")[0][-12:]
             event_id = thumbnail_id
             detail_data = {
-                "id": event_id,
-                "제목": title,
-                "기간": period,
+                "id":       event_id,
+                "제목":     title,
+                "기간":     period,
                 "상세 제목": detail["상세 제목"],
                 "상세 기간": detail["상세 기간"],
-                "썸네일": image_url,
+                "시작일":   detail["시작일"],    # ← ISO 시작일
+                "종료일":   detail["종료일"],    # ← ISO 종료일
+                "지점명":   outletName,          # ← 지점명 추가
+                "썸네일":   image_url,
                 "상세 링크": detail_url,
-                "혜택 설명": " / ".join(detail["텍스트 설명"]),
+                "혜택 설명":" / ".join(detail["텍스트 설명"]),
                 "상품 리스트": detail["상품 리스트"]
             }
             generate_html(detail_data, event_id)
@@ -313,12 +346,13 @@ def crawl_outlet(branchCd, sheet_name):
 # --- 메인 실행
 def main():
     OUTLET_TARGETS = [
-        ("B00174000", "Sheet1"),  # 송도
-        ("B00172000", "Sheet2"),  # 김포
-        ("B00178000", "Sheet3"),  # 스페이스원
+        ("B00174000", "송도",     "Sheet1"),
+        ("B00172000", "김포",     "Sheet2"),
+        ("B00178000", "스페이스원","Sheet3"),
     ]
-    for branchCd, sheet_name in OUTLET_TARGETS:
-        crawl_outlet(branchCd, sheet_name)
+
+    for branchCd, outletName, sheet_name in OUTLET_TARGETS:
+        crawl_outlet(branchCd, outletName, sheet_name)
 
     # ✅ sitemap.xml 생성
     generate_sitemap(
