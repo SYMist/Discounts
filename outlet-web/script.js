@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let calendar;
   let rawEvents = [];
   let selectedOutlet = "ALL";
-  let selectedBrand = "";
+  let selectedBrands = new Set();  // 복수 선택을 위한 Set
 
   function initCalendar(events) {
     const calendarEl = document.getElementById("calendar");
@@ -33,10 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!calendar) return;
     // 필터 조건에 맞는 이벤트만 렌더
     const filtered = rawEvents.filter(e => {
-      const okOutlet = selectedOutlet === "ALL" || e.outlet === selectedOutlet;
-      const okBrand = !selectedBrand || e.items.some(item => item.brand === selectedBrand);
-      return okOutlet && okBrand;
-    });
+    const okOutlet = selectedOutlet === "ALL" || e.outlet === selectedOutlet;
+    // B) 복수 브랜드 중 하나라도 매칭되면 통과, 아무것도 선택되지 않으면 모두 통과
+    const okBrand = selectedBrands.size === 0
+      ? true
+      : e.items.some(item => selectedBrands.has(item.brand));
+    return okOutlet && okBrand;
+  });
     calendar.removeAllEvents();
     filtered.forEach(event => calendar.addEvent(event));
   }
@@ -72,9 +75,23 @@ document.addEventListener("DOMContentLoaded", function () {
     brands.forEach(b => container.appendChild(makeBtn(b, b)));
     container.addEventListener('click', e => {
       if (!e.target.matches('.filter-btn')) return;
-      selectedBrand = e.target.dataset.brand;
+      const b = e.target.dataset.brand;
+      if (b === '') {
+        // 전체 버튼 클릭: 모든 선택 해제
+        selectedBrands.clear();
+      } else {
+        // toggle: 이미 있으면 제거, 없으면 추가
+        if (selectedBrands.has(b)) selectedBrands.delete(b);
+        else selectedBrands.add(b);
+      }
+      // 버튼 UI 업데이트
       container.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.toggle('active', btn === e.target);
+        const v = btn.dataset.brand;
+        if (v === '') {
+          btn.classList.toggle('active', selectedBrands.size === 0);
+      } else {
+          btn.classList.toggle('active', selectedBrands.has(v));
+        }
       });
       applyFilters();
     });
