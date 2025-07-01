@@ -92,29 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 각 브랜드 버튼
     brands.forEach(b => container.appendChild(makeBtn(b, b)));
-
-    // ④ 클릭 핸들러 (Set 에 토글)
-    container.addEventListener('click', e => {
-      if (!e.target.matches('.filter-btn')) return;
-      const val = e.target.dataset.brand;
-      if (val === '') {
-        selectedBrands.clear();
-      } else {
-        if (selectedBrands.has(val)) selectedBrands.delete(val);
-        else selectedBrands.add(val);
-      }
-      // UI 업데이트
-      container.querySelectorAll('.filter-btn').forEach(btn => {
-        const b = btn.dataset.brand;
-        btn.classList.toggle(
-          'active',
-          b === '' 
-            ? selectedBrands.size === 0 
-            : selectedBrands.has(b)
-        );
-      });
-      applyFilters();
-    });
   }
 
   function parseSheetData(data, outletName) {
@@ -190,4 +167,26 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   loadAllSheets();
+  // 브랜드 필터 클릭 핸들러 (단 한 번만 등록)
+  document.getElementById('brand-filter-bar').addEventListener('click', e => {
+    if (!e.target.matches('.filter-btn')) return;
+    const val = e.target.dataset.brand;
+    if (val === '') {
+      selectedBrands.clear();
+    } else {
+      if (selectedBrands.has(val)) selectedBrands.delete(val);
+      else selectedBrands.add(val);
+    }
+    // UI 업데이트
+    document.querySelectorAll('#brand-filter-bar .filter-btn').forEach(btn => {
+      const b = btn.dataset.brand;
+      btn.classList.toggle(
+        'active',
+        b === '' 
+          ? selectedBrands.size === 0 
+          : selectedBrands.has(b)
+      );
+    });
+    applyFilters();
+  });
 });
