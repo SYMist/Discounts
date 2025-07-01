@@ -75,15 +75,16 @@ document.addEventListener("DOMContentLoaded", function () {
         .filter(b => b && b.trim())
     ));
 
-    // ③ 버튼 헬퍼: 선택된 브랜드(active) 유지
+    // ③ 버튼 헬퍼: Set에 포함되었으면 active
     const makeBtn = (label, val) => {
       const btn = document.createElement('button');
       btn.textContent = label;
       btn.className = 'filter-btn';
       btn.dataset.brand = val;
-      if (val === selectedBrand) btn.classList.add('active');
+      if (selectedBrands.has(val)) btn.classList.add('active');
       return btn;
     };
+
 
     // “전체” 버튼
     container.appendChild(makeBtn('전체', ''));
@@ -94,10 +95,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // 클릭 리스너
     container.addEventListener('click', e => {
       if (!e.target.matches('.filter-btn')) return;
-      selectedBrand = e.target.dataset.brand;
-      container.querySelectorAll('.filter-btn').forEach(btn =>
-        btn.classList.toggle('active', btn === e.target)
-      );
+      const val = e.target.dataset.brand;
+      if (val === '') {
+        // 전체 버튼: 모든 브랜드 해제
+        selectedBrands.clear();
+      } else {
+        // 개별 브랜드 토글
+        if (selectedBrands.has(val)) selectedBrands.delete(val);
+        else selectedBrands.add(val);
+      }
+      // 버튼 UI 업데이트
+      container.querySelectorAll('.filter-btn').forEach(btn => {
+        const b = btn.dataset.brand;
+        btn.classList.toggle('active', selectedBrands.has(b) || (b === '' && selectedBrands.size === 0));
+      });
       applyFilters();
     });
   }
