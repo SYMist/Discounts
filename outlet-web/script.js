@@ -46,56 +46,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function filterEvents(outlet) {
     selectedOutlet = outlet;
-    // 버튼 Active 토글
+    // 1) 지점 버튼 Active 토글
     document.querySelectorAll('#branch-filter-bar .filter-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.branch === outlet);
     });
+    // 2) 브랜드 필터 다시 빌드
+    buildBrandFilter();
+    // 3) 이벤트 렌더링
     applyFilters();
   }
 
+
   window.filterEvents = filterEvents;
 
-  function buildBrandFilter() {
-    const container = document.getElementById('brand-filter-bar');
-    container.innerHTML = '';
-    // 모든 아이템의 브랜드 수집
-    const brands = Array.from(new Set(
-      rawEvents.flatMap(e => e.items.map(item => item.brand)).filter(b => b && b.trim())
-    ));
-    // 버튼 헬퍼
-    const makeBtn = (label, val) => {
-      const btn = document.createElement('button');
-      btn.textContent = label;
-      btn.className = 'filter-btn';
-      btn.dataset.brand = val;
-      if (val === '') btn.classList.add('active');
-      return btn;
-    };
-    container.appendChild(makeBtn('전체', ''));
-    brands.forEach(b => container.appendChild(makeBtn(b, b)));
-    container.addEventListener('click', e => {
-      if (!e.target.matches('.filter-btn')) return;
-      const b = e.target.dataset.brand;
-      if (b === '') {
-        // 전체 버튼 클릭: 모든 선택 해제
-        selectedBrands.clear();
-      } else {
-        // toggle: 이미 있으면 제거, 없으면 추가
-        if (selectedBrands.has(b)) selectedBrands.delete(b);
-        else selectedBrands.add(b);
-      }
-      // 버튼 UI 업데이트
-      container.querySelectorAll('.filter-btn').forEach(btn => {
-        const v = btn.dataset.brand;
-        if (v === '') {
-          btn.classList.toggle('active', selectedBrands.size === 0);
-      } else {
-          btn.classList.toggle('active', selectedBrands.has(v));
-        }
-      });
-      applyFilters();
-    });
-  }
+function buildBrandFilter() {
+  const container = document.getElementById('brand-filter-bar');
+  container.innerHTML = '';
+
+  // ① selectedOutlet에 맞는 이벤트만 골라서
+  const eventsForOutlet = selectedOutlet === 'ALL'
+    ? rawEvents
+    : rawEvents.filter(e => e.outlet === selectedOutlet);
+
+  // ② 그 이벤트들의 브랜드만 집합으로
+  const brands = Array.from(new Set(
+    eventsForOutlet
+      .flatMap(e => e.items.map(item => item.brand))
+      .filter(b => b && b.trim())
+  ));
+
+  // ③ 버튼 헬퍼: 선택된 브랜드(active) 유지
+  const makeBtn = (label, val) => {
+    const btn = document.createElement('button');
+    btn.textContent = label;
+    btn.className = 'filter-btn';
+    btn.dataset.brand = val;
+    if (val === selectedBrand) btn.classList.add('active');
+    return btn;
+  };
+
+  // “전체” 버튼
+  container.appendChild(makeBtn('전체', ''));
+
+  // 각 브랜드 버튼
+  brands.forEach(b => container.appendChild(makeBtn(b, b)));
+
+  // 클릭 리스너
+  container.addEventListener('click', e => {
+    if (!e.target.matches('.filter-btn')) return;
+    selectedBrand = e.target.dataset.brand;
+    container.querySelectorAll('.filter-btn').forEach(btn =>
+      btn.classList.toggle('active', btn === e.target)
+    );
+    applyFilters();
+  });
+}
 
   function parseSheetData(data, outletName) {
     const rows = data.values.slice(1);
