@@ -27,7 +27,7 @@
 
   <h1 style="text-align:center">최신 아울렛 할인 캘린더 🎉</h1>
   
-  <!-- 지점 필터 바 -->
+  <!-- 1) 지점 필터 바 -->
   <div id="branch-filter-bar" class="filter-bar">
     <button class="filter-btn active" data-branch="ALL" onclick="filterEvents('ALL')">전체</button>
     <button class="filter-btn" data-branch="송도" onclick="filterEvents('송도')">송도</button>
@@ -35,13 +35,20 @@
     <button class="filter-btn" data-branch="스페이스원" onclick="filterEvents('스페이스원')">스페이스원</button>
   </div>
 
-  <!-- 브랜드 필터 바 (JS 동적 생성) -->
-  <div id="brand-filter-bar" class="filter-bar"></div>
+  <!-- 2) 데스크탑용 사이드바 + 캘린더 래퍼 -->
+  <div class="main-content">
+    <!-- 2-1) 사이드바에 브랜드 필터 -->
+    <aside id="brand-filter-sidebar" class="filter-bar">
+      <div id="brand-filter-bar"></div>
+    </aside>
 
-  <!-- FullCalendar 렌더 위치 -->
-  <div id="calendar"></div>
+    <!-- 2-2) 캘린더 컨테이너 -->
+    <section id="calendar-container">
+      <div id="calendar"></div>
+    </section>
+  </div>
 
-  <!-- 정적 이벤트 링크 목록 (SEO 및 크롤러용, 화면에는 숨김) -->
+  <!-- 3) 정적 이벤트 링크 목록 (SEO 및 크롤러용, 숨김) -->
   <div id="static-event-links" style="display:none;">
     <h2>이벤트 목록</h2>
     <ul>

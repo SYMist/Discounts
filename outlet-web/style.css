@@ -203,3 +203,25 @@ h1 {
 .event-banner .banner-image:hover {
   transform: scale(1.02);
 }
+
+@media screen and (min-width: 1024px) {
+  .main-content {
+    display: flex;
+    gap: 1rem;
+  }
+  /* 사이드바 너비 고정 */
+  #brand-filter-sidebar {
+    flex: 0 0 200px;
+  }
+  /* 캘린더는 남은 공간 채우기 */
+  #calendar-container {
+    flex: 1;
+  }
+  /* 사이드바 내 버튼 세로로 쌓기 */
+  #brand-filter-sidebar .filter-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+}
