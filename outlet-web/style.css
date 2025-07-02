@@ -209,17 +209,24 @@ h1 {
   /* 1) 메인 콘텐츠를 flex 컨테이너로 */
   .main-content {
     display: flex;
-    align-items: flex-start; /* 사이드바가 위쪽부터 차도록 */
+    align-items: flex-start;
     gap: 1rem;
   }
 
   /* 2) 사이드바: 고정 폭, 캘린더와 같은 높이, 내부 스크롤 */
   #brand-filter-sidebar {
-    flex: 0 0 240px;                             /* 원하는 너비 */
-    /* 뷰포트 높이에서 헤더(h1)·푸터 높이 빼고 채우기 */
-    max-height: calc(100vh - 4rem);              /* 4rem 은 h1 + footer 대략 높이 */
-    overflow-y: auto;                            /* 넘치면 내부 스크롤 */
-    padding-right: 0.5rem;                       /* 스크롤바 여유 */
+    flex: 0 0 240px;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  /* → 여기에 한 줄 버튼 스타일만 추가 ↓ */
+  #brand-filter-sidebar .filter-btn {
+    display: block;
+    width: 100%;
+    margin: 0 0 1rem;
+    text-align: left;
   }
 
   /* 3) 캘린더 영역은 flex-grow */
