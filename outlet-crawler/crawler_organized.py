@@ -214,6 +214,13 @@ def generate_html(detail_data, event_id):
 
 def generate_sitemap(pages_dir, base_url, output_path):
     urls = []
+    # ── ① 루트 페이지(https://discounts.deluxo.co.kr/) 추가
+    today = datetime.today().strftime('%Y-%m-%d')
+    # base_url이 "https://discounts.deluxo.co.kr/pages" 라면
+    site_root = base_url.rsplit("/", 1)[0] + "/"
+    urls.append((site_root, today))
+    # ── ② (선택) privacy.html 같은 정적 페이지 추가
+    urls.append((site_root + "privacy.html", today))
     for filename in os.listdir(pages_dir):
         if filename.endswith(".html"):
             filepath = os.path.join(pages_dir, filename)
@@ -228,7 +235,8 @@ def generate_sitemap(pages_dir, base_url, output_path):
         sitemap.append(f"    <loc>{url}</loc>")
         sitemap.append(f"    <lastmod>{lastmod}</lastmod>")
         sitemap.append("    <changefreq>daily</changefreq>")
-        sitemap.append("    <priority>0.8</priority>")
+        prio = "1.0" if url.rstrip("/") == site_root.rstrip("/") else "0.8"
+        sitemap.append(f"    <priority>{prio}</priority>")
         sitemap.append("  </url>")
     sitemap.append('</urlset>')
 
