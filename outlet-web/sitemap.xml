@@ -2,25 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://discounts.deluxo.co.kr/</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/privacy.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-18d811f187cd.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-6367ceaf39ad.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-825489a14_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-39c753a8f850.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-220bcae65_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -37,8 +55,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-0bf3cab29_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-c0c489c59b69.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-408e314ca_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -62,7 +92,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-dee6656585f3.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -85,6 +115,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-9e238e20e_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-d7e940fdfd50.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-db02b70f55bb.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -92,7 +134,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-6566686f57e0.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -115,8 +157,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-62e923503100.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-4a1cbca06_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-74f87bb6e944.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-42bcb8236308.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -129,6 +189,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-10987c64643d.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-a42d43a54c72.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -146,7 +212,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-666513149_02.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -175,6 +241,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-be46f231b0e3.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-eedc71b1d3a1.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-35eb36d7a06d.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -182,7 +260,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-667a05cf437e.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-3fbcc06fdf38.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -194,13 +278,19 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-124064553_02.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-3b406443edf7.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-2d250e08d_02.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -213,6 +303,24 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-b5ee381d9_02.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-d30a65c1a0c4.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-e5ca6d41e145.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-5b7ad2bd1739.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -242,7 +350,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-5776a82a1_02.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -254,13 +362,19 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-77871c751_02.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-460e27ad997d.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-763362415_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -290,7 +404,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-77401566dac8.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-7c5ca7947e21.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -325,14 +445,44 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-ccc3cdb09_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-c0ce063d826b.html</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-70a878fbf1ba.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-ff718418b_02.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-6999de6b6436.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-3d32ba0fa063.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-ab4536492c17.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -355,6 +505,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-6e8c1bf01_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-8915eda7c_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-ac931fd60_02.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -363,6 +525,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-093dcfe6b1b6.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-15d4d3a84_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -409,6 +577,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-63974e946_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-1838bb278_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-d39f3495a9f6.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -421,6 +601,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-15b49ba6ba37.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-b5695401d127.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -429,6 +615,36 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-0a4387ef3_02.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-f3e5e9342e7f.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-a38a7f3a2f67.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-24c4949782fb.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-6a5fc443f1aa.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-c385906d7a6d.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -499,6 +715,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-c3d9745b86d8.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-027ad58cb_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-b7406f58d_02.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -535,6 +763,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-f2db97cf13e4.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-c3f47457b_02.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -561,6 +795,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-160d2ff3e2bd.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-056357b70425.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -603,6 +843,18 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-2fcba3357d40.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-8da9acc74_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-feb441434_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -662,7 +914,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-af0730b3e61c.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -673,8 +925,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-d382c9265_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-ac16ab815f37.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-eaa6bd215219.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -697,6 +961,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-89146ed5fac0.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-931894271_02.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
@@ -704,7 +974,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-4c7a210100dc.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-20c873b499c5.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -716,13 +992,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-1edd3db22805.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-f75b4ee0b919.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -741,6 +1017,18 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-5606a56577b9.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-af9fa813d_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-9e692d85c_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -793,8 +1081,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-b15986d90a1b.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-bfaa6c923f5c.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-e182bb22b24e.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -824,19 +1124,37 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-2a3f5b096c8d.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-03c1c3802a4e.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-743d0010b433.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-c768457e2e2a.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-07aac522f5f0.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-7a2d1526c23c.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -859,14 +1177,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-18aee11b6ec1.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-9629be120_02.html</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-9d69a2326_02.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-4a5e4554f_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -890,7 +1220,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-f327bc7af_02.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -907,20 +1237,50 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-7d3c40ddc_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-90799bd1875f.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-3e5069421_02.html</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-b323c396a6ba.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-8371d4bd328c.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-5527cc284_02.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-dba41a524_02.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-1ac25b8dc7bd.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -938,7 +1298,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-df81c3544480.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -961,6 +1321,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-b2c25e329b5e.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-0144aa04064f.html</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>daily</changefreq>
@@ -979,6 +1345,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-9d5881379_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-1498532a80f3.html</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>daily</changefreq>
@@ -986,7 +1358,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-50ba4d74591d.html</loc>
-    <lastmod>2025-07-14</lastmod>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-25b73c68c_02.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -999,6 +1377,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-bb52cbfcdf83.html</loc>
     <lastmod>2025-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-789cbc201cc6.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1041,6 +1425,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/pages/event-cc3268574_02.html</loc>
     <lastmod>2025-07-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/pages/event-0a2d1c701c7e.html</loc>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
