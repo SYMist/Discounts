@@ -246,25 +246,37 @@ def generate_sitemap(pages_dir, base_url, output_path):
 
 def generate_index(pages_dir, index_path):
     import os
+    from datetime import datetime
+
     # 1) pages 디렉토리에서 event-*.html 파일 스캔
     links = []
     for fn in sorted(os.listdir(pages_dir)):
         if fn.startswith("event-") and fn.endswith(".html"):
-            # 파일명에서 임시 제목 추출 (원하시면 HTML을 파싱해서 진짜 <h1>을 뽑아도 됩니다)
             title = fn.replace("event-", "").replace(".html", "")
             url   = f"pages/{fn}"
             links.append((title, url))
 
-    # 2) index.tpl.html 템플릿 로드
-    tpl = open(os.path.join(os.path.dirname(__file__), "index.tpl.html"), encoding="utf-8").read()
-    # 3) 플레이스홀더 교체
-    lis = "\n".join(f'<li><a href="{u}">{t}</a></li>' for t,u in links)
-    html = tpl.replace("{{EVENT_LINKS}}", lis)
+    # 2) 상위 5개(하이라이트)와 전체 리스트로 분리
+    preview_links = links[:5]
+    full_links    = links
 
-    # 4) outlet-web/index.html에 저장
+    # 3) 각 그룹을 <li> 문자열로 변환
+    preview_lis = "\n".join(f'    <li><a href="{u}">{t}</a></li>' for t,u in preview_links)
+    full_lis    = "\n".join(f'    <li><a href="{u}">{t}</a></li>' for t,u in full_links)
+
+    # 4) index.tpl.html 템플릿 읽어오기
+    tpl_path = os.path.join(os.path.dirname(__file__), "index.tpl.html")
+    tpl = open(tpl_path, encoding="utf-8").read()
+
+    # 5) 자리표시자 치환
+    html = tpl.replace("{{PREVIEW_LINKS}}", preview_lis)
+    html = html.replace("{{EVENT_LINKS}}", full_lis)
+
+    # 6) 결과를 outlet-web/index.html에 저장
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✔ index.html 생성 완료: {index_path}")
+
 
 # --- Google Sheets 업로드
 def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
