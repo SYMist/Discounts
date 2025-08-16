@@ -204,13 +204,50 @@ def generate_html(detail_data, event_id):
 
     html = html.replace("{{상품 목록}}", product_html)
 
-    # 최종 HTML 파일 저장
-    output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
+    # 새로운 SEO 친화적인 URL 구조로 파일 생성
+    output_dir = os.path.join(BASE_DIR, "../outlet-web")
     os.makedirs(output_dir, exist_ok=True)
-    filename_html = os.path.join(output_dir, f"event-{event_id}.html")
+    
+    # 지점명을 영문으로 변환
+    branch_mapping = {
+        "송도": "songdo",
+        "김포": "gimpo", 
+        "스페이스원": "spaceone"
+    }
+    
+    branch = detail_data.get("지점명", "송도")
+    branch_en = branch_mapping.get(branch, "songdo")
+    
+    # 제목을 URL 친화적으로 변환
+    def slugify(text):
+        import re
+        # 한글을 유지하면서 특수문자 제거
+        text = re.sub(r'[^\w\s가-힣]', ' ', text)
+        text = re.sub(r'\s+', ' ', text)
+        text = text.strip()
+        text = text.replace(' ', '-')
+        text = re.sub(r'-+', '-', text)
+        text = text.strip('-')
+        return text.lower()
+    
+    title_slug = slugify(detail_data["제목"])
+    
+    # 새 URL 경로 생성
+    url_path = f"{branch_en}/{title_slug}"
+    
+    # 파일명 생성 (하이픈으로 구분)
+    filename_html = os.path.join(output_dir, f"{url_path.replace('/', '-')}.html")
+    
+    # 디렉토리 생성
+    os.makedirs(os.path.dirname(filename_html), exist_ok=True)
+    
+    # HTML 파일 저장
     with open(filename_html, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"✔ HTML 생성 완료: {filename_html}")
+    
+    print(f"✔ SEO 친화적인 HTML 생성 완료: {url_path}")
+    
+    return url_path
 
 def generate_sitemap(pages_dir, base_url, output_path):
     urls = []
@@ -221,11 +258,25 @@ def generate_sitemap(pages_dir, base_url, output_path):
     urls.append((site_root, today))
     # ── ② (선택) privacy.html 같은 정적 페이지 추가
     urls.append((site_root + "privacy.html", today))
+    
+    # 새로운 SEO 친화적인 URL 구조의 파일들 처리
     for filename in os.listdir(pages_dir):
-        if filename.endswith(".html"):
+        if filename.endswith(".html") and '-' in filename and not filename.startswith('index'):
             filepath = os.path.join(pages_dir, filename)
             lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
-            url = f"{base_url}/{filename}"
+            
+            # 파일명을 URL 경로로 변환
+            name_without_ext = filename.replace('.html', '')
+            if name_without_ext.startswith('songdo-'):
+                url_path = name_without_ext.replace('songdo-', 'songdo/')
+            elif name_without_ext.startswith('gimpo-'):
+                url_path = name_without_ext.replace('gimpo-', 'gimpo/')
+            elif name_without_ext.startswith('spaceone-'):
+                url_path = name_without_ext.replace('spaceone-', 'spaceone/')
+            else:
+                continue
+            
+            url = f"{site_root}{url_path}"
             urls.append((url, lastmod))
 
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -242,7 +293,7 @@ def generate_sitemap(pages_dir, base_url, output_path):
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(sitemap))
-    print(f"✔ sitemap.xml 생성 완료: {output_path}")
+    print(f"✔ 새로운 URL 구조의 sitemap.xml 생성 완료: {output_path}")
 
 def generate_index(pages_dir, index_path):
     import os
@@ -355,7 +406,7 @@ def crawl_outlet(branchCd, outletName, sheet_name):
                 "혜택 설명":" / ".join(detail["텍스트 설명"]),
                 "상품 리스트": detail["상품 리스트"]
             }
-            generate_html(detail_data, event_id)
+            url_path = generate_html(detail_data, event_id)
             base_info = [title, period, detail["상세 제목"], detail["상세 기간"],
                          image_url, detail_url, detail_data["혜택 설명"]]
             if detail["상품 리스트"]:
@@ -381,20 +432,21 @@ def main():
     for branchCd, outletName, sheet_name in OUTLET_TARGETS:
         crawl_outlet(branchCd, outletName, sheet_name)
 
-    # ✅ sitemap.xml 생성
+    # ✅ 새로운 URL 구조의 sitemap.xml 생성
     generate_sitemap(
-        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
-        base_url="https://discounts.deluxo.co.kr/pages",
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web"),
+        base_url="https://discounts.deluxo.co.kr",
         output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
     )
 
     # ✅ index.html (정적 이벤트 링크 목록) 생성
     generate_index(
-        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web"),
         index_path=os.path.join(os.path.dirname(__file__), "../outlet-web/index.html")
     )
 
-    print("\n🎉 전체 아울렛 크롤링 및 저장 + sitemap 생성 완료!")
+    print("\n🎉 전체 아울렛 크롤링 및 저장 + 새로운 URL 구조의 sitemap 생성 완료!")
+    print("🔗 새로운 URL 구조: discounts.deluxo.co.kr/{지점명}/{제목}")
 
 if __name__ == "__main__":
     main()

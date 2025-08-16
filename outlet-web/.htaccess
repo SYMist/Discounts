@@ -1,0 +1,63 @@
+RewriteEngine On
+
+# 1. 기존 이벤트 파일들을 새로운 URL 구조로 리다이렉트
+# 예: /pages/event-0053227c91f9.html → /songdo/컨템포러리-s-s-시즌오프-특가-제안
+
+# 송도 지점 이벤트
+RewriteRule ^songdo/([^/]+)$ songdo-$1.html [L]
+
+# 김포 지점 이벤트  
+RewriteRule ^gimpo/([^/]+)$ gimpo-$1.html [L]
+
+# 스페이스원 지점 이벤트
+RewriteRule ^spaceone/([^/]+)$ spaceone-$1.html [L]
+
+# 2. 기존 pages/event-*.html 파일들을 새로운 구조로 리다이렉트 (301 리다이렉트)
+# 이 부분은 실제 매핑 데이터가 필요하므로 주석 처리
+# RewriteRule ^pages/event-([^/]+)\.html$ /songdo/새로운-제목 [R=301,L]
+
+# 3. www 없이 접근하는 경우 www 포함으로 리다이렉트
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# 4. HTTPS 강제 적용
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 5. 파일 확장자 숨기기 (선택사항)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# 6. 캐시 설정
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+</IfModule>
+
+# 7. 압축 설정
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# 8. 보안 헤더
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule> 
