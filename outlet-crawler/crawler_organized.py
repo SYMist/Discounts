@@ -204,8 +204,8 @@ def generate_html(detail_data, event_id):
 
     html = html.replace("{{상품 목록}}", product_html)
 
-    # 새로운 SEO 친화적인 URL 구조로 파일 생성
-    output_dir = os.path.join(BASE_DIR, "../outlet-web")
+    # pages 폴더에 SEO 친화적인 파일명으로 저장
+    output_dir = os.path.join(BASE_DIR, "../outlet-web/pages")
     os.makedirs(output_dir, exist_ok=True)
     
     # 지점명을 영문으로 변환
@@ -235,11 +235,8 @@ def generate_html(detail_data, event_id):
     # 새 URL 경로 생성
     url_path = f"{branch_en}/{title_slug}"
     
-    # 파일명 생성 (하이픈으로 구분)
-    filename_html = os.path.join(output_dir, f"{url_path.replace('/', '-')}.html")
-    
-    # 디렉토리 생성
-    os.makedirs(os.path.dirname(filename_html), exist_ok=True)
+    # 파일명 생성 (pages 폴더 안에 저장)
+    filename_html = os.path.join(output_dir, f"{branch_en}-{title_slug}.html")
     
     # HTML 파일 저장
     with open(filename_html, "w", encoding="utf-8") as f:
@@ -276,7 +273,7 @@ def generate_sitemap(pages_dir, base_url, output_path):
             else:
                 continue
             
-            url = f"{site_root}{url_path}"
+            url = f"{base_url}/{url_path}"
             urls.append((url, lastmod))
 
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -434,19 +431,19 @@ def main():
 
     # ✅ 새로운 URL 구조의 sitemap.xml 생성
     generate_sitemap(
-        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web"),
-        base_url="https://discounts.deluxo.co.kr",
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
+        base_url="https://discounts.deluxo.co.kr/pages",
         output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
     )
 
     # ✅ index.html (정적 이벤트 링크 목록) 생성
     generate_index(
-        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web"),
+        pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
         index_path=os.path.join(os.path.dirname(__file__), "../outlet-web/index.html")
     )
 
     print("\n🎉 전체 아울렛 크롤링 및 저장 + 새로운 URL 구조의 sitemap 생성 완료!")
-    print("🔗 새로운 URL 구조: discounts.deluxo.co.kr/{지점명}/{제목}")
+    print("🔗 새로운 URL 구조: discounts.deluxo.co.kr/pages/{지점명}-{제목}.html")
 
 if __name__ == "__main__":
     main()
