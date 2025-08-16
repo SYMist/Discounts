@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let rawEvents = [];
   let selectedOutlet = "ALL";
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
+  let urlMapping = {};  // URL 매핑 캐시
 
   function initCalendar(events) {
     const calendarEl = document.getElementById("calendar");
@@ -19,8 +20,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const event = info.event;
         const id = event.extendedProps.event_id;
         if (id) {
-          const url = `https://symist.github.io/Discounts/pages/event-${id}.html`;
-          window.open(url, "_blank");
+          // 캐시된 매핑 사용
+          const filename = urlMapping[id];
+          if (filename) {
+            const url = `/pages/${filename}`;
+            window.open(url, "_blank");
+          } else {
+            // 매핑에 없을 경우 구버전 URL로 시도
+            const url = `/pages/event-${id}.html`;
+            window.open(url, "_blank");
+          }
         } else {
           alert("상세 페이지를 찾을 수 없습니다.");
         }
@@ -140,6 +149,18 @@ document.addEventListener("DOMContentLoaded", function () {
     return `2025-${m}-${d}`;
   }
 
+  function loadUrlMapping() {
+    return fetch('/url-mapping.json')
+      .then(response => response.json())
+      .then(mapping => {
+        urlMapping = mapping;
+        console.log(`📋 URL 매핑 로드됨: ${Object.keys(mapping).length}개`);
+      })
+      .catch(error => {
+        console.warn('URL 매핑 로드 실패:', error);
+      });
+  }
+
   function loadAllSheets() {
     const sheetId = '16JLl5-GVDSSQsdMowjZkTAzOmi6qkkz93to_GxMjQ18';
     const apiKey = '{{GOOGLE_API_KEY}}';
@@ -166,7 +187,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  loadAllSheets();
+  // URL 매핑 로드 후 시트 데이터 로드
+  loadUrlMapping().then(() => {
+    loadAllSheets();
+  });
   // 브랜드 필터 클릭 핸들러 (단 한 번만 등록)
   document.getElementById('brand-filter-bar').addEventListener('click', e => {
     if (!e.target.matches('.filter-btn')) return;

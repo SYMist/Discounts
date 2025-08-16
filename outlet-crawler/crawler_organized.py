@@ -12,6 +12,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# --- 전역 변수
+url_mapping = {}
+
 def parse_period(period_text):
     # 1) 줄바꿈 제거
     clean = period_text.replace("\n", "").replace("\r", "")
@@ -234,13 +237,22 @@ def generate_html(detail_data, event_id):
     
     # 새 URL 경로 생성
     url_path = f"{branch_en}/{title_slug}"
+    filename = f"{branch_en}-{title_slug}.html"
+    
+    # filename 변수를 템플릿에 추가
+    html = html.replace("{{filename}}", filename)
     
     # 파일명 생성 (pages 폴더 안에 저장)
-    filename_html = os.path.join(output_dir, f"{branch_en}-{title_slug}.html")
+    filename_html = os.path.join(output_dir, filename)
     
     # HTML 파일 저장
     with open(filename_html, "w", encoding="utf-8") as f:
         f.write(html)
+    
+    # URL 매핑에 추가 (전역 변수 사용)
+    event_id = detail_data.get("id", "")
+    if event_id and 'url_mapping' in globals():
+        url_mapping[event_id] = filename
     
     print(f"✔ SEO 친화적인 HTML 생성 완료: {url_path}")
     
@@ -428,6 +440,13 @@ def main():
 
     for branchCd, outletName, sheet_name in OUTLET_TARGETS:
         crawl_outlet(branchCd, outletName, sheet_name)
+    
+    # URL 매핑 JSON 파일 생성
+    import json
+    mapping_path = os.path.join(os.path.dirname(__file__), "../outlet-web/url-mapping.json")
+    with open(mapping_path, "w", encoding="utf-8") as f:
+        json.dump(url_mapping, f, ensure_ascii=False, indent=2)
+    print(f"📋 URL 매핑 파일 생성: {len(url_mapping)}개 항목")
 
     # ✅ 새로운 URL 구조의 sitemap.xml 생성
     generate_sitemap(
