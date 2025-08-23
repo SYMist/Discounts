@@ -274,18 +274,8 @@ def generate_sitemap(pages_dir, base_url, output_path):
             filepath = os.path.join(pages_dir, filename)
             lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
             
-            # 파일명을 URL 경로로 변환
-            name_without_ext = filename.replace('.html', '')
-            if name_without_ext.startswith('songdo-'):
-                url_path = name_without_ext.replace('songdo-', 'songdo/')
-            elif name_without_ext.startswith('gimpo-'):
-                url_path = name_without_ext.replace('gimpo-', 'gimpo/')
-            elif name_without_ext.startswith('spaceone-'):
-                url_path = name_without_ext.replace('spaceone-', 'spaceone/')
-            else:
-                continue
-            
-            url = f"{base_url}/{url_path}"
+            # 파일명을 그대로 URL로 사용 (확장자 포함) - 수정된 부분
+            url = f"{base_url}/{filename}"
             urls.append((url, lastmod))
 
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
