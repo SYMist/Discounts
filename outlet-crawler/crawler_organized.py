@@ -249,10 +249,58 @@ def generate_html(detail_data, event_id):
     with open(filename_html, "w", encoding="utf-8") as f:
         f.write(html)
     
-    # URL 매핑에 추가 (전역 변수 사용)
+def add_comprehensive_mapping(event_id, filename):
+    """모든 가능한 event_id 변형들을 매핑에 추가하여 근본적으로 링크 문제 해결"""
+    global url_mapping
+    
+    if not event_id:
+        return 0
+    
+    mappings_added = 0
+    
+    # 1. 기본 event_id 매핑 추가
+    url_mapping[event_id] = filename
+    mappings_added += 1
+    
+    # 2. _02 패턴 처리
+    if event_id.endswith('_02'):
+        # _02가 있으면 기본 ID도 추가
+        base_id = event_id[:-3]
+        if base_id not in url_mapping:
+            url_mapping[base_id] = filename
+            mappings_added += 1
+    else:
+        # 기본 ID면 _02 변형도 추가
+        extended_id = event_id + '_02'
+        if extended_id not in url_mapping:
+            url_mapping[extended_id] = filename
+            mappings_added += 1
+    
+    # 3. _03, _04 등 추가 변형 예방적 추가
+    if not any(event_id.endswith(suffix) for suffix in ['_02', '_03', '_04']):
+        for suffix in ['_03', '_04']:
+            variant_id = event_id + suffix
+            if variant_id not in url_mapping:
+                url_mapping[variant_id] = filename
+                mappings_added += 1
+    
+    # 4. 길이별 변형 처리 (12자리 ↔ 9자리)
+    if len(event_id) == 12 and not any(event_id.endswith(suffix) for suffix in ['_02', '_03', '_04']):
+        # 12자리면 9자리 변형도 추가
+        short_id = event_id[:9]
+        for suffix in ['', '_02', '_03', '_04']:
+            short_variant = short_id + suffix
+            if short_variant not in url_mapping:
+                url_mapping[short_variant] = filename
+                mappings_added += 1
+    
+    return mappings_added
+
+    # URL 매핑에 추가 (개선된 포괄적 방식)
     event_id = detail_data.get("id", "")
     if event_id and 'url_mapping' in globals():
-        url_mapping[event_id] = filename
+        mappings_count = add_comprehensive_mapping(event_id, filename)
+        print(f"  📌 {mappings_count}개 변형 매핑 추가: {event_id} → {filename}")
     
     print(f"✔ SEO 친화적인 HTML 생성 완료: {url_path}")
     
