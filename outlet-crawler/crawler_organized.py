@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# --- 전역 변수
+# --- 전역 변수 (main에서 초기화)
 url_mapping = {}
 
 def parse_period(period_text):
@@ -422,21 +422,36 @@ def crawl_outlet(branchCd, outletName, sheet_name):
 
 # --- 메인 실행
 def main():
+    # 기존 URL 매핑 파일 읽기 (누적 방식으로 변경)
+    import json
+    mapping_path = os.path.join(os.path.dirname(__file__), "../outlet-web/url-mapping.json")
+    global url_mapping
+    try:
+        with open(mapping_path, "r", encoding="utf-8") as f:
+            url_mapping = json.load(f)
+        print(f"📋 기존 URL 매핑 로드: {len(url_mapping)}개 항목")
+    except:
+        url_mapping = {}
+        print("📋 새로운 URL 매핑 파일 생성")
+
     OUTLET_TARGETS = [
         ("B00174000", "송도",     "Sheet1"),
         ("B00172000", "김포",     "Sheet2"),
         ("B00178000", "스페이스원","Sheet3"),
     ]
 
+    # 크롤링 시작 전 매핑 개수
+    initial_count = len(url_mapping)
+
     for branchCd, outletName, sheet_name in OUTLET_TARGETS:
         crawl_outlet(branchCd, outletName, sheet_name)
     
-    # URL 매핑 JSON 파일 생성
-    import json
-    mapping_path = os.path.join(os.path.dirname(__file__), "../outlet-web/url-mapping.json")
+    # URL 매핑 JSON 파일 저장 (기존 + 새로운 매핑)
     with open(mapping_path, "w", encoding="utf-8") as f:
         json.dump(url_mapping, f, ensure_ascii=False, indent=2)
-    print(f"📋 URL 매핑 파일 생성: {len(url_mapping)}개 항목")
+    
+    new_count = len(url_mapping) - initial_count
+    print(f"📋 URL 매핑 파일 업데이트: 기존 {initial_count}개 + 신규 {new_count}개 = 총 {len(url_mapping)}개 항목")
 
     # ✅ 새로운 URL 구조의 sitemap.xml 생성
     generate_sitemap(
