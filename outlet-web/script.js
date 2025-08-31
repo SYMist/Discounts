@@ -20,15 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const event = info.event;
         const id = event.extendedProps.event_id;
         if (id) {
-          // 캐시된 매핑 사용
+          // 캐시된 매핑 사용 (매핑되지 않은 이벤트는 이미 필터링됨)
           const filename = urlMapping[id];
           if (filename) {
             const url = `/pages/${filename}`;
             window.open(url, "_blank");
           } else {
-            // 매핑에 없을 경우 구버전 URL로 시도
-            const url = `/pages/event-${id}.html`;
-            window.open(url, "_blank");
+            // 이론적으로 여기에 도달하지 않아야 함 (이미 필터링됨)
+            console.error(`예상치 못한 오류: 매핑되지 않은 이벤트 클릭됨 - ${id}`);
+            alert("상세 페이지를 찾을 수 없습니다.");
           }
         } else {
           alert("상세 페이지를 찾을 수 없습니다.");
@@ -117,6 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const start = parseDate(dateParts[0]);
       const end = parseDate(dateParts[1]);
       if (!start || !end) continue;
+
+      // URL 매핑이 없는 이벤트는 제외
+      if (!urlMapping[eventId]) {
+        console.log(`⚠️ 매핑되지 않은 이벤트 제외: ${eventId} - ${title}`);
+        continue;
+      }
 
       const key = `${title}_${start}_${end}`;
       if (!grouped[key]) {
@@ -274,6 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
           )
         ).then(results => {
           rawEvents = results.flat();
+          console.log(`📊 총 이벤트 수: ${rawEvents.length}개 (매핑된 이벤트만)`);
           initCalendar(rawEvents);
           buildBrandFilter();
           updateHighlightEvents(); // 하이라이트 이벤트 업데이트 추가
