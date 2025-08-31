@@ -1,14 +1,35 @@
+/* 🎨 따뜻한 코랄 색상 팔레트 */
+:root {
+  --primary: #FF6B6B;        /* 코랄 핑크 */
+  --primary-dark: #EE5A52;   /* 딥 코랄 */
+  --secondary: #4ECDC4;      /* 민트 블루 */
+  --accent: #45B7D1;         /* 스카이 블루 */
+  --background: #FFF5F5;     /* 소프트 핑크 */
+  --surface: #FFFFFF;        /* 화이트 */
+  --text: #2D3436;           /* 다크 텍스트 */
+  --text-light: #636E72;     /* 그레이 */
+  --shadow: rgba(255, 107, 107, 0.15);  /* 코랄 그림자 */
+  --border: rgba(118, 118, 118, 0.2);   /* 연한 보더 */
+}
+
 body {
   font-family: 'Arial', sans-serif;
   margin: 40px 20px;
-  background-color: #f9f9f9;
-  color: #333;
+  background: linear-gradient(135deg, var(--background) 0%, #fff 100%);
+  color: var(--text);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--text);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .filter-bar {
@@ -17,37 +38,46 @@ h1 {
 }
 
 .filter-btn {
-  background: #007bff;
+  background: #6C7CE7;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 18px;
   margin: 0 6px;
-  border-radius: 5px;
+  border-radius: 25px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(108, 124, 231, 0.15);
 }
 
 .filter-btn:hover {
-  background: #0056b3;
+  background: #5A67D8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 124, 231, 0.25);
 }
 
 .filter-btn.active {
-  background: #0056b3;
+  background: #5A67D8;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(108, 124, 231, 0.3);
 }
 
 #calendar {
   max-width: 900px;
   margin: 0 auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px var(--shadow);
+  border: 1px solid var(--border);
 }
 
 /* FullCalendar 커스터마이징 */
 .fc .fc-toolbar-title {
   font-size: 1.4em;
+  color: var(--text);
+  font-weight: 600;
 }
 
 .fc-event-title {
@@ -57,6 +87,72 @@ h1 {
 
 .fc-daygrid-event-dot {
   display: none;
+}
+
+/* 🎨 FullCalendar 이벤트 색상 커스터마이징 - 눈에 편한 색상 */
+.fc-event {
+  background: linear-gradient(135deg, #6C7CE7, #A8E6CF) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  margin: 1px 0 !important;
+  box-shadow: 0 2px 6px rgba(108, 124, 231, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(108, 124, 231, 0.25) !important;
+  background: linear-gradient(135deg, #5A67D8, #90CDF4) !important;
+}
+
+.fc-event .fc-event-title {
+  color: white !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+/* 지점별 다른 색상 적용 - 부드러운 톤 */
+.fc-event[title*="송도"] {
+  background: linear-gradient(135deg, #6C7CE7, #A8E6CF) !important; /* 라벤더 → 민트 */
+}
+
+.fc-event[title*="김포"] {
+  background: linear-gradient(135deg, #4ECDC4, #81E6D9) !important; /* 터쿼이즈 → 라이트 민트 */
+}
+
+.fc-event[title*="스페이스원"] {
+  background: linear-gradient(135deg, #63B3ED, #90CDF4) !important; /* 스카이 블루 → 라이트 블루 */
+}
+
+/* 캘린더 헤더 버튼 스타일링 - 부드러운 색상 */
+.fc .fc-button-primary {
+  background: #6C7CE7 !important;
+  border-color: #6C7CE7 !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.fc .fc-button-primary:hover {
+  background: #5A67D8 !important;
+  border-color: #5A67D8 !important;
+  transform: translateY(-1px) !important;
+}
+
+.fc .fc-button-primary:focus {
+  box-shadow: 0 0 0 3px rgba(108, 124, 231, 0.3) !important;
+}
+
+/* 오늘 날짜 하이라이트 - 부드러운 라벤더 */
+.fc .fc-day-today {
+  background: rgba(108, 124, 231, 0.08) !important;
+}
+
+/* 캘린더 셀 호버 효과 - 부드러운 라벤더 */
+.fc .fc-daygrid-day:hover {
+  background: rgba(108, 124, 231, 0.04) !important;
+  transition: background 0.2s ease !important;
 }
 
 /* 모달 오버레이 */
@@ -77,10 +173,11 @@ h1 {
   opacity: 0;
   width: 90%;
   max-width: 600px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px var(--shadow);
+  border: 1px solid var(--border);
   z-index: 1000;
   max-height: 80vh;
   overflow-y: auto;
@@ -233,4 +330,82 @@ h1 {
   #calendar-container {
     flex: 1;
   }
+}
+
+/* 🎨 섹션 스타일링 개선 */
+#intro {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%) !important;
+  color: white !important;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 25px rgba(76, 205, 196, 0.2);
+}
+
+#intro h2 {
+  color: white !important;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#intro p {
+  color: white !important;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+#highlight-events {
+  background: var(--surface);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+#highlight-events h2 {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+#highlight-events ul {
+  padding-left: 0;
+}
+
+#highlight-events li {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fff, var(--background));
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#highlight-events li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow);
+  border-color: var(--primary);
+}
+
+/* Footer 스타일 개선 */
+footer {
+  margin-top: 3rem;
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+}
+
+footer a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--primary-dark);
 }
