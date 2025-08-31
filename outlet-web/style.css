@@ -15,10 +15,22 @@
 body {
   font-family: 'Arial', sans-serif;
   margin: 40px 20px;
-  background: linear-gradient(135deg, var(--background) 0%, #fff 100%);
+  background: 
+    radial-gradient(ellipse 800px 600px at top left, rgba(108, 124, 231, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at top right, rgba(168, 230, 207, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at bottom left, rgba(99, 179, 237, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 700px at bottom right, rgba(129, 230, 217, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 400px 600px at center, rgba(255, 107, 107, 0.1) 0%, transparent 70%),
+    linear-gradient(135deg, #f0f4ff 0%, #e6f3ff 100%);
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
 }
 
 h1 {
@@ -66,18 +78,80 @@ h1 {
 #calendar {
   max-width: 900px;
   margin: 0 auto;
-  background: var(--surface);
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px var(--shadow);
-  border: 1px solid var(--border);
+  /* 🪟 강화된 글래스모픽 효과 */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid;
+  border-image: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.8) 100%) 1;
+  border-radius: 25px;
+  padding: 35px;
+  box-shadow: 
+    0 20px 60px rgba(108, 124, 231, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
 }
 
-/* FullCalendar 커스터마이징 */
+/* 강화된 글래스 효과를 위한 다중 가상 요소 */
+#calendar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.2) 100%);
+  border-radius: 25px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#calendar::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(108, 124, 231, 0.3) 0%, 
+    rgba(168, 230, 207, 0.3) 25%,
+    rgba(99, 179, 237, 0.3) 50%,
+    rgba(129, 230, 217, 0.3) 75%,
+    rgba(108, 124, 231, 0.3) 100%);
+  border-radius: 27px;
+  z-index: -1;
+  filter: blur(1px);
+}
+
+/* FullCalendar 커스터마이징 - 글래스모픽에 맞게 조정 */
 .fc .fc-toolbar-title {
   font-size: 1.4em;
   color: var(--text);
   font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+/* 캘린더 내부 모든 요소들의 z-index 조정 */
+.fc-toolbar,
+.fc-view-harness,
+.fc-daygrid,
+.fc-scrollgrid,
+.fc-event {
+  position: relative;
+  z-index: 5;
 }
 
 .fc-event-title {
@@ -125,18 +199,22 @@ h1 {
   background: linear-gradient(135deg, #63B3ED, #90CDF4) !important; /* 스카이 블루 → 라이트 블루 */
 }
 
-/* 캘린더 헤더 버튼 스타일링 - 부드러운 색상 */
+/* 캘린더 헤더 버튼 스타일링 - 글래스모픽 스타일 */
 .fc .fc-button-primary {
-  background: #6C7CE7 !important;
-  border-color: #6C7CE7 !important;
-  border-radius: 8px !important;
+  background: rgba(108, 124, 231, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 10px !important;
   font-weight: 500 !important;
   transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 .fc .fc-button-primary:hover {
-  background: #5A67D8 !important;
-  border-color: #5A67D8 !important;
+  background: rgba(90, 103, 216, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
   transform: translateY(-1px) !important;
 }
 
