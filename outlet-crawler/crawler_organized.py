@@ -249,6 +249,16 @@ def generate_html(detail_data, event_id):
     with open(filename_html, "w", encoding="utf-8") as f:
         f.write(html)
     
+    # URL 매핑에 추가 (개선된 포괄적 방식)
+    event_id = detail_data.get("id", "")
+    if event_id and 'url_mapping' in globals():
+        mappings_count = add_comprehensive_mapping(event_id, filename)
+        print(f"  📌 {mappings_count}개 변형 매핑 추가: {event_id} → {filename}")
+    
+    print(f"✔ SEO 친화적인 HTML 생성 완료: {url_path}")
+    
+    return url_path
+
 def add_comprehensive_mapping(event_id, filename):
     """모든 가능한 event_id 변형들을 매핑에 추가하여 근본적으로 링크 문제 해결"""
     global url_mapping
@@ -295,16 +305,6 @@ def add_comprehensive_mapping(event_id, filename):
                 mappings_added += 1
     
     return mappings_added
-
-    # URL 매핑에 추가 (개선된 포괄적 방식)
-    event_id = detail_data.get("id", "")
-    if event_id and 'url_mapping' in globals():
-        mappings_count = add_comprehensive_mapping(event_id, filename)
-        print(f"  📌 {mappings_count}개 변형 매핑 추가: {event_id} → {filename}")
-    
-    print(f"✔ SEO 친화적인 HTML 생성 완료: {url_path}")
-    
-    return url_path
 
 def generate_sitemap(pages_dir, base_url, output_path):
     urls = []
