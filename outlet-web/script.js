@@ -20,14 +20,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const event = info.event;
         const id = event.extendedProps.event_id;
         if (id) {
-          // 캐시된 매핑 사용 (매핑되지 않은 이벤트는 이미 필터링됨)
-          const filename = urlMapping[id];
+          // 캐시된 매핑 사용 (변형 ID도 체크)
+          let filename = urlMapping[id];
+          if (!filename) {
+            // _02가 있으면 기본 ID로 시도
+            if (id.endsWith('_02')) {
+              const baseId = id.slice(0, -3);
+              filename = urlMapping[baseId];
+            }
+            // 기본 ID면 _02 변형으로 시도
+            else {
+              filename = urlMapping[id + '_02'];
+            }
+          }
+          
           if (filename) {
             const url = `/pages/${filename}`;
             window.open(url, "_blank");
           } else {
-            // 이론적으로 여기에 도달하지 않아야 함 (이미 필터링됨)
-            console.error(`예상치 못한 오류: 매핑되지 않은 이벤트 클릭됨 - ${id}`);
+            console.error(`매핑되지 않은 이벤트 클릭됨 - ${id}`);
             alert("상세 페이지를 찾을 수 없습니다.");
           }
         } else {
@@ -118,8 +129,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const end = parseDate(dateParts[1]);
       if (!start || !end) continue;
 
-      // URL 매핑이 없는 이벤트는 제외
-      if (!urlMapping[eventId]) {
+      // URL 매핑이 없는 이벤트는 제외 (변형 ID도 체크)
+      let mappedFilename = urlMapping[eventId];
+      if (!mappedFilename) {
+        // _02가 있으면 기본 ID로 시도
+        if (eventId.endsWith('_02')) {
+          const baseId = eventId.slice(0, -3);
+          mappedFilename = urlMapping[baseId];
+        }
+        // 기본 ID면 _02 변형으로 시도
+        else {
+          mappedFilename = urlMapping[eventId + '_02'];
+        }
+      }
+      
+      if (!mappedFilename) {
         console.log(`⚠️ 매핑되지 않은 이벤트 제외: ${eventId} - ${title}`);
         continue;
       }
@@ -212,7 +236,19 @@ document.addEventListener("DOMContentLoaded", function () {
           li.addEventListener('click', () => {
             const id = event.event_id;
             if (id) {
-              const filename = urlMapping[id];
+              let filename = urlMapping[id];
+              if (!filename) {
+                // _02가 있으면 기본 ID로 시도
+                if (id.endsWith('_02')) {
+                  const baseId = id.slice(0, -3);
+                  filename = urlMapping[baseId];
+                }
+                // 기본 ID면 _02 변형으로 시도
+                else {
+                  filename = urlMapping[id + '_02'];
+                }
+              }
+              
               if (filename) {
                 const url = `/pages/${filename}`;
                 window.open(url, '_blank');
@@ -242,9 +278,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const id = event.event_id;
         let url = `/pages/event-${id}.html`; // 기본 URL
         
-        // URL 매핑이 있으면 사용
-        if (urlMapping[id]) {
-          url = `/pages/${urlMapping[id]}`;
+        // URL 매핑이 있으면 사용 (변형 ID도 체크)
+        let filename = urlMapping[id];
+        if (!filename) {
+          // _02가 있으면 기본 ID로 시도
+          if (id.endsWith('_02')) {
+            const baseId = id.slice(0, -3);
+            filename = urlMapping[baseId];
+          }
+          // 기본 ID면 _02 변형으로 시도
+          else {
+            filename = urlMapping[id + '_02'];
+          }
+        }
+        
+        if (filename) {
+          url = `/pages/${filename}`;
         }
         
         li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, event.end)})</a>`;
