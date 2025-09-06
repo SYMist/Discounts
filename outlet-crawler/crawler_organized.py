@@ -239,8 +239,10 @@ def generate_html(detail_data, event_id):
     url_path = f"{branch_en}/{title_slug}"
     filename = f"{branch_en}-{title_slug}.html"
     
-    # filename 변수를 템플릿에 추가
+    # 템플릿에 경로 변수 주입
     html = html.replace("{{filename}}", filename)
+    pretty_path = f"https://discounts.deluxo.co.kr/{url_path}"
+    html = html.replace("{{pretty_path}}", pretty_path)
     
     # 파일명 생성 (pages 폴더 안에 저장)
     filename_html = os.path.join(output_dir, filename)
@@ -310,20 +312,27 @@ def generate_sitemap(pages_dir, base_url, output_path):
     urls = []
     # ── ① 루트 페이지(https://discounts.deluxo.co.kr/) 추가
     today = datetime.today().strftime('%Y-%m-%d')
-    # base_url이 "https://discounts.deluxo.co.kr/pages" 라면
-    site_root = base_url.rsplit("/", 1)[0] + "/"
+    # base_url은 "https://discounts.deluxo.co.kr" 기준
+    site_root = base_url.rstrip('/') + '/'
     urls.append((site_root, today))
     # ── ② (선택) privacy.html 같은 정적 페이지 추가
     urls.append((site_root + "privacy.html", today))
     
-    # 새로운 SEO 친화적인 URL 구조의 파일들 처리
+    # 새로운 SEO 친화적인 URL 구조의 파일들 처리 (프리티 URL 사용)
     for filename in os.listdir(pages_dir):
         if filename.endswith(".html") and '-' in filename and not filename.startswith('index'):
             filepath = os.path.join(pages_dir, filename)
             lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
-            
-            # 파일명을 그대로 URL로 사용 (확장자 포함) - 수정된 부분
-            url = f"{base_url}/{filename}"
+            name_without_ext = filename[:-5]  # strip .html
+            if name_without_ext.startswith('songdo-'):
+                url_path = name_without_ext.replace('songdo-', 'songdo/')
+            elif name_without_ext.startswith('gimpo-'):
+                url_path = name_without_ext.replace('gimpo-', 'gimpo/')
+            elif name_without_ext.startswith('spaceone-'):
+                url_path = name_without_ext.replace('spaceone-', 'spaceone/')
+            else:
+                continue
+            url = f"{base_url.rstrip('/')}/{url_path}"
             urls.append((url, lastmod))
 
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -504,7 +513,7 @@ def main():
     # ✅ 새로운 URL 구조의 sitemap.xml 생성
     generate_sitemap(
         pages_dir=os.path.join(os.path.dirname(__file__), "../outlet-web/pages"),
-        base_url="https://discounts.deluxo.co.kr/pages",
+        base_url="https://discounts.deluxo.co.kr",
         output_path=os.path.join(os.path.dirname(__file__), "../outlet-web/sitemap.xml")
     )
 

@@ -3,14 +3,14 @@ RewriteEngine On
 # 1. 기존 이벤트 파일들을 새로운 URL 구조로 리다이렉트
 # 예: /pages/event-0053227c91f9.html → /songdo/컨템포러리-s-s-시즌오프-특가-제안
 
-# 송도 지점 이벤트
-RewriteRule ^songdo/([^/]+)$ songdo-$1.html [L]
+# 프리티 URL → 실제 파일 내부 매핑 (브라우저 주소는 그대로 유지)
+# /{branch}/{slug} → /pages/{branch}-{slug}.html
+RewriteRule ^songdo/([^/]+)/?$ pages/songdo-$1.html [L]
+RewriteRule ^gimpo/([^/]+)/?$  pages/gimpo-$1.html  [L]
+RewriteRule ^spaceone/([^/]+)/?$ pages/spaceone-$1.html [L]
 
-# 김포 지점 이벤트  
-RewriteRule ^gimpo/([^/]+)$ gimpo-$1.html [L]
-
-# 스페이스원 지점 이벤트
-RewriteRule ^spaceone/([^/]+)$ spaceone-$1.html [L]
+# /pages/{branch}-{slug}.html 로 접근 시 프리티 URL로 301 리다이렉트(정규화)
+RewriteRule ^pages/(songdo|gimpo|spaceone)-([^/]+)\.html$ https://discounts.deluxo.co.kr/$1/$2 [R=301,L]
 
 # 2. 기존 pages/event-*.html 파일들을 새로운 구조로 리다이렉트 (301 리다이렉트)
 RewriteRule ^pages/event-18d811f187cd.html$ /spaceone/골든듀-36주년-창립-특가-행사 [R=301,L]
@@ -345,9 +345,9 @@ RewriteRule ^pages/event-a9396af76395.html$ /spaceone/한섬-국내-브랜드-�
 RewriteRule ^pages/event-cc3268574_02.html$ /spaceone/진-썸머페스타-최대-80-할인 [R=301,L]
 RewriteRule ^pages/event-0a2d1c701c7e.html$ /spaceone/브룩스브라더스-썸머-바캉스룩-제안 [R=301,L]
 
-# 3. www 없이 접근하는 경우 www 포함으로 리다이렉트
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+# 3. www로 접근 시 non-www로 리다이렉트 (속성 통일)
+RewriteCond %{HTTP_HOST} ^www\.discounts\.deluxo\.co\.kr$ [NC]
+RewriteRule ^(.*)$ https://discounts.deluxo.co.kr/$1 [R=301,L]
 
 # 4. HTTPS 강제 적용
 RewriteCond %{HTTPS} off
