@@ -2,19 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://discounts.deluxo.co.kr/</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/privacy.html</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/프리미엄-코스메틱-환절기-추천-상품</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/올영세일</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/2025-추석-특선-더-현대적인-선물</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/프리미엄-패딩-페어ⅰ-듀베티카-duvetica</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -26,7 +44,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/폴로-브룩스브라더스-가을-신상품-제안</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/전자랜드-lg전자-전시상품-특가제안</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -44,7 +68,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/나이키-유나이트-추가-할인-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -62,7 +86,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/노스페이스-에디션-쇼핑과-기부를-한-번에-ⅱ</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -79,6 +103,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/가을을-기다린-이유-골퍼들의-위시-리스트-타이틀리스트</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/진도모피-패밀리세일-up-to-90-off</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/ready-to-f-w-영캐주얼-신상품-입고</loc>
     <lastmod>2025-09-09</lastmod>
     <changefreq>daily</changefreq>
@@ -86,7 +122,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/남성-스페셜-프로모션</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/2025-golf-fair-브랜드별-할인혜택</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -103,6 +145,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/1년에-단-한번-최대-80-라코스테-클리어런스</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/비이커-f-w-스타일-제안-메종키츠네-外</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>daily</changefreq>
@@ -110,13 +158,19 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/올리브영</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/coming-soon-이끼덩굴-pop-up</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/프리미엄-패딩-페어-ⅱ-페트레이-peuterey</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -128,7 +182,19 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/pop-up-gs건설-단독주택-브랜드-자이가이스트</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/톰그레이하운드-스타일-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/리스트-가을-얼리-특가전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -151,6 +217,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/타미힐피거-f-w-상품전-up-to-70-off</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/이새-bcbg-올앤선드리-특가상품-대전</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>daily</changefreq>
@@ -164,7 +236,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/와지트-위크-기념-f-b-혜택-콜키지-프리</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -176,7 +248,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/노스페이스-에디션-쇼핑과-기부를-한번에</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -194,13 +266,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/리바트-리듬페스타</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/아디다스-스페셜-프로모션-제안</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -229,6 +301,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/에스티-로더-스킨케어-특가</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/영캐주얼-스페셜-프로모션</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>daily</changefreq>
@@ -241,6 +319,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/renewal-open-주얼리-프로모션</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/next-weekend-라코스테-최대-80-클리어런스</loc>
     <lastmod>2025-09-09</lastmod>
     <changefreq>daily</changefreq>
@@ -248,7 +332,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/언더아머-시즌-패키지-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/모조에스핀-f-w-상품-특가-대전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -261,6 +351,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/헨리코튼-사계절-상품전-up-to-60-off</loc>
     <lastmod>2025-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/노스페이스-에디션-쇼핑과-기부를-한-번에-ⅰ</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -283,8 +379,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/new-in-신상품-제안-아크메드라비</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/쌤소나이트-스페셜-프로모션</loc>
     <lastmod>2025-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/새롭게-달라진-아이폰-아이폰-17시리즈-사전-예약</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -313,8 +421,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/bcbg-올앤선드리-사계절-특가상품-대전</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/노스페이스-에디션-쇼핑과-기부를-한번에-ⅰ</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -345,6 +459,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/pop-up-store-리틀바잇모어</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/골프존마켓-최대-행사-하반기-골프-대전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -385,6 +505,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/가을-맞이-런닝-필수템-ⅱ</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-이끼-덩굴</loc>
     <lastmod>2025-09-09</lastmod>
     <changefreq>daily</changefreq>
@@ -393,6 +519,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/new-open-분더커피바</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/bbc-어스-이주의-특가-상품</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -422,13 +554,13 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/폴로-랄프로렌-가을-신상품-제안</loc>
-    <lastmod>2025-09-01</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/골든듀-로제도르-전품목-30-off</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -439,8 +571,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/td페어-lf-f-w-특가전-바버-헤지스-닥스</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/베이직캐주얼-9월-쇼핑-프로모션</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/스트릿-캐주얼-가을-특가-제안</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -451,14 +595,38 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/세컨더리캐비닛-특가전-up-to-50</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/슈즈-패션잡화-가을-특가-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/마리떼프랑소와저버-가을-아이템-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/가을-맞이-런닝-필수템-ⅰ</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/7大-클리어런스-페세리코-up-to-80-off</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/코치-팝업스토어-단독-클리어런스-최대-85-off</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -481,6 +649,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/renewal-open-오브제-obzee</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/new-open-보난자커피</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>daily</changefreq>
@@ -488,7 +662,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/올리브영-이주의-추천-상품</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -529,8 +703,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-프리미엄-비타민-솔가-space1-단독-특가</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/2025-추석-특선-더-현대적인-선물-정관장-구매-혜택</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -583,8 +763,32 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/페트레이-스타일-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/2025-추석-특선-더-현대적인-선물-ⅰ</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/next-weekend-타미힐피거-f-w-최대-70-off</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/와지트-위크-in-현대아울렛</loc>
     <lastmod>2025-09-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/골프-아웃도어-f-w-특가전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -601,14 +805,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-sjyp-단독전-최대-80-할인</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/winelist-와지트-위크-특가</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/해외패션-가방-인기상품-특가전</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/pop-up-닌텐도-전문점-대원샵-프리오픈-팝업</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -631,8 +847,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/컨템포러리-스타일-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/renewal-open-언더아머</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/coming-soon-나이키-키즈</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/리빙-프로모션-제안</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -643,8 +877,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/new-open-아트박스-9-17-수</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/키즈-페스타-아동-브랜드-특별-프로모션</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/버버리-스페셜-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/락포트-슈즈-가을맞이-특가전-전제품-20-off</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -655,8 +907,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/라이프스타일-골프웨어-사우스케이프</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/프리미엄-워치-특가-제안</loc>
     <lastmod>2025-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/가을-맞이-런닝-필수템-ⅳ</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -667,8 +931,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/데님-캐주얼-가을-아이템-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/renewal-open-뉴발란스-김포점-단독-프로모션</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/가을-맞이-런닝-필수템-ⅲ</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -691,8 +967,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/리바트-특가-프로모션</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/songdo/new-open-더-코스메틱-컴퍼니-스토어</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -704,7 +986,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/new-open-스파이더</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -715,8 +997,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/new-in-신상품-제안-하이퍼리트</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/퀵실버록시-라스트-찬스-세일</loc>
     <lastmod>2025-09-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/메가박스-영화-6천원-할인</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -727,8 +1021,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/2025-golf-fair-브랜드별-구매혜택</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/가을-맞이-패밀리-세일-코닥-최대-70</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/renewal-open-탠디-소다</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -747,6 +1053,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/pop-up-store-프리미엄-비타민-솔가-당점-단독-특가</loc>
     <lastmod>2025-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/지포어-스페셜-팝업-up-to-65-off</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -775,6 +1087,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-하고하우스-팝업스토어</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/해외패션-스페셜-위켄드-ⅱ</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-프리미엄-라이프스타일-마켓-마켓틸다</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/new-open-대원샵-닌텐도-전문점-9-18-목-오픈</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/bash-해외-브랜드-특가전</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/도원스타일-계절-메뉴-출시</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>daily</changefreq>
@@ -783,6 +1125,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/와지트-위크-in-현대아울렛</loc>
     <lastmod>2025-09-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/2025-첫-진도모피-최대-90-패밀리-대전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -818,7 +1166,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/스포츠-스페셜-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -829,8 +1177,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/듀베티카-스타일-제안</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/에코-up-to-60-특가전</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/2025-추석-특선-더-현대적인-선물-ⅱ</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -889,6 +1249,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/게스-f-w-특가전-up-to-70</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/pop-up-브렌우드-최대-70-할인</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/올리브영-올영세일</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>daily</changefreq>
@@ -896,7 +1268,7 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/뉴발란스-추가-할인-프로모션</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -907,8 +1279,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/살로몬-f-w-아우터-추천-상품</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/해외패션-f-w-스페셜-위캔드-ⅱ</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/프리미엄-패딩-페어-ⅲ-노비스-c-p-company</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/무스너클-스타일-제안</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -938,13 +1328,19 @@
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/폴로-랄프로렌-10-사은-행사</loc>
-    <lastmod>2025-09-06</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/노스페이스-에디션-쇼핑과-기부를-한번에ⅱ</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/아이잗바바-최대-90-가을-패션-특가전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -967,8 +1363,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/해외패션-클리어런스-대전-몽클레르-아미-a-p-c-外</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/7大-클리어런스-슈슈앤크라-up-to-60-off</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/해외패션-스페셜-위켄드ⅰ</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/코튼클럽-언더웨어-명절맞이-기프트대전</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1039,14 +1453,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/가을-맞이-런닝-필수템-ⅴ</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/spaceone/new-open-드로우핏-draw-fit</loc>
-    <lastmod>2025-09-09</lastmod>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://discounts.deluxo.co.kr/songdo/opening-soon-코데즈컴바인-언더웨어-게스-언더웨어</loc>
     <lastmod>2025-09-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/songdo/new-open-뭄알로이</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1075,6 +1501,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://discounts.deluxo.co.kr/spaceone/브룩스브라더스-스페셜-기프트</loc>
+    <lastmod>2025-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/라움-스타일-제안-vince-外</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>daily</changefreq>
@@ -1089,6 +1521,12 @@
   <url>
     <loc>https://discounts.deluxo.co.kr/gimpo/new-open-하이퍼리트</loc>
     <lastmod>2025-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://discounts.deluxo.co.kr/gimpo/리빙-단독-특가전-빌레로이앤보흐-wmf-外</loc>
+    <lastmod>2025-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
