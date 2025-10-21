@@ -1,0 +1,6 @@
+beautifulsoup4>=4.12
+gspread>=6.0
+oauth2client>=4.1
+requests>=2.31
+selenium>=4.21
+lxml>=5.2

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://discounts.deluxo.co.kr/sitemap.xml

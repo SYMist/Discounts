@@ -1,0 +1,907 @@
+/* 🎨 따뜻한 코랄 색상 팔레트 + 타이포그래피 변수 */
+:root {
+  --primary: #FF6B6B;        /* 코랄 핑크 */
+  --primary-dark: #EE5A52;   /* 딥 코랄 */
+  --secondary: #4ECDC4;      /* 민트 블루 */
+  --accent: #45B7D1;         /* 스카이 블루 */
+  --background: #FFF5F5;     /* 소프트 핑크 */
+  --surface: #FFFFFF;        /* 화이트 */
+  --text: #2D3436;           /* 다크 텍스트 */
+  --text-light: #636E72;     /* 그레이 */
+  --shadow: rgba(255, 107, 107, 0.15);  /* 코랄 그림자 */
+  --border: rgba(118, 118, 118, 0.2);   /* 연한 보더 */
+  
+  /* 📝 타이포그래피 변수 */
+  --font-primary: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* 폰트 크기 */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  
+  /* 줄 간격 */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+  
+  /* 🃏 카드 시스템 변수 */
+  --card-radius: 16px;
+  --card-radius-lg: 24px;
+  --card-padding: 1.5rem;
+  --card-padding-lg: 2rem;
+  --card-shadow: 0 4px 20px rgba(108, 124, 231, 0.08);
+  --card-shadow-hover: 0 8px 30px rgba(108, 124, 231, 0.15);
+  --card-shadow-active: 0 12px 40px rgba(108, 124, 231, 0.2);
+  --card-border: 1px solid rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(255, 255, 255, 0.9);
+  
+  /* 📐 레이아웃 & 간격 시스템 */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  
+  /* 컨테이너 크기 */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  
+  /* 그리드 갭 */
+  --grid-gap: var(--space-lg);
+  --grid-gap-sm: var(--space-md);
+  --grid-gap-lg: var(--space-xl);
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-weight: 400;
+  margin: 0;
+  padding: var(--space-xl) var(--space-lg);
+  background: 
+    radial-gradient(ellipse 800px 600px at top left, rgba(108, 124, 231, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at top right, rgba(168, 230, 207, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at bottom left, rgba(99, 179, 237, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 700px at bottom right, rgba(129, 230, 217, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 400px 600px at center, rgba(255, 107, 107, 0.1) 0%, transparent 70%),
+    linear-gradient(135deg, #f0f4ff 0%, #e6f3ff 100%);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  animation: backgroundShift 20s ease-in-out infinite;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+}
+
+/* 📝 타이포그래피 계층구조 개선 */
+
+/* 메인 제목 */
+h1 {
+  font-family: var(--font-primary);
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  line-height: var(--leading-tight);
+  text-align: center;
+  margin: 0 0 var(--space-2xl) 0;
+  color: var(--text);
+  background: linear-gradient(135deg, #6C7CE7, #4ECDC4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* 섹션 제목 */
+h2 {
+  font-family: var(--font-primary);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--text);
+  margin: 0 0 var(--space-lg) 0;
+  letter-spacing: -0.01em;
+}
+
+/* 서브 제목 */
+h3 {
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-normal);
+  color: var(--text);
+  margin: 0 0 var(--space-md) 0;
+}
+
+/* 본문 텍스트 */
+p {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+  color: var(--text);
+  margin: 0 0 var(--space-md) 0;
+}
+
+/* 작은 텍스트 */
+small {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--text-light);
+}
+
+/* 🃏 카드 시스템 기본 클래스 */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: var(--card-radius);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-hover {
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  background: var(--card-bg-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.card-hover:active {
+  box-shadow: var(--card-shadow-active);
+  transform: translateY(-2px);
+}
+
+.card-large {
+  border-radius: var(--card-radius-lg);
+  padding: var(--card-padding-lg);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 📐 개선된 레이아웃 시스템 */
+.main-container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.section-container {
+  margin-bottom: var(--space-2xl);
+}
+
+.section-container:last-child {
+  margin-bottom: var(--space-3xl);
+}
+
+/* 그리드 시스템 */
+.grid {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.filter-bar {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.filter-btn {
+  background: linear-gradient(135deg, #6C7CE7, #5A67D8);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 25px;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 25px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.filter-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.filter-btn:hover {
+  background: linear-gradient(135deg, #5A67D8, #4C51BF);
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.filter-btn:hover::before {
+  opacity: 1;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #5A67D8, #4C51BF);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-active);
+}
+
+.filter-btn.active::before {
+  opacity: 1;
+}
+
+#calendar {
+  max-width: var(--container-lg);
+  margin: 0 auto var(--space-2xl) auto;
+  /* 🪟 강화된 글래스모픽 효과 */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid;
+  border-image: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.8) 100%) 1;
+  border-radius: var(--card-radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: 
+    0 20px 60px rgba(108, 124, 231, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+/* 강화된 글래스 효과를 위한 다중 가상 요소 */
+#calendar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.2) 100%);
+  border-radius: 25px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#calendar::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(108, 124, 231, 0.3) 0%, 
+    rgba(168, 230, 207, 0.3) 25%,
+    rgba(99, 179, 237, 0.3) 50%,
+    rgba(129, 230, 217, 0.3) 75%,
+    rgba(108, 124, 231, 0.3) 100%);
+  border-radius: 27px;
+  z-index: -1;
+  filter: blur(1px);
+}
+
+/* FullCalendar 커스터마이징 - 글래스모픽 + 타이포그래피 개선 */
+.fc .fc-toolbar-title {
+  font-family: var(--font-primary) !important;
+  font-size: var(--text-2xl) !important;
+  color: var(--text) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* 캘린더 내부 모든 요소들의 z-index 조정 */
+.fc-toolbar,
+.fc-view-harness,
+.fc-daygrid,
+.fc-scrollgrid,
+.fc-event {
+  position: relative;
+  z-index: 5;
+}
+
+.fc-event-title {
+  font-family: var(--font-primary) !important;
+  font-weight: 500 !important;
+  font-size: var(--text-xs) !important;
+  letter-spacing: 0.01em !important;
+  line-height: var(--leading-tight) !important;
+}
+
+.fc-daygrid-event-dot {
+  display: none;
+}
+
+/* 🎨 FullCalendar 이벤트 색상 커스터마이징 - 눈에 편한 색상 */
+.fc-event {
+  background: linear-gradient(135deg, #6C7CE7, #A8E6CF) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  margin: 1px 0 !important;
+  box-shadow: 0 2px 6px rgba(108, 124, 231, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(108, 124, 231, 0.25) !important;
+  background: linear-gradient(135deg, #5A67D8, #90CDF4) !important;
+}
+
+.fc-event .fc-event-title {
+  color: white !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+/* 지점별 다른 색상 적용 - 부드러운 톤 */
+.fc-event[title*="송도"] {
+  background: linear-gradient(135deg, #6C7CE7, #A8E6CF) !important; /* 라벤더 → 민트 */
+}
+
+.fc-event[title*="김포"] {
+  background: linear-gradient(135deg, #4ECDC4, #81E6D9) !important; /* 터쿼이즈 → 라이트 민트 */
+}
+
+.fc-event[title*="스페이스원"] {
+  background: linear-gradient(135deg, #63B3ED, #90CDF4) !important; /* 스카이 블루 → 라이트 블루 */
+}
+
+/* 캘린더 헤더 버튼 스타일링 - 글래스모픽 + 타이포그래피 */
+.fc .fc-button-primary {
+  background: rgba(108, 124, 231, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 10px !important;
+  font-family: var(--font-primary) !important;
+  font-size: var(--text-sm) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.fc .fc-button-primary:hover {
+  background: rgba(90, 103, 216, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.fc .fc-button-primary:focus {
+  box-shadow: 0 0 0 3px rgba(108, 124, 231, 0.3) !important;
+}
+
+/* 오늘 날짜 하이라이트 - 부드러운 라벤더 */
+.fc .fc-day-today {
+  background: rgba(108, 124, 231, 0.08) !important;
+}
+
+/* 캘린더 셀 호버 효과 - 부드러운 라벤더 */
+.fc .fc-daygrid-day:hover {
+  background: rgba(108, 124, 231, 0.04) !important;
+  transition: background 0.2s ease !important;
+}
+
+/* 모달 오버레이 */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* 모달 본체 */
+#event-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  width: 90%;
+  max-width: 600px;
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px var(--shadow);
+  border: 1px solid var(--border);
+  z-index: 1000;
+  max-height: 80vh;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+#event-modal.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 썸네일 */
+.modal-thumb {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+/* 제목 */
+#modal-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* 닫기 버튼 */
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-close-btn:hover {
+  color: #000;
+}
+
+#modal-desc div {
+  margin-bottom: 6px;
+  font-size: 0.95em;
+}
+
+/* 📱 모바일 반응형 타이포그래피 & 레이아웃 */
+@media screen and (max-width: 768px) {
+  /* 모바일 패딩 조정 */
+  body {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* 메인 제목 축소 */
+  h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-xl);
+  }
+  
+  /* 섹션 제목 축소 */
+  h2 {
+    font-size: var(--text-xl);
+  }
+  
+  /* 서브 제목 축소 */
+  h3 {
+    font-size: var(--text-lg);
+  }
+  
+  /* 본문 텍스트 조정 */
+  p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+  }
+
+  .filter-btn {
+    margin: 4px 2px;
+    padding: 10px 16px;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    box-shadow: var(--card-shadow);
+  }
+  
+  /* 모바일에서 카드 패딩 및 간격 조정 */
+  #intro {
+    padding: var(--space-lg) !important;
+    margin-bottom: var(--space-xl);
+  }
+  
+  #highlight-events {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+  
+  #highlight-events li {
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  #calendar {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .filter-bar {
+    margin-bottom: var(--space-xl);
+    gap: var(--space-xs);
+  }
+  
+  .main-content {
+    gap: var(--space-lg);
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: var(--text-xl) !important;
+  }
+
+  #event-modal {
+    padding: 20px;
+  }
+  
+  /* 인트로 섹션 모바일 최적화 */
+  #intro h2 {
+    font-size: var(--text-xl) !important;
+  }
+  
+  #intro p {
+    font-size: var(--text-base) !important;
+  }
+}
+
+/* 컨테이너 최대 폭과 패딩 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 메인 썸네일: 화면 폭 100%에 맞춰 비율 유지 */
+.thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* 상품 리스트를 그리드로 배치: 최소 200px, 최대 1fr */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* 상품 이미지도 그리드 셀에 맞춰 반응형 */
+.product img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 상품명·가격 영역 여백 조정 */
+.product .name,
+.product .price {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* 버튼이나 링크도 터치 영역 충분히 확보 */
+.btn-back,
+.btn-home {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* 이미지 버튼 배너 */
+.event-banner .banner-image {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform .2s ease;
+}
+.event-banner .banner-image:hover {
+  transform: scale(1.02);
+}
+
+/* -------- Desktop Layout: Sidebar + Calendar -------- */
+@media screen and (min-width: 768px) {
+  /* 1) 메인 콘텐츠를 flex 컨테이너로 */
+  .main-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* 2) 사이드바: 고정 폭, 캘린더와 같은 높이, 내부 스크롤 */
+  #brand-filter-sidebar {
+    flex: 0 0 260px;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding-right: var(--space-md);
+  }
+
+  /* → 여기에 한 줄 버튼 스타일만 추가 ↓ */
+  #brand-filter-sidebar .filter-btn {
+    display: block;
+    width: 100%;
+    margin: 0 0 var(--space-md);
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  /* 3) 캘린더 영역은 flex-grow */
+  #calendar-container {
+    flex: 1;
+  }
+}
+
+/* 🎨 섹션 카드 스타일링 */
+#intro {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%) !important;
+  color: white !important;
+  border-radius: var(--card-radius-lg);
+  margin-bottom: var(--space-2xl);
+  padding: var(--card-padding-lg);
+  box-shadow: var(--card-shadow-hover);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#intro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: var(--card-radius-lg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#intro:hover {
+  box-shadow: var(--card-shadow-active);
+  transform: translateY(-2px);
+}
+
+#intro h2 {
+  font-family: var(--font-primary) !important;
+  font-size: var(--text-2xl) !important;
+  color: white !important;
+  margin-bottom: var(--space-lg);
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+#intro p {
+  font-family: var(--font-primary) !important;
+  font-size: var(--text-lg) !important;
+  color: white !important;
+  line-height: var(--leading-relaxed) !important;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+#highlight-events {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--card-border);
+  border-radius: var(--card-radius-lg);
+  padding: var(--card-padding-lg);
+  box-shadow: var(--card-shadow);
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#highlight-events::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: var(--card-radius-lg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#highlight-events:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+#highlight-events h2 {
+  font-family: var(--font-primary);
+  font-size: var(--text-2xl);
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-lg);
+  position: relative;
+  z-index: 2;
+}
+
+#highlight-events ul {
+  padding-left: 0;
+  position: relative;
+  z-index: 2;
+}
+
+#highlight-events li {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+#highlight-events li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(108, 124, 231, 0.05) 0%, 
+    rgba(76, 205, 196, 0.05) 100%);
+  border-radius: var(--card-radius);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#highlight-events li:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(108, 124, 231, 0.3);
+}
+
+#highlight-events li:hover::before {
+  opacity: 1;
+}
+
+#highlight-events li strong,
+#highlight-events li small {
+  position: relative;
+  z-index: 2;
+}
+
+/* Footer 스타일 + 타이포그래피 개선 */
+footer {
+  margin-top: 3rem;
+  padding: 2rem 0;
+  text-align: center;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+}
+
+footer a {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--primary-dark);
+}
