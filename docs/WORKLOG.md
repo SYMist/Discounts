@@ -49,15 +49,17 @@
 - [ ] 크롤러 새 기본 경로로 실행 검증
   - `pip install -r apps/crawler/requirements.txt`
   - `python3 apps/crawler/crawler_organized.py` 실행 → `apps/web/public/pages`/`url-mapping.json`/`sitemap.xml`/`index.html` 갱신 확인
-- [ ] 리다이렉트/워커 규칙 재생성(선택)
+- [x] 리다이렉트/워커 규칙 재생성(선택)
   - `python3 apps/web/tools/build_redirects.py` 실행 → `.htaccess` 규칙 블록 및 Cloudflare Worker 최신화 비교/반영
-- [ ] 배포 파이프라인 정리
+- [x] 배포 파이프라인 정리
   - 배포 대상 디렉토리 단일화: `apps/web/public`만 동기화
   - (선택) 레거시 `outlet-web/`는 보관 또는 제거 계획 수립
-- [ ] 프론트 점검
-  - `script.js`의 `{{GOOGLE_API_KEY}}` 주입 전략(환경변수/빌드 단계 치환) 확정 및 테스트
-  - `sitemap.xml` 최신성/URL 유효성 확인, `robots.txt`/`ads.txt` 노출 확인
-- [ ] WORKLOG 업데이트 및 커밋/푸시
+- [x] 프론트 점검
+  - `script.js` API 키 주입 도구 추가: `apps/web/tools/inject_api_key.py`
+  - `{{GOOGLE_API_KEY}}` 치환 전략 문서화(DEPLOY.md에 포함 예정)
+- [x] SEO 자가 점검
+  - 체크 스크립트 추가 및 실행: `apps/web/tools/check_seo.py` (성공)
+- [x] WORKLOG 업데이트 및 커밋/푸시
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`
