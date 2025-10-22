@@ -31,6 +31,25 @@
 - 크롤러/툴 문서 및 의존성 명시
   - `apps/crawler/requirements.txt`, `apps/crawler/README.md`
 
+## 2025-10-22
+
+### 오늘 한 것들
+- 문서루트 전환 준비 및 점검 계획 확정
+  - 목표 문서루트: `apps/web/public`
+  - 전환 후 점검 체크리스트 정리(200/301 응답 확인 항목)
+- 리다이렉트/워커 규칙 재생성
+  - 실행: `python3 apps/web/tools/build_redirects.py`
+  - 산출물: `apps/web/tools/generated_redirects.htaccess`, `apps/web/tools/cloudflare_worker_complete.js`
+- 공개 디렉터리 점검
+  - 핵심 파일 존재 확인: `index.html`, `url-mapping.json`, `sitemap.xml`, `.htaccess`, `script.js`, `style.css`, `robots.txt`, `ads.txt`
+  - 페이지 개수 확인: `apps/web/public/pages` 505개
+
+### 내일 할 것들
+- 서버 문서루트 실제 전환(운영 서버 설정 적용) 및 스모크 테스트
+- 크롤러 새 경로에서 실행 검증(자격증명 포함)
+- (선택) `.htaccess` 301 규칙 블록의 최신화 반영 또는 Cloudflare Worker 배포
+- WORKLOG 업데이트 및 커밋/푸시
+
 ### 내일 할 것들
 - 서버 문서 루트 전환 및 스모크 테스트
   - 문서 루트를 `apps/web/public`로 변경 후 점검: `/url-mapping.json` 200, `/songdo/{slug}` 200, `/pages/{branch}-{slug}.html` 301 정규화
