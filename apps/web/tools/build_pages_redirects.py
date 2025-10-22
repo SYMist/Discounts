@@ -49,6 +49,10 @@ def main():
     lines.append('/pages/songdo-:splat.html   /songdo/:splat   301')
     lines.append('/pages/gimpo-:splat.html    /gimpo/:splat    301')
     lines.append('/pages/spaceone-:splat.html /spaceone/:splat 301')
+    # 301 normalization for clean URLs (extensionless paths)
+    lines.append('/pages/songdo-:splat   /songdo/:splat   301')
+    lines.append('/pages/gimpo-:splat    /gimpo/:splat    301')
+    lines.append('/pages/spaceone-:splat /spaceone/:splat 301')
 
     # 301 event mapping (old event ids -> pretty)
     for event_id, filename in sorted(mapping.items(), key=lambda x: x[0]):
@@ -67,4 +71,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
