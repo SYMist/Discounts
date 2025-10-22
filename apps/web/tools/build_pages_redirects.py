@@ -45,14 +45,8 @@ def main():
     lines.append('/gimpo/*     /pages/gimpo-:splat.html    200')
     lines.append('/spaceone/*  /pages/spaceone-:splat.html 200')
 
-    # 301 normalization (physical -> pretty)
-    lines.append('/pages/songdo-:splat.html   /songdo/:splat   301')
-    lines.append('/pages/gimpo-:splat.html    /gimpo/:splat    301')
-    lines.append('/pages/spaceone-:splat.html /spaceone/:splat 301')
-    # 301 normalization for clean URLs (extensionless paths)
-    lines.append('/pages/songdo-:splat   /songdo/:splat   301')
-    lines.append('/pages/gimpo-:splat    /gimpo/:splat    301')
-    lines.append('/pages/spaceone-:splat /spaceone/:splat 301')
+    # NOTE: Avoid adding physical -> pretty 301 rules here to prevent
+    # potential rewrite loops on Pages when combined with 200 rewrites.
 
     # 301 event mapping (old event ids -> pretty)
     for event_id, filename in sorted(mapping.items(), key=lambda x: x[0]):
