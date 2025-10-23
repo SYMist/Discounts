@@ -410,8 +410,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // API 키 확인 후 분기 처리
   function checkApiAndLoad() {
     const apiKey = '{{GOOGLE_API_KEY}}';
-    // 템플릿 문자열이 아닌 실제 API 키인지 확인
-    if (apiKey.includes('{{') || !apiKey || apiKey.length < 10) {
+    // 템플릿 문자열이 아닌 실제 API 키인지 확인 (빌드 미치환 또는 $ENV 그대로 남은 경우 방지)
+    if (apiKey.includes('{{') || apiKey.startsWith('$') || !apiKey || apiKey.length < 10) {
       console.warn('⚠️ Google API 키가 설정되지 않았습니다. 더미 데이터로 테스트합니다.');
       loadDummyData();
     } else {
