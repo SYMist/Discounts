@@ -26,6 +26,12 @@
 - [x] SEO 자가 점검
 - [x] WORKLOG 업데이트 및 커밋/푸시
 
+## 2025-10-23
+- [x] 서버 문서 루트 전환 및 스모크 테스트(또는 Pages 커스텀 도메인 Active 확인 후 스모크)
+- [x] 크롤러 새 기본 경로로 실행 검증
+- [x] Google API 키 주입 빌드 커맨드 수정(변수 확장, sed) 후 재배포
+- [x] Google Cloud API 키 허용 웹사이트에 Pages/커스텀 도메인 추가 및 정상 노출 확인
+
 ### 백로그
 
 - [ ] Google Analytics(GA4) 연동 설계 확정 (직접 gtag vs GTM) → GA4 직접 삽입
@@ -45,10 +51,6 @@
 - [ ] `apps/web/public/privacy.html`에 GA 사용 고지/수집 항목/비활성화 안내 추가
 - [ ] 문서화 `docs/ANALYTICS.md`: 설정, 빌드 주입, 이벤트 스키마, 검증/롤백
 - [ ] 배포 플로우 업데이트(`docs/DEPLOY.md`): GA 주입 단계/환경변수 추가
-
-## 2025-10-23
-- [x] 서버 문서 루트 전환 및 스모크 테스트(또는 Pages 커스텀 도메인 Active 확인 후 스모크)
-- [x] 크롤러 새 기본 경로로 실행 검증
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`
