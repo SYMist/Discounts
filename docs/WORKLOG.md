@@ -45,6 +45,7 @@
  - [x] GA4 연동 준비: Cloudflare Pages Variables에 `GA_MEASUREMENT_ID` 추가
  - [x] 빌드 커맨드 보강: GA Measurement ID/Google API 키 치환 및 .bak 정리
  - [x] GA4 gtag 스니펫 플레이스홀더 삽입: `apps/web/public/index.html`, `apps/crawler/templates/index.tpl.html`, `apps/crawler/templates/template.html`
+ - [x] 배포 반영 확인: 커스텀 도메인 소스에 `gtag/js?id=G-…`와 `gtag('config','G-…')` 실치환 확인
 
 ### 백로그
 
