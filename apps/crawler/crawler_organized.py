@@ -63,6 +63,17 @@ def _get_config():
 # --- 전역 변수 (main에서 초기화)
 url_mapping = {}
 
+# --- 유틸: 날짜 포맷 변환(YYYYMMDDHHMMSS -> M.D)
+def _fmt_md(yyyymmddhhmmss: str) -> str:
+    try:
+        if not yyyymmddhhmmss:
+            return ""
+        s = yyyymmddhhmmss.strip()
+        y = int(s[0:4]); m = int(s[4:6]); d = int(s[6:8])
+        return f"{m}.{d}"
+    except Exception:
+        return ""
+
 def parse_period(period_text):
     # 1) 줄바꿈 제거
     clean = period_text.replace("\n", "").replace("\r", "")
@@ -86,6 +97,12 @@ def parse_period(period_text):
 def setup_driver():
     options = Options()
     options.add_argument("--window-size=1920,1080")
+    # Optional headless mode for non-interactive environments
+    import os as _os
+    if _os.environ.get("OUTLET_HEADLESS", "").lower() in ("1", "true", "yes"): 
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(options=options)
     return driver
 
@@ -104,11 +121,87 @@ def process_price_text(price_text):
 
 # --- 행사 리스트 페이지 크롤링
 def fetch_event_list(driver, branchCd, page):
+    """행사 목록 페이징 수집.
+    - 기본: HTTP(AJAX) 요청으로 안정적으로 수집
+    - 폴백: Selenium + getContents 또는 첫 페이지 파싱
+    반환: 
+      - HTTP 모드: dict 리스트 [{title, period, image, link}]
+      - 클릭/폴백: BeautifulSoup li 요소 리스트
+    """
+    import os as _os, re, requests
+    mode = _os.environ.get("OUTLET_LISTING_MODE", "http").lower()
+
     list_url = f"https://www.ehyundai.com/newPortal/SN/SN_0101000.do?branchCd={branchCd}&SN=1"
+
+    if mode == "http":
+        try:
+            html = requests.get(list_url, timeout=15).text
+            m = re.search(r"var\s+curtMblDmCd\s*=\s*'([^']+)'", html)
+            if not m:
+                raise RuntimeError("mblDmCd 파싱 실패")
+            mbl = m.group(1)
+            # typeCd '01' = 이벤트
+            api = "https://www.ehyundai.com/newPortal/SN/GetCmsContentsAJX.do"
+            params = {
+                'apiID': 'ifAppHdcms012',
+                'param': f"mblDmCd={mbl}&evntCrdTypeCd=01&pageSize=9&page={page}",
+            }
+            js = requests.get(api, params=params, timeout=15).json()
+            items = js.get('result', {}).get('items', [])
+            evts = []
+            for it in items:
+                # 카테고리 판단
+                t = (it.get('evntCrdTypeCd') or {}).get('value') or '01'
+                if t == '02':
+                    category = 'gift'
+                elif t == '03':
+                    category = 'culture'
+                elif t == '04':
+                    category = 'special'
+                else:
+                    category = 'event'
+                img = it.get('imgPath2') or ''
+                if img:
+                    img = ("https://imgprism.ehyundai.com/" + img).replace("https://apiprism.ehyundai.com/", "")
+                # 기간 문자열 구성
+                stCd = (it.get('expsEvntStartGbcd') or {}).get('value')
+                enCd = (it.get('expsEvntEndGbcd') or {}).get('value')
+                st = it.get('expsEvntStartTxt') if stCd == '02' else _fmt_md(it.get('expsEvntStartDt') or '')
+                en = it.get('expsEvntEndTxt') if enCd == '02' else _fmt_md(it.get('expsEvntEndDt') or '')
+                period = (st or '') + (" ~ " if (st or en) and en else "") + (en or '')
+                link = f"https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd={it.get('evntCrdCd')}&category={category}&page={page}&branchCd={branchCd}"
+                evts.append({
+                    'title': it.get('evntCrdNm') or '',
+                    'period': period,
+                    'image': img,
+                    'link': link,
+                })
+            return evts
+        except Exception as e:
+            print(f"⚠️ HTTP 목록 수집 실패: {e}. 클릭 모드로 폴백합니다.")
+            # 폴백으로 계속 진행
+
+    # ── 클릭/폴백 모드
     driver.get(list_url)
-    time.sleep(2)
-    driver.execute_script(f"getContents('01', {page}, 0);")
-    time.sleep(3)
+    # Wait for page scripts to load (getContents function) then load requested page
+    try:
+        WebDriverWait(driver, 10).until(
+            lambda d: d.execute_script("return typeof getContents === 'function'")
+        )
+        try:
+            driver.execute_script(f"getContents('01', {page}, 0);")
+        except Exception as e:
+            print(f"⚠️ getContents 호출 실패: {e}. 첫 페이지 그대로 파싱을 시도합니다.")
+    except Exception:
+        # 스크립트 미탑재 시 첫 페이지 파싱만
+        pass
+    # Wait for event list elements to be present
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "#eventList > li"))
+        )
+    except Exception:
+        time.sleep(2)
     soup = BeautifulSoup(driver.page_source, "html.parser")
     return soup.select("#eventList > li")
 
@@ -513,18 +606,31 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
 def crawl_outlet(branchCd, outletName, sheet_name):
     driver = setup_driver()
     new_rows = []
-    for page in range(1, 5):
+    # Max pages can be overridden via env (OUTLET_MAX_PAGES)
+    import os as _os
+    try:
+        max_pages = int(_os.environ.get("OUTLET_MAX_PAGES", "4"))
+    except Exception:
+        max_pages = 4
+    for page in range(1, max_pages + 1):
         print(f"[{sheet_name}] 페이지 {page} 크롤링 중...")
         events = fetch_event_list(driver, branchCd, page)
         for event in events:
-            title_tag = event.select_one(".info_tit")
-            period_tag = event.select_one(".info_txt")
-            img_tag = event.select_one("img")
-            link_tag = event.select_one("a")
-            title = title_tag.get_text(separator=" ", strip=True) if title_tag else ""
-            period = period_tag.get_text(strip=True) if period_tag else ""
-            image_url = img_tag["src"] if img_tag else ""
-            detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
+            # HTTP 모드(dict)와 클릭/폴백 모드(li)를 모두 지원
+            if isinstance(event, dict):
+                title = event.get('title', '')
+                period = event.get('period', '')
+                image_url = event.get('image', '')
+                detail_url = event.get('link', '')
+            else:
+                title_tag = event.select_one(".info_tit")
+                period_tag = event.select_one(".info_txt")
+                img_tag = event.select_one("img")
+                link_tag = event.select_one("a")
+                title = title_tag.get_text(separator=" ", strip=True) if title_tag else ""
+                period = period_tag.get_text(strip=True) if period_tag else ""
+                image_url = img_tag["src"] if img_tag else ""
+                detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
             detail = fetch_event_detail(driver, detail_url)
             thumbnail_id = image_url.split("/")[-1].split(".")[0][-12:]
             event_id = thumbnail_id
@@ -555,7 +661,12 @@ def crawl_outlet(branchCd, outletName, sheet_name):
                 new_rows.append(base_info + ["", "", "", "",
                                  datetime.today().strftime('%Y-%m-%d'), event_id])
     driver.quit()
-    upload_to_google_sheet("outlet-data", sheet_name, new_rows)
+    # Allow skipping Google Sheets upload for dry-run via OUTLET_SKIP_SHEETS
+    import os as _os
+    if _os.environ.get("OUTLET_SKIP_SHEETS", "").lower() in ("1", "true", "yes"):
+        print("⚠️ OUTLET_SKIP_SHEETS=1: Google Sheets 업로드를 생략합니다.")
+    else:
+        upload_to_google_sheet("outlet-data", sheet_name, new_rows)
 
 # --- 메인 실행
 def main():
