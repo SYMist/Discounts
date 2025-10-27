@@ -49,23 +49,17 @@
 
 ### 백로그
 
-- [ ] Google Analytics(GA4) 연동 설계 확정 (직접 gtag vs GTM) → GA4 직접 삽입
-- [ ] GA4 속성/웹 데이터 스트림 생성 및 Measurement ID(G-XXXX) 발급
-- [ ] Cloudflare Pages 환경변수 추가: `GA_MEASUREMENT_ID` (Production/Preview 모두)
-- [ ] GA 스니펫 주입 스크립트 추가(`apps/web/tools/inject_ga_id.py`) 및 빌드 커맨드에 포함
-  - 대상 파일: 
-    - `apps/web/public/index.html` (정적 메인)
-    - `apps/crawler/templates/index.tpl.html` (메인 재생성 템플릿)
-    - `apps/crawler/templates/template.html` (상세 페이지 템플릿)
-- [ ] 스니펫 내용: gtag.js + `gtag('config', 'G-...',{ anonymize_ip:true });` + Consent Mode 기본값
+- [ ] GA Realtime/DebugView 수집 확인(페이지뷰) 및 네트워크 요청 확인
+  - gtag/js 200, www.google-analytics.com/g/collect 204 확인
+  - 내부 트래픽 필터/Enhanced measurement/Timezone 점검
+  - 필요 시 임시 디버그: `gtag('config','G-…',{debug_mode:true})` 또는 `?ga_debug=1`
 - [ ] 이벤트 트래킹 설계/구현(`apps/web/public/script.js`)
   - 캘린더 이벤트 클릭(상세 페이지 열기)
   - 하이라이트 리스트 클릭
   - 상세 페이지 내 “공식 페이지 이동” 배너 클릭
-- [ ] Realtime으로 기본 `page_view`/커스텀 이벤트 유입 확인(프리티 URL 기준)
 - [ ] `apps/web/public/privacy.html`에 GA 사용 고지/수집 항목/비활성화 안내 추가
 - [ ] 문서화 `docs/ANALYTICS.md`: 설정, 빌드 주입, 이벤트 스키마, 검증/롤백
-- [ ] 배포 플로우 업데이트(`docs/DEPLOY.md`): GA 주입 단계/환경변수 추가
+- [ ] 배포 플로우 업데이트(`docs/DEPLOY.md`): GA 주입 단계/환경변수 설명 보강
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`
