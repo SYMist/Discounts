@@ -17,6 +17,22 @@
   - 301 정규화: `/pages/{branch}-{slug}.html` → `/{branch}/{slug}`
   - 301 매핑: `/pages/event-<id>.html` → `/{branch}/{slug}`
 
+### pages.dev → 커스텀 도메인 301 (프리뷰 제외)
+- Pages UI에 "Always use primary domain" 토글이 없는 경우, Functions로 간단히 301 처리합니다.
+- 디렉토리: `apps/web/functions/[[path]].js`
+```
+export async function onRequest(context) {
+  const url = new URL(context.request.url);
+  if (url.hostname.endsWith('.pages.dev')) {
+    url.hostname = 'discounts.deluxo.co.kr';
+    return Response.redirect(url.toString(), 301);
+  }
+  return context.next();
+}
+```
+- Cloudflare Pages → Settings → Functions → Functions directory를 `apps/web/functions`로 설정 후 재배포
+- 검증: `curl -I https://<project>.pages.dev/…` → 301 Location: https://discounts.deluxo.co.kr/…
+
 ### DNS 연결
 - Pages 도메인 발급 후, Cloudflare DNS에서 `discounts.deluxo.co.kr` → Pages CNAME 연결
 - 기존 GitHub Pages CNAME을 Pages로 바꾸고 프록시(주황구름)는 유지 권장

@@ -36,6 +36,7 @@
 - [x] 실행 스위치 추가: `OUTLET_LISTING_MODE`(`http|click`), `OUTLET_MAX_PAGES`, `OUTLET_HEADLESS`, `OUTLET_SKIP_SHEETS`
 - [x] 전체 페이지 수집(OUTLET_MAX_PAGES=4) 실행 및 Google Sheets 업데이트 반영
 - [x] 생성물 재생성 반영: `apps/web/public/pages/*`, `sitemap.xml`, `url-mapping.json`, `index.html`
+- [x] Cloudflare Pages Functions 추가: pages.dev → discounts.deluxo.co.kr 301 리다이렉트 (`apps/web/functions/[[path]].js`)
 
 ### 백로그
 
