@@ -39,6 +39,10 @@
 - [x] Cloudflare Pages Functions 추가: pages.dev → discounts.deluxo.co.kr 301 리다이렉트 (`apps/web/functions/[[path]].js`)
 - [x] Functions 루트 경로 추가: `functions/[[path]].js` (UI 설정 없이 자동 인식)
 
+## 2025-10-27
+- [x] Cloudflare Pages: pages.dev → discounts.deluxo.co.kr 301 리다이렉트 활성화(Functions 배포)
+- [x] 커스텀 도메인에서 AdSense 노출 확인 및 pages.dev 접근 자동 이동 확인
+
 ### 백로그
 
 - [ ] Google Analytics(GA4) 연동 설계 확정 (직접 gtag vs GTM) → GA4 직접 삽입
