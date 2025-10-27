@@ -19,7 +19,7 @@
 
 ### pages.dev → 커스텀 도메인 301 (프리뷰 제외)
 - Pages UI에 "Always use primary domain" 토글이 없는 경우, Functions로 간단히 301 처리합니다.
-- 디렉토리: `apps/web/functions/[[path]].js`
+- 방법 1(권장, UI 설정 없이 자동 인식): 리포지토리 루트에 `functions/[[path]].js`
 ```
 export async function onRequest(context) {
   const url = new URL(context.request.url);
@@ -30,7 +30,8 @@ export async function onRequest(context) {
   return context.next();
 }
 ```
-- Cloudflare Pages → Settings → Functions → Functions directory를 `apps/web/functions`로 설정 후 재배포
+- 방법 2(UI로 Functions 디렉터리 지정): `apps/web/functions` 경로 사용
+  - Cloudflare Pages → Settings → Functions → Functions directory를 `apps/web/functions`로 설정 후 재배포
 - 검증: `curl -I https://<project>.pages.dev/…` → 301 Location: https://discounts.deluxo.co.kr/…
 
 ### DNS 연결
