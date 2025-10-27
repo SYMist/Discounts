@@ -32,6 +32,11 @@
 - [x] Google API 키 주입 빌드 커맨드 수정(변수 확장, sed) 후 재배포
 - [x] Google Cloud API 키 허용 웹사이트에 Pages/커스텀 도메인 추가 및 정상 노출 확인
 
+- [x] 크롤러 목록 수집을 HTTP(AJAX) 방식으로 전환(안정적 페이징) 및 클릭 폴백 유지
+- [x] 실행 스위치 추가: `OUTLET_LISTING_MODE`(`http|click`), `OUTLET_MAX_PAGES`, `OUTLET_HEADLESS`, `OUTLET_SKIP_SHEETS`
+- [x] 전체 페이지 수집(OUTLET_MAX_PAGES=4) 실행 및 Google Sheets 업데이트 반영
+- [x] 생성물 재생성 반영: `apps/web/public/pages/*`, `sitemap.xml`, `url-mapping.json`, `index.html`
+
 ### 백로그
 
 - [ ] Google Analytics(GA4) 연동 설계 확정 (직접 gtag vs GTM) → GA4 직접 삽입
