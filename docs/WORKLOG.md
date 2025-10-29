@@ -58,13 +58,7 @@
  - [x] 이벤트 공통 파라미터: URL UTM(`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`) 자동 병합
 
 ### 백로그
-- [ ] 이벤트 트래킹 설계/구현(`apps/web/public/script.js`)
-  - 캘린더 이벤트 클릭(상세 페이지 열기)
-  - 하이라이트 리스트 클릭
-  - 상세 페이지 내 “공식 페이지 이동” 배너 클릭
-- [ ] `apps/web/public/privacy.html`에 GA 사용 고지/수집 항목/비활성화 안내 추가
-- [ ] 문서화 `docs/ANALYTICS.md`: 설정, 빌드 주입, 이벤트 스키마, 검증/롤백
-- [ ] 배포 플로우 업데이트(`docs/DEPLOY.md`): GA 주입 단계/환경변수 설명 보강
+
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`

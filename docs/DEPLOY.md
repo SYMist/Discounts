@@ -10,6 +10,17 @@
   - _redirects 생성: `python3 apps/web/tools/build_pages_redirects.py`
   - 주의: 빌더에 Python이 없으면, 로컬에서 생성/커밋 후 빌드 명령은 비워둡니다.
 
+### GA4 Measurement ID 주입
+- Pages → Settings → Variables and Secrets에 `GA_MEASUREMENT_ID=G-XXXXXXXXXX` 추가(Production/Preview)
+- 빌드 커맨드에서 플레이스홀더 치환(큰따옴표 사용)
+```
+sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" \
+  apps/web/public/index.html \
+  apps/crawler/templates/index.tpl.html \
+  apps/crawler/templates/template.html && \
+find apps/web/public apps/crawler/templates -name '*.bak' -delete
+```
+
 ### 리디렉션/리라이트(_redirects)
 - `apps/web/public/_redirects` 사용(이미 생성 도구 제공)
 - 포함 규칙:
