@@ -6,13 +6,21 @@ document.addEventListener("DOMContentLoaded", function () {
   let urlMapping = {};  // URL 매핑 캐시
 
   // GA 디버그 플래그 (?ga_debug=1 로 접근 시 활성화)
-  const debugMode = new URLSearchParams(location.search).has('ga_debug');
+  const qs = new URLSearchParams(location.search);
+  const debugMode = qs.has('ga_debug');
+  const utmParams = {
+    utm_source: qs.get('utm_source') || undefined,
+    utm_medium: qs.get('utm_medium') || undefined,
+    utm_campaign: qs.get('utm_campaign') || undefined,
+    utm_content: qs.get('utm_content') || undefined,
+    utm_term: qs.get('utm_term') || undefined,
+  };
 
   // GA 이벤트 전송 헬퍼 (gtag 존재 시에만 동작)
   function sendGA(eventName, params) {
     try {
       if (typeof window.gtag === 'function') {
-        const payload = Object.assign({}, params || {});
+        const payload = Object.assign({}, utmParams, params || {});
         if (debugMode) payload.debug_mode = true;
         if (debugMode) console.log('[GA]', eventName, payload);
         window.gtag('event', eventName, payload);

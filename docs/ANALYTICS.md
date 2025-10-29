@@ -25,6 +25,11 @@ find apps/web/public apps/crawler/templates -name '*.bak' -delete
   - `detail_official_click`
     - 파라미터: `event_id`, `title`, `outlet`, `link`
 
+### 공통 파라미터(자동 포함)
+- URL의 UTM 파라미터가 존재하면 모든 이벤트에 자동 병합됩니다.
+  - `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`
+  - 디버그 모드(`?ga_debug=1`)로 접근 시 각 이벤트 콘솔에도 `[GA] ...`로 출력됩니다.
+
 ## 디버깅/검증
 - Realtime/DebugView
   - GA 콘솔: Reports → Realtime, Admin → DebugView
@@ -42,4 +47,3 @@ find apps/web/public apps/crawler/templates -name '*.bak' -delete
 ## 변경 위치
 - gtag 스니펫: `apps/web/public/index.html`, `apps/crawler/templates/index.tpl.html`, `apps/crawler/templates/template.html`
 - 이벤트 전송: `apps/web/public/script.js`, 상세 배너 클릭: `apps/crawler/templates/template.html`
-
