@@ -5,11 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
   let urlMapping = {};  // URL 매핑 캐시
 
+  // GA 디버그 플래그 (?ga_debug=1 로 접근 시 활성화)
+  const debugMode = new URLSearchParams(location.search).has('ga_debug');
+
   // GA 이벤트 전송 헬퍼 (gtag 존재 시에만 동작)
   function sendGA(eventName, params) {
     try {
       if (typeof window.gtag === 'function') {
-        window.gtag('event', eventName, params || {});
+        const payload = Object.assign({}, params || {});
+        if (debugMode) payload.debug_mode = true;
+        if (debugMode) console.log('[GA]', eventName, payload);
+        window.gtag('event', eventName, payload);
       }
     } catch (e) { /* no-op */ }
   }
@@ -448,6 +454,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // URL 매핑 로드 후 데이터 로드
   loadUrlMapping().then(() => {
     checkApiAndLoad();
+    // GA 디버그 모드일 때 핑 전송
+    if (debugMode) sendGA('debug_ping', { page: location.pathname });
   });
   // 브랜드 필터 클릭 핸들러 (단 한 번만 등록)
   document.getElementById('brand-filter-bar').addEventListener('click', e => {
