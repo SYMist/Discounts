@@ -46,13 +46,9 @@
  - [x] 빌드 커맨드 보강: GA Measurement ID/Google API 키 치환 및 .bak 정리
  - [x] GA4 gtag 스니펫 플레이스홀더 삽입: `apps/web/public/index.html`, `apps/crawler/templates/index.tpl.html`, `apps/crawler/templates/template.html`
  - [x] 배포 반영 확인: 커스텀 도메인 소스에 `gtag/js?id=G-…`와 `gtag('config','G-…')` 실치환 확인
+ - [x] GA Realtime/DebugView 수집 확인(페이지뷰) 및 `calendar_event_click` 이벤트 수집 확인
 
 ### 백로그
-
-- [ ] GA Realtime/DebugView 수집 확인(페이지뷰) 및 네트워크 요청 확인
-  - gtag/js 200, www.google-analytics.com/g/collect 204 확인
-  - 내부 트래픽 필터/Enhanced measurement/Timezone 점검
-  - 필요 시 임시 디버그: `gtag('config','G-…',{debug_mode:true})` 또는 `?ga_debug=1`
 - [ ] 이벤트 트래킹 설계/구현(`apps/web/public/script.js`)
   - 캘린더 이벤트 클릭(상세 페이지 열기)
   - 하이라이트 리스트 클릭
