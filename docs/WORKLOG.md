@@ -52,7 +52,9 @@
 - [x] GA 이벤트 트래킹 코드 추가: `calendar_event_click`, `highlight_click`, `detail_official_click`
   - 파일: `apps/web/public/script.js`, `apps/crawler/templates/template.html`
 - [x] 배포 및 실시간 수집 확인: Realtime/DebugView에 `calendar_event_click` 반영 확인
- - [x] gtag 디버그 모드 지원(?ga_debug=1) 추가 및 디버그 핑 전송
+- [x] gtag 디버그 모드 지원(?ga_debug=1) 추가 및 디버그 핑 전송
+ - [x] Analytics 문서 추가: 이벤트 스키마/검증 가이드(`docs/ANALYTICS.md`)
+ - [x] 개인정보처리방침 업데이트: GA/AdSense 고지 및 옵트아웃 안내(`apps/web/public/privacy.html`)
 
 ### 백로그
 - [ ] 이벤트 트래킹 설계/구현(`apps/web/public/script.js`)
