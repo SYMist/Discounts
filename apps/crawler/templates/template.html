@@ -143,5 +143,23 @@
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: '{{event_id}}',
+            title: '{{제목}}',
+            outlet: '{{지점명}}',
+            link: '{{상세 링크}}'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

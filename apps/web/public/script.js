@@ -5,6 +5,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
   let urlMapping = {};  // URL 매핑 캐시
 
+  // GA 이벤트 전송 헬퍼 (gtag 존재 시에만 동작)
+  function sendGA(eventName, params) {
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params || {});
+      }
+    } catch (e) { /* no-op */ }
+  }
+
   function initCalendar(events) {
     const calendarEl = document.getElementById("calendar");
     calendar = new FullCalendar.Calendar(calendarEl, {
@@ -36,6 +45,14 @@ document.addEventListener("DOMContentLoaded", function () {
           
           if (filename) {
             const url = `/pages/${filename}`;
+            // GA: 캘린더 이벤트 클릭
+            sendGA('calendar_event_click', {
+              event_id: id,
+              title: event.title || '',
+              outlet: (event.extendedProps && event.extendedProps.outlet) || '',
+              start: event.startStr || event.start || '',
+              end: event.endStr || event.end || ''
+            });
             window.open(url, "_blank");
           } else {
             console.error(`매핑되지 않은 이벤트 클릭됨 - ${id}`);
@@ -251,6 +268,14 @@ document.addEventListener("DOMContentLoaded", function () {
               
               if (filename) {
                 const url = `/pages/${filename}`;
+                // GA: 하이라이트 클릭
+                sendGA('highlight_click', {
+                  event_id: id,
+                  title: event.title || '',
+                  outlet: event.outlet || '',
+                  start: event.start || '',
+                  end: event.end || ''
+                });
                 window.open(url, '_blank');
               } else {
                 const url = `/pages/event-${id}.html`;
