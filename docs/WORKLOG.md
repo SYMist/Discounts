@@ -59,6 +59,14 @@
 
 ### 백로그
 
+- [ ] /events 허브 페이지 생성(전체 + 지점별 songdo/gimpo/spaceone 목록) 및 자동 갱신 스크립트
+- [ ] index 노출형 "전체 보기" 섹션 추가(정적 링크 display:none 제거/대체)
+- [ ] 상세 페이지 개선: Breadcrumb(UI + BreadcrumbList 스키마) 추가, 같은 지점 관련 행사 3~5개 내부 링크 노출
+- [ ] sitemap 품질 보강: lastmod 갱신 확인, URL 증가 시 sitemap index 분할 도입 검토
+- [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
+- [ ] Core Web Vitals 점검: 이미지 크기/캐시/폰트 로딩 최적화(PageSpeed 지표 기반)
+- [ ] 스키마 보강(사이트 레벨): Organization/WebSite + (선택) SearchAction 추가
+- [ ] 크롤러 자동화: 일정 주기로 전체 수집 + sitemap/index 재생성(예: GitHub Actions 스케줄)
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`
