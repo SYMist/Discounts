@@ -79,3 +79,11 @@
 ### 비고
 - 모든 변경은 기본 경로/규칙을 보존하도록 설계되어 현재 운영에 영향 없음.
 - 레거시 복사 완료로 새 구조로의 전환 준비가 끝났으며, 내일은 서버 문서루트만 전환하면 새 구조로 완전 이행 가능.
+## 2025-11-02
+- [x] /events 허브 페이지 생성(전체/지점별) 및 파일 생성 스크립트 추가
+  - 파일: `apps/web/tools/generate_events_pages.py`
+  - 산출물: `apps/web/public/events/index.html`, `events/songdo.html`, `events/gimpo.html`, `events/spaceone.html`
+- [x] 메인에 노출형 "전체 보기" 섹션 추가(내부 링크 강화)
+  - 파일: `apps/web/public/index.html`
+- [x] sitemap.xml 생성 로직에 /events 페이지 포함
+  - 파일: `apps/crawler/crawler_organized.py: generate_sitemap`

@@ -489,6 +489,19 @@ def generate_sitemap(pages_dir, base_url, output_path):
             url = f"{base_url.rstrip('/')}/{url_path}"
             urls.append((url, lastmod))
 
+    # 이벤트 허브 페이지가 있으면 포함
+    events_dir = os.path.abspath(os.path.join(pages_dir, '..', 'events'))
+    if os.path.isdir(events_dir):
+        for fn in os.listdir(events_dir):
+            if not fn.endswith('.html'):
+                continue
+            fp = os.path.join(events_dir, fn)
+            lastmod = datetime.fromtimestamp(os.path.getmtime(fp)).strftime('%Y-%m-%d')
+            url = f"{base_url.rstrip('/')}/events/{fn}"
+            if fn == 'index.html':
+                url = f"{base_url.rstrip('/')}/events/"
+            urls.append((url, lastmod))
+
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
     sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
     for url, lastmod in urls:
