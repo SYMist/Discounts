@@ -12,14 +12,15 @@
 
 ### GA4 Measurement ID 주입
 - Pages → Settings → Variables and Secrets에 `GA_MEASUREMENT_ID=G-XXXXXXXXXX` 추가(Production/Preview)
-- 빌드 커맨드에서 플레이스홀더 치환(큰따옴표 사용)
+- 빌드 커맨드에서 플레이스홀더 치환(전체 HTML; 큰따옴표 사용)
 ```
-sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" \
-  apps/web/public/index.html \
-  apps/crawler/templates/index.tpl.html \
-  apps/crawler/templates/template.html && \
+find apps/web/public -type f -name '*.html' -print0 | \
+  xargs -0 sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" && \
+find apps/crawler/templates -type f -name '*.html' -print0 | \
+  xargs -0 sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" && \
 find apps/web/public apps/crawler/templates -name '*.bak' -delete
 ```
+- 또는 빌드 커맨드를 간소화: `bash tools/replace_ga.sh`
 
 ### 리디렉션/리라이트(_redirects)
 - `apps/web/public/_redirects` 사용(이미 생성 도구 제공)

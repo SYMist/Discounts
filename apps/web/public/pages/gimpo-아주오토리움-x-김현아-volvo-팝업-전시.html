@@ -11,6 +11,15 @@ VOLVO 팝업 전시 | " />
 VOLVO 팝업 전시, 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
   <!-- Open Graph 메타태그 -->
   <meta property="og:title" content=" 아주오토리움 X 김현아 
 VOLVO 팝업 전시">
@@ -86,7 +95,7 @@ VOLVO 팝업 전시 | 현대 프리미엄 아울렛 행사 정보</title>
 
     <h1> 아주오토리움 X 김현아 
 VOLVO 팝업 전시</h1>
-    <div class="period">6.6 ~ 6.15</div>
+    <div class="period"></div>
     <img
       class="thumbnail"
       src="https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202510/21/fb1a64d4-9aa5-4db4-b07a-48d74af77b9d.png"
@@ -140,7 +149,7 @@ VOLVO 팝업 전시 행사 이미지"
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510438408&category=event&page=4&branchCd=B00172000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510440587&category=event&page=4&branchCd=B00172000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -162,6 +171,24 @@ VOLVO 팝업 전시 행사 이미지"
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: '48d74af77b9d',
+            title: ' 아주오토리움 X 김현아 
+VOLVO 팝업 전시',
+            outlet: '김포',
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510440587&category=event&page=4&branchCd=B00172000'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-

@@ -6,15 +6,24 @@
 
   <!-- 기본 SEO 메타태그 -->
   <meta name="description" content="[NEW OPEN]
-어그(UGG) 팝업스토어 | 이월상품: 추가 30% 할인" />
+어그(UGG) 팝업스토어 | 이월상품: 최대 50% 할인" />
   <meta name="keywords" content="[NEW OPEN]
 어그(UGG) 팝업스토어, 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
   <!-- Open Graph 메타태그 -->
   <meta property="og:title" content="[NEW OPEN]
 어그(UGG) 팝업스토어">
-  <meta property="og:description" content="이월상품: 추가 30% 할인">
+  <meta property="og:description" content="이월상품: 최대 50% 할인">
   <meta property="og:image" content="https://imgprism.ehyundai.com/derivedImage/fileValue/202510/14/cc8cf79f-22cd-4faf-994d-fc522ad9c0aa_02.jpg">
   <meta property="og:url" content="https://discounts.deluxo.co.kr/spaceone/new-open-어그-ugg-팝업스토어">
   <meta property="og:type" content="website">
@@ -23,7 +32,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="[NEW OPEN]
 어그(UGG) 팝업스토어">
-  <meta name="twitter:description" content="이월상품: 추가 30% 할인">
+  <meta name="twitter:description" content="이월상품: 최대 50% 할인">
   <meta name="twitter:image" content="https://imgprism.ehyundai.com/derivedImage/fileValue/202510/14/cc8cf79f-22cd-4faf-994d-fc522ad9c0aa_02.jpg">
 
   <!-- JSON-LD 구조화 데이터 -->
@@ -46,7 +55,7 @@
       }
     },
     "image": ["https://imgprism.ehyundai.com/derivedImage/fileValue/202510/14/cc8cf79f-22cd-4faf-994d-fc522ad9c0aa_02.jpg"],
-    "description": "이월상품: 추가 30% 할인",
+    "description": "이월상품: 최대 50% 할인",
     "organizer": {
       "@type": "Organization",
       "name": "현대백화점",
@@ -110,7 +119,7 @@
 
     <div class="description">
       <h2>혜택 설명</h2>
-      <p>이월상품: 추가 30% 할인</p>
+      <p>이월상품: 최대 50% 할인</p>
     </div>
 
     <div class="product-list">
@@ -160,7 +169,7 @@
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510438312&category=event&page=3&branchCd=B00178000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510439608&category=event&page=3&branchCd=B00178000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -182,6 +191,24 @@
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: '22ad9c0aa_02',
+            title: '[NEW OPEN]
+어그(UGG) 팝업스토어',
+            outlet: '스페이스원',
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510439608&category=event&page=3&branchCd=B00178000'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-

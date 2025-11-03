@@ -6,13 +6,17 @@
 
 ## 주입/빌드
 - 환경변수: `GA_MEASUREMENT_ID=G-XXXXXXXXXX`
-- 빌드 커맨드 예시
+- 빌드 커맨드 예시(전체 HTML 일괄 치환)
 ```
-sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" \
-  apps/web/public/index.html \
-  apps/crawler/templates/index.tpl.html \
-  apps/crawler/templates/template.html && \
+find apps/web/public -type f -name '*.html' -print0 | \
+  xargs -0 sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" && \
+find apps/crawler/templates -type f -name '*.html' -print0 | \
+  xargs -0 sed -i.bak "s|GA_MEASUREMENT_ID_PLACEHOLDER|${GA_MEASUREMENT_ID}|g" && \
 find apps/web/public apps/crawler/templates -name '*.bak' -delete
+```
+  - 또는 리포지토리의 `tools/replace_ga.sh` 스크립트를 호출
+```
+bash tools/replace_ga.sh
 ```
 
 ## 이벤트 스키마

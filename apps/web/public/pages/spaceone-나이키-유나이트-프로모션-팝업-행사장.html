@@ -11,6 +11,15 @@
 프로모션 & 팝업 행사장, 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
   <!-- Open Graph 메타태그 -->
   <meta property="og:title" content="나이키 유나이트 
 프로모션 & 팝업 행사장">
@@ -33,7 +42,7 @@
     "@type": "Event",
     "name": "나이키 유나이트 
 프로모션 & 팝업 행사장",
-    "startDate": "2025-10-23",
+    "startDate": "2025-10-30",
     "endDate": "2025-11-02",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
@@ -86,7 +95,7 @@
 
     <h1>나이키 유나이트 
 프로모션 & 팝업 행사장</h1>
-    <div class="period">10.23 ~ 11.2</div>
+    <div class="period">10.30 ~ 11.2</div>
     <img
       class="thumbnail"
       src="https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202510/20/99a1e116-1618-4f0e-b8db-acc2d63b4c20.jpg"
@@ -120,7 +129,7 @@
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510438351&category=event&page=2&branchCd=B00178000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510439609&category=event&page=2&branchCd=B00178000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -142,6 +151,24 @@
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: 'acc2d63b4c20',
+            title: '나이키 유나이트 
+프로모션 & 팝업 행사장',
+            outlet: '스페이스원',
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510439609&category=event&page=2&branchCd=B00178000'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-

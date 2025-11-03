@@ -11,6 +11,15 @@
 '국화 페스티벌', 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
   <!-- Open Graph 메타태그 -->
   <meta property="og:title" content="가을 향기 가득
 '국화 페스티벌'">
@@ -142,6 +151,24 @@
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: '4953196d1167',
+            title: '가을 향기 가득
+'국화 페스티벌'',
+            outlet: '스페이스원',
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7802510439220&category=event&page=1&branchCd=B00178000'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-

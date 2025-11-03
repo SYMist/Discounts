@@ -13,6 +13,15 @@ GS건설 단독주택 브랜드
 "자이가이스트" , 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
   <!-- Open Graph 메타태그 -->
   <meta property="og:title" content="[POP-UP]
 GS건설 단독주택 브랜드
@@ -39,7 +48,7 @@ GS건설 단독주택 브랜드
 GS건설 단독주택 브랜드
 "자이가이스트" ",
     "startDate": "2025-10-01",
-    "endDate": "2025-11-04",
+    "endDate": "2025-12-08",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
@@ -93,7 +102,7 @@ GS건설 단독주택 브랜드
     <h1>[POP-UP]
 GS건설 단독주택 브랜드
 "자이가이스트" </h1>
-    <div class="period">10.1 ~ 11.4</div>
+    <div class="period">10.1 ~ 12.8</div>
     <img
       class="thumbnail"
       src="https://imgprism.ehyundai.com/derivedImage/fileValue/202509/02/7cc551ce-813a-4fe7-b4c7-11c366639f10_02.jpg"
@@ -128,7 +137,7 @@ GS건설 단독주택 브랜드
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510435093&category=event&page=4&branchCd=B00172000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510440482&category=event&page=4&branchCd=B00172000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -150,6 +159,25 @@ GS건설 단독주택 브랜드
     </footer>
 
   </div>
+  <script>
+    (function(){
+      function sendGA(name, params){
+        try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch(e){}
+      }
+      var a = document.querySelector('p.event-banner a');
+      if (a) {
+        a.addEventListener('click', function(){
+          sendGA('detail_official_click', {
+            event_id: '366639f10_02',
+            title: '[POP-UP]
+GS건설 단독주택 브랜드
+"자이가이스트" ',
+            outlet: '김포',
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202510440482&category=event&page=4&branchCd=B00172000'
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-
