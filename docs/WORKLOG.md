@@ -67,9 +67,13 @@
 - [x] sitemap.xml 생성 로직에 /events 페이지 포함
   - 파일: `apps/crawler/crawler_organized.py: generate_sitemap`
 
+## 2025-11-04
+- [x] /events 허브 자동 갱신(CI/스케줄 연동, 허브만 갱신)
+  - 워크플로: `.github/workflows/update-events.yml` (매일 09:00 KST)
+  - 내용: `apps/web/tools/generate_events_pages.py` 실행 → `apps/web/public/events/*` 갱신 → 변경 시 커밋/푸시
+
 ### 백로그
 
-- [ ] /events 허브 자동 갱신(CI/스케줄 연동)
 - [ ] index 노출형 "전체 보기" 섹션 추가(정적 링크 display:none 제거/대체)
 - [ ] 상세 페이지 개선: Breadcrumb(UI + BreadcrumbList 스키마) 추가, 같은 지점 관련 행사 3~5개 내부 링크 노출
 - [ ] sitemap 품질 보강: lastmod 갱신 확인, URL 증가 시 sitemap index 분할 도입 검토
