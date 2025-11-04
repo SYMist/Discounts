@@ -324,12 +324,19 @@ def generate_html(detail_data, event_id):
 
     # 템플릿 변수 치환
     html = template
-    html = html.replace("{{제목}}", detail_data["제목"])
+    # 제목/설명 정리: 개행 제거 및 JSON-LD용 이스케이프 값 추가
+    import json as _json
+    title_clean = detail_data["제목"].replace("\r", " ").replace("\n", " ").strip()
+    desc_clean = detail_data["혜택 설명"].replace("\r", " ").strip()
+    html = html.replace("{{제목}}", title_clean)
     html = html.replace("{{기간}}", detail_data["기간"])
     html = html.replace("{{상세 제목}}", detail_data["상세 제목"])
     html = html.replace("{{상세 기간}}", detail_data["상세 기간"])
     html = html.replace("{{썸네일}}", detail_data.get("썸네일", ""))
-    html = html.replace("{{혜택 설명}}", detail_data["혜택 설명"].replace("\n", "<br>"))
+    html = html.replace("{{혜택 설명}}", desc_clean.replace("\n", "<br>"))
+    # JSON-LD에 안전하게 삽입할 수 있도록 JSON 문자열로 이스케이프된 값 주입
+    html = html.replace("{{제목_JSON}}", _json.dumps(title_clean, ensure_ascii=False))
+    html = html.replace("{{혜택 설명_JSON}}", _json.dumps(desc_clean, ensure_ascii=False))
     html = html.replace("{{업데이트 날짜}}", datetime.today().strftime('%Y-%m-%d'))
     html = html.replace("{{시작일}}", detail_data.get("시작일", ""))
     html = html.replace("{{종료일}}", detail_data.get("종료일", ""))
