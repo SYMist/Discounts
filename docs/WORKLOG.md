@@ -72,9 +72,17 @@
   - 워크플로: `.github/workflows/update-events.yml` (매일 09:00 KST)
   - 내용: `apps/web/tools/generate_events_pages.py` 실행 → `apps/web/public/events/*` 갱신 → 변경 시 커밋/푸시
  - [x] 상세 페이지 내부링크 강화(브레드크럼 + 관련 행사)
-   - 파일: `apps/crawler/templates/template.html`, `apps/crawler/crawler_organized.py: generate_html`
+  - 파일: `apps/crawler/templates/template.html`, `apps/crawler/crawler_organized.py: generate_html`
  - [x] 사이트 레벨 스키마 추가(Organization/WebSite + SearchAction)
-   - 파일: `apps/web/public/index.html`
+  - 파일: `apps/web/public/index.html`
+
+## 2025-11-06
+- [ ] Cloudflare Pages: `GA_MEASUREMENT_ID`(Production) 값 확인/수정
+- [ ] Build command 점검: `*.html` 전체 치환(-exec 사용) 유지 확인
+- [ ] Redeploy 후 view-source에서 GA 플레이스홀더 미존재 확인(`G-…` 치환 완료)
+- [ ] WebSite/Organization JSON‑LD 존재 확인(메인 index)
+- [ ] 캐시 이슈 시 Cloudflare Purge Everything 후 강력 새로고침으로 재확인
+- [ ] (선택) 빌드 검증 추가: 치환 실패 시 `grep`으로 빌드 실패 처리
 
 ### 백로그
 
