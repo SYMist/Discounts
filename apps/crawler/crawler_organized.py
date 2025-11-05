@@ -1,11 +1,9 @@
 import time
-import gspread
 import os
 import requests
 import re
 from bs4 import BeautifulSoup
 from datetime import datetime
-from oauth2client.service_account import ServiceAccountCredentials
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -307,6 +305,81 @@ def fetch_event_detail(driver, url):
 
     except Exception as e:
         print(f"❌ 상세페이지 크롤링 실패: {e}")
+        return {"상세 제목": "", "상세 기간": "", "시작일":"", "종료일":"", "텍스트 설명": [], "상품 리스트": []}
+
+def fetch_event_detail_http(url):
+    """Selenium 없이 HTTP로 상세 페이지를 파싱합니다."""
+    try:
+        import requests as _req
+        html = _req.get(url, timeout=15).text
+        soup = BeautifulSoup(html, "html.parser")
+
+        title_el = soup.select_one("section.fixArea h2")
+        title_text = title_el.text.strip() if title_el else ""
+
+        period_el = soup.select_one("table.info td")
+        period_text = period_el.text.strip() if period_el else ""
+        start_iso, end_iso = parse_period(period_text)
+
+        noimg_list = [
+            f"{r.find('th').text.strip()}: {r.find('td').text.strip()}"
+            for r in soup.select("article.noImgProduct tr")
+            if r.find('th') and r.find('td')
+        ]
+
+        products = []
+        for p in soup.select("article.twoProduct figure"):
+            brand_text = (
+                p.select_one(".p_brandNm").get_text(" ", strip=True)
+                if p.select_one(".p_brandNm")
+                else ""
+            )
+            name_text = (
+                p.select_one(".p_productNm").get_text(" ", strip=True)
+                if p.select_one(".p_productNm")
+                else ""
+            )
+            brand_text = " ".join(w for w in brand_text.split() if not w.startswith("#"))
+            if brand_text.upper() in ("MEN", "WOMEN", "MEN/WOMEN"):
+                brand_text = ""
+            if not name_text and brand_text:
+                name_text, brand_text = brand_text, ""
+            if re.fullmatch(r"\[[^\]]+\]", brand_text):
+                brand_text = brand_text[1:-1].strip()
+            if not brand_text:
+                m = re.match(r"^\[([^\]]+)\]\s*(.+)$", name_text)
+                if m:
+                    brand_text = m.group(1).strip()
+                    name_text = m.group(2).strip()
+            if brand_text and "/" in name_text:
+                name_text = f"{brand_text} {name_text}"
+                brand_text = ""
+            if "증정" in brand_text or "구매시" in name_text or name_text.startswith("「"):
+                continue
+            if re.fullmatch(r"[A-Z0-9]+", name_text):
+                continue
+            price_tag = p.select_one(".p_productPrc")
+            price_txt = price_tag.get_text(" ", strip=True) if price_tag else ""
+            img_tag = p.select_one(".p_productImg")
+            img_url = img_tag["src"] if img_tag else ""
+            name_text = " ".join(name_text.split())
+            products.append({
+                "브랜드": brand_text,
+                "제품명": name_text,
+                "가격": process_price_text(price_txt),
+                "이미지": img_url
+            })
+
+        return {
+            "상세 제목": title_text,
+            "상세 기간": period_text,
+            "시작일": start_iso,
+            "종료일": end_iso,
+            "텍스트 설명": noimg_list,
+            "상품 리스트": products
+        }
+    except Exception as e:
+        print(f"❌ 상세페이지(HTTP) 크롤링 실패: {e}")
         return {"상세 제목": "", "상세 기간": "", "시작일":"", "종료일":"", "텍스트 설명": [], "상품 리스트": []}
         
 # --- HTML 페이지 생성
@@ -614,6 +687,8 @@ def generate_index(pages_dir, index_path):
 
 # --- Google Sheets 업로드
 def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
     today_str = datetime.today().strftime('%Y-%m-%d')
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -664,7 +739,13 @@ def upload_to_google_sheet(sheet_title, sheet_name, new_rows):
 
 # --- 아울렛 크롤링
 def crawl_outlet(branchCd, outletName, sheet_name):
-    driver = setup_driver()
+    import os as _os
+    listing_mode = _os.environ.get("OUTLET_LISTING_MODE", "http").lower()
+    detail_mode = _os.environ.get("OUTLET_DETAIL_MODE", "selenium").lower()
+    driver = None
+    # 드라이버는 필요한 경우에만 띄움 (listing click 또는 detail selenium)
+    if listing_mode != "http" or detail_mode == "selenium":
+        driver = setup_driver()
     new_rows = []
     # Max pages can be overridden via env (OUTLET_MAX_PAGES)
     import os as _os
@@ -691,7 +772,10 @@ def crawl_outlet(branchCd, outletName, sheet_name):
                 period = period_tag.get_text(strip=True) if period_tag else ""
                 image_url = img_tag["src"] if img_tag else ""
                 detail_url = "https://www.ehyundai.com" + link_tag["href"] if link_tag else ""
-            detail = fetch_event_detail(driver, detail_url)
+            if detail_mode == "http":
+                detail = fetch_event_detail_http(detail_url)
+            else:
+                detail = fetch_event_detail(driver, detail_url)
             thumbnail_id = image_url.split("/")[-1].split(".")[0][-12:]
             event_id = thumbnail_id
             detail_data = {
@@ -720,7 +804,8 @@ def crawl_outlet(branchCd, outletName, sheet_name):
             else:
                 new_rows.append(base_info + ["", "", "", "",
                                  datetime.today().strftime('%Y-%m-%d'), event_id])
-    driver.quit()
+    if driver:
+        driver.quit()
     # Allow skipping Google Sheets upload for dry-run via OUTLET_SKIP_SHEETS
     import os as _os
     if _os.environ.get("OUTLET_SKIP_SHEETS", "").lower() in ("1", "true", "yes"):
