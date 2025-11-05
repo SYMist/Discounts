@@ -18,9 +18,32 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);} 
     gtag('js', new Date());
     gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
+  </script>
+
+  <!-- Site-level Schema.org (Organization + WebSite with SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Deluxo Discounts",
+    "url": "https://discounts.deluxo.co.kr"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "아울렛 할인 캘린더",
+    "url": "https://discounts.deluxo.co.kr",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://discounts.deluxo.co.kr/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
   </script>
 
   <!-- FullCalendar CDN -->
