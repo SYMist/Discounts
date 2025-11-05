@@ -71,10 +71,13 @@
 - [x] /events 허브 자동 갱신(CI/스케줄 연동, 허브만 갱신)
   - 워크플로: `.github/workflows/update-events.yml` (매일 09:00 KST)
   - 내용: `apps/web/tools/generate_events_pages.py` 실행 → `apps/web/public/events/*` 갱신 → 변경 시 커밋/푸시
+ - [x] 상세 페이지 내부링크 강화(브레드크럼 + 관련 행사)
+   - 파일: `apps/crawler/templates/template.html`, `apps/crawler/crawler_organized.py: generate_html`
+ - [x] 사이트 레벨 스키마 추가(Organization/WebSite + SearchAction)
+   - 파일: `apps/web/public/index.html`
 
 ### 백로그
 
-- [ ] 상세 페이지 개선: Breadcrumb(UI + BreadcrumbList 스키마) 추가, 같은 지점 관련 행사 3~5개 내부 링크 노출
 - [ ] sitemap 품질 보강: lastmod 갱신 확인, URL 증가 시 sitemap index 분할 도입 검토
 - [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
 - [ ] Core Web Vitals 점검: 이미지 크기/캐시/폰트 로딩 최적화(PageSpeed 지표 기반)

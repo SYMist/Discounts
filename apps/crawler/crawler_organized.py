@@ -404,6 +404,46 @@ def generate_html(detail_data, event_id):
     site_base = (CFG or {}).get("SITE_BASE_URL", "https://discounts.deluxo.co.kr")
     pretty_path = f"{site_base.rstrip('/')}/{url_path}"
     html = html.replace("{{pretty_path}}", pretty_path)
+    html = html.replace("{{site_base}}", site_base.rstrip('/'))
+    html = html.replace("{{branch_en}}", branch_en)
+
+    # 관련 행사(같은 지점) 3~5개 생성
+    # 기준: 동일 브랜치 파일들 중 최근 수정 순 (현재 파일 제외)
+    related_html = []
+    try:
+        import os as _os
+        from bs4 import BeautifulSoup as _BS
+        candidates = []
+        for fn in _os.listdir(output_dir):
+            if not fn.endswith('.html'):
+                continue
+            if not fn.startswith(f"{branch_en}-"):
+                continue
+            if fn == filename:
+                continue
+            path = _os.path.join(output_dir, fn)
+            mtime = _os.path.getmtime(path)
+            # 타이틀 추출
+            title_text = None
+            try:
+                with open(path, 'r', encoding='utf-8') as rf:
+                    soup = _BS(rf, 'html.parser')
+                    h1 = soup.find('h1')
+                    if h1 and h1.get_text(strip=True):
+                        title_text = h1.get_text(strip=True)
+            except Exception:
+                title_text = None
+            candidates.append((mtime, fn, title_text))
+        # 최신순 정렬 후 상위 5개
+        candidates.sort(key=lambda x: -x[0])
+        for _, fn, title_text in candidates[:5]:
+            slug = fn[len(branch_en)+1:-5]
+            pretty = f"/{branch_en}/{slug}"
+            title_display = title_text or slug
+            related_html.append(f"<li><a href=\"{pretty}\">{title_display}</a></li>")
+    except Exception:
+        pass
+    html = html.replace("{{관련 행사}}", "\n".join(related_html))
     
     # 파일명 생성 (pages 폴더 안에 저장)
     filename_html = os.path.join(output_dir, filename)
