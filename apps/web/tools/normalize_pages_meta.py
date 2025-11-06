@@ -28,6 +28,19 @@ BRANCH_KO = {
 def norm(s: str) -> str:
     return re.sub(r"\s+", " ", (s or '').replace('\r', ' ')).strip()
 
+def parse_json_relaxed(text: str):
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+    # Replace raw newlines/tabs with spaces and collapse
+    t = text.replace('\r', ' ').replace('\n', ' ').replace('\t', ' ')
+    t = re.sub(r"\s+", " ", t)
+    try:
+        return json.loads(t)
+    except Exception:
+        return None
+
 
 def main():
     changed = 0
@@ -87,6 +100,19 @@ def main():
             twd = soup.new_tag('meta'); twd['name'] = 'twitter:description'; soup.head.append(twd)
         twd['content'] = desc or meta_desc
 
+        # Keywords normalization (optional)
+        kw = soup.find('meta', attrs={'name': 'keywords'})
+        if kw and kw.has_attr('content'):
+            kw['content'] = norm(kw['content'])
+
+        # OG/Twitter title normalization → use normalized title_text
+        ogt = soup.find('meta', attrs={'property': 'og:title'})
+        if ogt:
+            ogt['content'] = title_text
+        twt = soup.find('meta', attrs={'name': 'twitter:title'})
+        if twt:
+            twt['content'] = title_text
+
         # Alt texts normalization
         for img in soup.find_all('img'):
             if img.has_attr('alt'):
@@ -94,9 +120,8 @@ def main():
 
         # JSON-LD blocks
         for s in soup.find_all('script', attrs={'type': 'application/ld+json'}):
-            try:
-                data = json.loads(s.string)
-            except Exception:
+            data = parse_json_relaxed(s.string or '')
+            if data is None:
                 continue
             updated = False
             objs = data.get('@graph') if isinstance(data, dict) and '@graph' in data else [data]
@@ -123,6 +148,13 @@ def main():
             if updated:
                 s.string.replace_with(json.dumps(data, ensure_ascii=False))
 
+        # Breadcrumb UI(last item) normalization
+        nav = soup.find('nav', attrs={'aria-label': 'Breadcrumb'})
+        if nav:
+            current = nav.find(attrs={'aria-current': 'page'})
+            if current:
+                current.clear(); current.append(title_text)
+
         new_html = str(soup)
         if new_html != html:
             with open(path, 'w', encoding='utf-8') as f:
@@ -134,4 +166,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
