@@ -77,12 +77,15 @@
   - 파일: `apps/web/public/index.html`
 
 ## 2025-11-06
-- [ ] Cloudflare Pages: `GA_MEASUREMENT_ID`(Production) 값 확인/수정
-- [ ] Build command 점검: `*.html` 전체 치환(-exec 사용) 유지 확인
-- [ ] Redeploy 후 view-source에서 GA 플레이스홀더 미존재 확인(`G-…` 치환 완료)
-- [ ] WebSite/Organization JSON‑LD 존재 확인(메인 index)
-- [ ] 캐시 이슈 시 Cloudflare Purge Everything 후 강력 새로고침으로 재확인
+- [x] Cloudflare Pages: `GA_MEASUREMENT_ID`(Production) 값 확인
+- [x] Build command 수정 및 점검: `*.html` 전체 치환(-exec 사용)
+- [x] Redeploy 후 view-source에서 GA 치환(`G-…`) 확인
+- [x] WebSite/Organization JSON‑LD 존재 확인(메인 index)
+- [x] Cloudflare Purge Everything 후 강력 새로고침 재확인
 - [ ] (선택) 빌드 검증 추가: 치환 실패 시 `grep`으로 빌드 실패 처리
+- [x] 상세 페이지 JSON‑LD/Event/Breadcrumb 정규화(개행 제거, 설명 보완)
+- [x] og/twitter title 및 브레드크럼 UI 텍스트 공백 정규화
+- [x] 생성 로직 개선: META_DESC/OG_DESC/DESC_JSON 주입 및 설명 fallback(기간/지점)
 
 ### 백로그
 
