@@ -106,3 +106,11 @@
 ### 비고
 - 모든 변경은 기본 경로/규칙을 보존하도록 설계되어 현재 운영에 영향 없음.
 - 레거시 복사 완료로 새 구조로의 전환 준비가 끝났으며, 내일은 서버 문서루트만 전환하면 새 구조로 완전 이행 가능.
+## 2025-11-09
+- [x] CWV 2~3차 튜닝 적용
+  - 이미지: hero fetchpriority=high, decoding=async, width/height 지정, aspect-ratio로 CLS 완화
+  - 스크립트: index `script.js` defer, 외부 스크립트/캘린더 defer 유지
+  - 네트워크: preconnect(jsdelivr/imgprism/GA), 관련 상세 2건 prefetch 주입
+  - 캐시: CSS/JS 30일 캐시 + SWR, 이미지 1년 immutable(`_headers`)
+  - 렌더링: `content-visibility: auto`를 캘린더/상품목록에 적용
+  - 캐시버스팅: `style.css`/`script.js`에 버전 쿼리(`?v=20251109`)
