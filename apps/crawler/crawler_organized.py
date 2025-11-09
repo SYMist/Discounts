@@ -439,7 +439,7 @@ def generate_html(detail_data, event_id):
           <img
             src="{p['이미지']}"
             alt="{p['제품명']} 행사 이미지"
-            loading="lazy" width="800" height="800"
+            loading="lazy" decoding="async" width="800" height="800"
           />
           <h3 class='name'>{p['제품명']}</h3>
           <p class='price'>{p['가격']}</p>

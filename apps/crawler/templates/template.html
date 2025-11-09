@@ -9,6 +9,12 @@
   <meta name="keywords" content="{{제목}}, 아울렛 세일, 현대아울렛, 할인 행사">
   <meta name="author" content="SY Outlet Bot">
 
+  <!-- Performance: preconnect/dns-prefetch for critical origins -->
+  <link rel="preconnect" href="https://imgprism.ehyundai.com" crossorigin>
+  <link rel="dns-prefetch" href="//imgprism.ehyundai.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
   <script>
@@ -128,7 +134,10 @@
       class="thumbnail"
       src="{{썸네일}}"
       alt="{{제목}} 행사 이미지"
-      loading="lazy"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      width="1200" height="675"
     >
 
     <!-- AdSense Display Ad: 행사 이미지와 혜택 설명 사이 -->

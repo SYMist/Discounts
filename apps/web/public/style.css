@@ -87,6 +87,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* CWV: Reserve space and optimize images */
+img { height: auto; max-width: 100%; }
+.thumbnail {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Reserve space to reduce CLS */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 @keyframes backgroundShift {
   0%, 100% { filter: hue-rotate(0deg); }
   50% { filter: hue-rotate(30deg); }
