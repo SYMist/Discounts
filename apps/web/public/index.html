@@ -18,7 +18,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);} 
     gtag('js', new Date());
     gtag('config', 'GA_MEASUREMENT_ID_PLACEHOLDER', { anonymize_ip: true });
   </script>
@@ -46,21 +46,15 @@
   }
   </script>
 
-  <!-- Performance: preconnect for critical origins -->
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-  <link rel="preconnect" href="https://imgprism.ehyundai.com" crossorigin>
-  <link rel="dns-prefetch" href="//imgprism.ehyundai.com">
-
   <!-- FullCalendar CDN -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
   <!-- Google API -->
-  <script src="https://apis.google.com/js/api.js" defer></script>
+  <script src="https://apis.google.com/js/api.js"></script>
 
   <!-- 사용자 정의 CSS -->
-  <link rel="stylesheet" href="style.css?v=20251109" />
+  <link rel="stylesheet" href="style.css" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5716436301710258"
      crossorigin="anonymous"></script>
 </head>
@@ -136,7 +130,6 @@
     </span>
   </footer>
   
-  <link rel="prefetch" href="/events/" as="document">
-  <script src="script.js?v=20251109" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
