@@ -497,6 +497,7 @@ def generate_html(detail_data, event_id):
     # 관련 행사(같은 지점) 3~5개 생성
     # 기준: 동일 브랜치 파일들 중 최근 수정 순 (현재 파일 제외)
     related_html = []
+    related_prefetch = []
     try:
         import os as _os
         from bs4 import BeautifulSoup as _BS
@@ -523,14 +524,18 @@ def generate_html(detail_data, event_id):
             candidates.append((mtime, fn, title_text))
         # 최신순 정렬 후 상위 5개
         candidates.sort(key=lambda x: -x[0])
-        for _, fn, title_text in candidates[:5]:
+        top_related = candidates[:5]
+        for i, (_, fn, title_text) in enumerate(top_related):
             slug = fn[len(branch_en)+1:-5]
             pretty = f"/{branch_en}/{slug}"
             title_display = title_text or slug
             related_html.append(f"<li><a href=\"{pretty}\">{title_display}</a></li>")
+            if i < 2:
+                related_prefetch.append(f"<link rel=\"prefetch\" href=\"{pretty}\" as=\"document\">")
     except Exception:
         pass
     html = html.replace("{{관련 행사}}", "\n".join(related_html))
+    html = html.replace("{{RELATED_PREFETCH}}", "\n  ".join(related_prefetch))
     
     # 파일명 생성 (pages 폴더 안에 저장)
     filename_html = os.path.join(output_dir, filename)
