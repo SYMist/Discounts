@@ -102,10 +102,13 @@
   - 각 파트 `lastmod`를 포함(파일 mtime 기반), 기존 파트 파일 자동 정리
   - 크롤러 워크플로에서 `sitemap-*.xml` 커밋 포함되도록 수정
   - 파일: `apps/crawler/crawler_organized.py`, `.github/workflows/crawl-refresh.yml`
+ - [x] 크롤러 자동화 확장(선택적 시트 업로드)
+   - GitHub Actions에서 `GOOGLE_SA_JSON_B64` 시트 자격증명(베이스64) 제공 시 자동 디코드 → `apps/crawler/credentials.json`
+   - 시트 업로드 ON/OFF: `OUTLET_SKIP_SHEETS`를 동적으로 설정
+   - 파일: `.github/workflows/crawl-refresh.yml`
 
 ### 백로그
 
-- [ ] sitemap 품질 보강: lastmod 갱신 확인, URL 증가 시 sitemap index 분할 도입 검토
 - [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
 - [ ] Core Web Vitals 점검: 이미지 크기/캐시/폰트 로딩 최적화(PageSpeed 지표 기반)
 - [ ] 스키마 보강(사이트 레벨): Organization/WebSite + (선택) SearchAction 추가

@@ -23,14 +23,28 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install requests beautifulsoup4 gspread oauth2client
 
-      - name: Run crawler (HTTP detail/list; skip sheets)
+      - name: Configure Google credentials (optional)
+        env:
+          GOOGLE_SA_JSON_B64: ${{ secrets.GOOGLE_SA_JSON_B64 }}
+        run: |
+          if [ -n "${GOOGLE_SA_JSON_B64}" ]; then
+            mkdir -p apps/crawler
+            echo "$GOOGLE_SA_JSON_B64" | base64 -d > apps/crawler/credentials.json || echo "$GOOGLE_SA_JSON_B64" | base64 --decode > apps/crawler/credentials.json
+            echo "OUTLET_SKIP_SHEETS=0" >> $GITHUB_ENV
+            echo "Configured Google credentials for Sheets upload."
+          else
+            echo "OUTLET_SKIP_SHEETS=1" >> $GITHUB_ENV
+            echo "No GOOGLE_SA_JSON_B64 secret; will skip Sheets upload."
+          fi
+
+      - name: Run crawler (HTTP detail/list; optional Sheets)
         env:
           OUTLET_LISTING_MODE: http
           OUTLET_DETAIL_MODE: http
           OUTLET_MAX_PAGES: '4'
-          OUTLET_SKIP_SHEETS: '1'
+          OUTLET_SKIP_SHEETS: ${{ env.OUTLET_SKIP_SHEETS }}
         run: |
           python3 apps/crawler/crawler_organized.py
 
