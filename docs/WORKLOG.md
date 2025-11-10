@@ -102,10 +102,25 @@
   - 각 파트 `lastmod`를 포함(파일 mtime 기반), 기존 파트 파일 자동 정리
   - 크롤러 워크플로에서 `sitemap-*.xml` 커밋 포함되도록 수정
   - 파일: `apps/crawler/crawler_organized.py`, `.github/workflows/crawl-refresh.yml`
- - [x] 크롤러 자동화 확장(선택적 시트 업로드)
-   - GitHub Actions에서 `GOOGLE_SA_JSON_B64` 시트 자격증명(베이스64) 제공 시 자동 디코드 → `apps/crawler/credentials.json`
-   - 시트 업로드 ON/OFF: `OUTLET_SKIP_SHEETS`를 동적으로 설정
-   - 파일: `.github/workflows/crawl-refresh.yml`
+- [x] 크롤러 자동화 확장(선택적 시트 업로드)
+  - GitHub Actions에서 `GOOGLE_SA_JSON_B64` 시트 자격증명(베이스64) 제공 시 자동 디코드 → `apps/crawler/credentials.json`
+  - 시트 업로드 ON/OFF: `OUTLET_SKIP_SHEETS`를 동적으로 설정
+  - 파일: `.github/workflows/crawl-refresh.yml`
+ - [x] 프리티 URL 308 → 200 고정(리디렉션 오류 해소)
+   - Pages Functions로 `/{branch}/{slug}`를 내부 fetch로 200 서빙(확장자 없는 `/pages/{branch}-{slug}` 경로 사용)
+   - 핫픽스: `_redirects` 최상단에 `/spaceone/에이샵-애플-11월-프로모션` 200 리라이트 추가
+   - 검증: `curl -I` 결과 200 확인
+ - [x] GSC 색인 요청(오늘)
+   - https://discounts.deluxo.co.kr/events/spaceone.html
+   - https://discounts.deluxo.co.kr/events/songdo.html
+   - https://discounts.deluxo.co.kr/events/
+   - https://discounts.deluxo.co.kr/events/gimpo.html
+   - https://discounts.deluxo.co.kr/spaceone/에이샵-애플-11월-프로모션
+   - https://discounts.deluxo.co.kr/spaceone/오르시떼-홈웨어-팝업스토어
+   - https://discounts.deluxo.co.kr/spaceone/winelist-가성비-와인-추천
+   - https://discounts.deluxo.co.kr/spaceone/따뜻한-겨울나기-f-b-혜택-ⅱ
+   - https://discounts.deluxo.co.kr/spaceone/따뜻한-겨울나기-f-b-혜택-ⅰ
+   - https://discounts.deluxo.co.kr/spaceone/last-chance-골든듀-최대-30-특가전
 
 ### 백로그
 
