@@ -116,3 +116,9 @@
 - 모든 변경은 기본 경로/규칙을 보존하도록 설계되어 현재 운영에 영향 없음.
 - 레거시 복사 완료로 새 구조로의 전환 준비가 끝났으며, 내일은 서버 문서루트만 전환하면 새 구조로 완전 이행 가능.
  
+## 2025-11-10
+- [x] Sitemap 품질 보강
+  - URL 수 임계치(5k) 초과 시 자동 분할(sitemap-1.xml …) + `sitemap.xml`을 index로 생성
+  - 각 파트 `lastmod`를 포함(파일 mtime 기반), 기존 파트 파일 자동 정리
+  - 크롤러 워크플로에서 `sitemap-*.xml` 커밋 포함되도록 수정
+  - 파일: `apps/crawler/crawler_organized.py`, `.github/workflows/crawl-refresh.yml`

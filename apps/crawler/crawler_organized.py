@@ -601,22 +601,25 @@ def add_comprehensive_mapping(event_id, filename):
     
     return mappings_added
 
-def generate_sitemap(pages_dir, base_url, output_path):
-    urls = []
-    # ── ① 루트 페이지(https://discounts.deluxo.co.kr/) 추가
+def generate_sitemap(pages_dir, base_url, output_path, split_threshold: int = 5000):
+    """Generate sitemap.
+    - If URL count <= split_threshold: write a single urlset to output_path.
+    - Else: write multiple part files (sitemap-1.xml, sitemap-2.xml, ...), and
+      make output_path a sitemap index that points to those part files.
+    """
+    urls = []  # List[Tuple[url, lastmod]]
+    # ── ① 루트/정적 페이지
     today = datetime.today().strftime('%Y-%m-%d')
-    # base_url은 "https://discounts.deluxo.co.kr" 기준
     site_root = base_url.rstrip('/') + '/'
     urls.append((site_root, today))
-    # ── ② (선택) privacy.html 같은 정적 페이지 추가
     urls.append((site_root + "privacy.html", today))
-    
-    # 새로운 SEO 친화적인 URL 구조의 파일들 처리 (프리티 URL 사용)
+
+    # ── ② 상세 페이지(프리티 URL)
     for filename in os.listdir(pages_dir):
         if filename.endswith(".html") and '-' in filename and not filename.startswith('index'):
             filepath = os.path.join(pages_dir, filename)
             lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
-            name_without_ext = filename[:-5]  # strip .html
+            name_without_ext = filename[:-5]
             if name_without_ext.startswith('songdo-'):
                 url_path = name_without_ext.replace('songdo-', 'songdo/')
             elif name_without_ext.startswith('gimpo-'):
@@ -628,7 +631,7 @@ def generate_sitemap(pages_dir, base_url, output_path):
             url = f"{base_url.rstrip('/')}/{url_path}"
             urls.append((url, lastmod))
 
-    # 이벤트 허브 페이지가 있으면 포함
+    # ── ③ /events 허브 페이지
     events_dir = os.path.abspath(os.path.join(pages_dir, '..', 'events'))
     if os.path.isdir(events_dir):
         for fn in os.listdir(events_dir):
@@ -641,21 +644,68 @@ def generate_sitemap(pages_dir, base_url, output_path):
                 url = f"{base_url.rstrip('/')}/events/"
             urls.append((url, lastmod))
 
-    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
-    sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-    for url, lastmod in urls:
-        sitemap.append("  <url>")
-        sitemap.append(f"    <loc>{url}</loc>")
-        sitemap.append(f"    <lastmod>{lastmod}</lastmod>")
-        sitemap.append("    <changefreq>daily</changefreq>")
-        prio = "1.0" if url.rstrip("/") == site_root.rstrip("/") else "0.8"
-        sitemap.append(f"    <priority>{prio}</priority>")
-        sitemap.append("  </url>")
-    sitemap.append('</urlset>')
+    # helper: write one urlset part
+    def _write_part(part_urls, out_file):
+        part = ['<?xml version="1.0" encoding="UTF-8"?>']
+        part.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+        for url, lastmod in part_urls:
+            part.append("  <url>")
+            part.append(f"    <loc>{url}</loc>")
+            part.append(f"    <lastmod>{lastmod}</lastmod>")
+            part.append("    <changefreq>daily</changefreq>")
+            prio = "1.0" if url.rstrip('/') == site_root.rstrip('/') else "0.8"
+            part.append(f"    <priority>{prio}</priority>")
+            part.append("  </url>")
+        part.append('</urlset>')
+        with open(out_file, 'w', encoding='utf-8') as wf:
+            wf.write("\n".join(part))
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(sitemap))
-    print(f"✔ 새로운 URL 구조의 sitemap.xml 생성 완료: {output_path}")
+    # If URL count small, write a single sitemap
+    output_dir = os.path.dirname(output_path)
+    if len(urls) <= split_threshold:
+        _write_part(urls, output_path)
+        print(f"✔ sitemap.xml 생성 완료(단일 파일, {len(urls)} urls): {output_path}")
+        # Clean up old parts if any
+        for fn in os.listdir(output_dir):
+            if fn.startswith('sitemap-') and fn.endswith('.xml'):
+                try:
+                    os.remove(os.path.join(output_dir, fn))
+                except Exception:
+                    pass
+        return
+
+    # Split into multiple parts and build index
+    # Clean old parts first
+    for fn in os.listdir(output_dir):
+        if fn.startswith('sitemap-') and fn.endswith('.xml'):
+            try:
+                os.remove(os.path.join(output_dir, fn))
+            except Exception:
+                pass
+
+    parts = []  # List[Tuple[part_filename, lastmod]]
+    for i in range(0, len(urls), split_threshold):
+        chunk = urls[i:i+split_threshold]
+        part_name = f"sitemap-{len(parts)+1}.xml"
+        part_path = os.path.join(output_dir, part_name)
+        _write_part(chunk, part_path)
+        # lastmod for part = max of chunk
+        part_lastmod = max((lm for _, lm in chunk), default=today)
+        parts.append((part_name, part_lastmod))
+
+    # Write index to output_path
+    index_xml = ['<?xml version="1.0" encoding="UTF-8"?>']
+    index_xml.append('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    for name, lm in parts:
+        loc = f"{base_url.rstrip('/')}/{name}"
+        index_xml.append("  <sitemap>")
+        index_xml.append(f"    <loc>{loc}</loc>")
+        index_xml.append(f"    <lastmod>{lm}</lastmod>")
+        index_xml.append("  </sitemap>")
+    index_xml.append('</sitemapindex>')
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write("\n".join(index_xml))
+    print(f"✔ sitemap index 생성 완료({len(parts)} parts, 총 {len(urls)} urls): {output_path}")
 
 def generate_index(pages_dir, index_path):
     import os

@@ -36,13 +36,12 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          if ! git diff --quiet -- apps/web/public/pages apps/web/public/sitemap.xml apps/web/public/url-mapping.json; then
+          if ! git diff --quiet -- apps/web/public/pages apps/web/public/sitemap.xml apps/web/public/sitemap-*.xml apps/web/public/url-mapping.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add apps/web/public/pages apps/web/public/sitemap.xml apps/web/public/url-mapping.json
+            git add apps/web/public/pages apps/web/public/sitemap.xml apps/web/public/sitemap-*.xml apps/web/public/url-mapping.json
             git commit -m "chore(crawl): refresh pages + sitemap via HTTP mode"
             git push
           else
             echo "No crawl changes; skipping commit."
           fi
-
