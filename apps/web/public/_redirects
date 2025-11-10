@@ -1,3 +1,6 @@
+# Hotfix: force 200 rewrite for a problematic slug (GSC redirects error)
+/spaceone/에이샵-애플-11월-프로모션   /pages/spaceone-에이샵-애플-11월-프로모션.html 200
+
 /songdo/*    /pages/songdo-:splat.html   200
 /gimpo/*     /pages/gimpo-:splat.html    200
 /spaceone/*  /pages/spaceone-:splat.html 200
