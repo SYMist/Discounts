@@ -14,12 +14,12 @@ export async function onRequest(context) {
   if (m) {
     const branch = m[1];
     const slug = m[2];
-    const newPath = `/pages/${branch}-${slug}.html`;
+    const newPath = `/pages/${branch}-${slug}`; // extensionless to avoid 308
     const target = new URL(url.toString());
     target.pathname = newPath;
-    return fetch(new Request(target.toString(), request));
+    const init = { method: request.method, headers: request.headers };
+    return fetch(new Request(target.toString(), init));
   }
 
   return context.next();
 }
-

@@ -14,10 +14,13 @@ export async function onRequest(context) {
   if (m) {
     const branch = m[1];
     const slug = m[2];
-    const newPath = `/pages/${branch}-${slug}.html`;
+    // Use extensionless path to avoid Clean URLs 308
+    const newPath = `/pages/${branch}-${slug}`;
     const target = new URL(url.toString());
     target.pathname = newPath;
-    return fetch(new Request(target.toString(), request));
+    // Preserve method/headers; suitable for GET/HEAD
+    const init = { method: request.method, headers: request.headers };
+    return fetch(new Request(target.toString(), init));
   }
 
   return context.next();
