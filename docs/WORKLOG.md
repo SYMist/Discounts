@@ -105,7 +105,7 @@
 - [x] 크롤러 자동화 확장(선택적 시트 업로드)
   - GitHub Actions에서 `GOOGLE_SA_JSON_B64` 시트 자격증명(베이스64) 제공 시 자동 디코드 → `apps/crawler/credentials.json`
   - 시트 업로드 ON/OFF: `OUTLET_SKIP_SHEETS`를 동적으로 설정
-  - 파일: `.github/workflows/crawl-refresh.yml`
+ - 파일: `.github/workflows/crawl-refresh.yml`
  - [x] 프리티 URL 308 → 200 고정(리디렉션 오류 해소)
    - Pages Functions로 `/{branch}/{slug}`를 내부 fetch로 200 서빙(확장자 없는 `/pages/{branch}-{slug}` 경로 사용)
    - 핫픽스: `_redirects` 최상단에 `/spaceone/에이샵-애플-11월-프로모션` 200 리라이트 추가
@@ -121,17 +121,15 @@
    - https://discounts.deluxo.co.kr/spaceone/따뜻한-겨울나기-f-b-혜택-ⅱ
    - https://discounts.deluxo.co.kr/spaceone/따뜻한-겨울나기-f-b-혜택-ⅰ
    - https://discounts.deluxo.co.kr/spaceone/last-chance-골든듀-최대-30-특가전
+ - [x] Search Console 운영 유틸/가이드 추가
+   - 문서: `docs/SEARCH_CONSOLE.md` (일일 루틴/제외사유/유틸 사용법)
+   - 도구: `apps/web/tools/list_recent_urls.py` (최근 N일 URL 후보 리스트업)
 
 ### 백로그
 
 - [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
 - [ ] Core Web Vitals 점검: 이미지 크기/캐시/폰트 로딩 최적화(PageSpeed 지표 기반)
 - [ ] 크롤러 자동화: 일정 주기로 전체 수집 + sitemap/index 재생성(예: GitHub Actions 스케줄)
-
-## 2025-11-10 (추가)
-- [x] Search Console 운영 유틸/가이드 추가
-  - 문서: `docs/SEARCH_CONSOLE.md` (일일 루틴/제외사유/유틸 사용법)
-  - 도구: `apps/web/tools/list_recent_urls.py` (최근 N일 URL 후보 리스트업)
 
 ### 참고 파일 경로
 - 크롤러: `apps/crawler/crawler_organized.py`
