@@ -15,6 +15,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # apps/web
 PUBLIC = os.path.join(BASE, 'public')
 PAGES = os.path.join(PUBLIC, 'pages')
 EVENTS = os.path.join(PUBLIC, 'events')
+DEFAULT_SITE_BASE = os.environ.get('SITE_BASE_URL', 'https://discounts.deluxo.co.kr')
 
 def iter_pages(days: int):
     cutoff = datetime.now() - timedelta(days=days)
@@ -50,12 +51,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--days', type=int, default=7)
     ap.add_argument('--limit', type=int, default=100)
+    ap.add_argument('--base', type=str, default=None, help='Base URL for absolute output (default: env SITE_BASE_URL or https://discounts.deluxo.co.kr)')
     args = ap.parse_args()
 
     items = sorted(iter_pages(args.days), key=lambda x: -x[0].timestamp())
+    base = (args.base or DEFAULT_SITE_BASE).rstrip('/')
     for _, url in items[:args.limit]:
-        print(url)
+        print(f"{base}{url}")
 
 if __name__ == '__main__':
     main()
-
