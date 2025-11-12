@@ -86,7 +86,7 @@ def render_page(title, items):
     lis = []
     for it in items:
         lis.append(f"<li><a href=\"{it['pretty']}\">[{it['branch']}] {it['title']}</a></li>")
-    body = f"<ul>\n{os.linesep.join(lis)}\n</ul>"
+    body = f"<ul class=\"events-grid\">\n{os.linesep.join(lis)}\n</ul>"
     foot = """
     <p style="margin-top:1rem"><a href="/">메인으로</a></p>
   </div>
@@ -119,4 +119,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

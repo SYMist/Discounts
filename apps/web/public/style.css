@@ -103,19 +103,19 @@ img { height: auto; max-width: 100%; }
   text-align: center;
   margin: 0 0 var(--space-md) 0;
 }
-#hubs .hub-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+#hubs .hub-pills {
+  display:flex;
+  flex-wrap: wrap;
   gap: var(--space-md);
-  max-width: var(--container-lg);
-  margin: 0 auto;
+  justify-content: center;
 }
-#hubs .hub-card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-lg);
-  border-radius: var(--card-radius);
+#hubs .hub-pill {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 120px;
+  padding: 12px 18px;
+  border-radius: 14px;
   background: var(--card-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -123,16 +123,36 @@ img { height: auto; max-width: 100%; }
   box-shadow: var(--card-shadow);
   text-decoration: none;
   color: inherit;
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
 }
-#hubs .hub-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--card-shadow-hover);
-  background: var(--card-bg-hover);
+#hubs .hub-pill:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); background: var(--card-bg-hover); }
+
+/* Events pages: card-like list */
+.events-grid {
+  list-style:none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--container-xl);
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
 }
-#hubs .hub-emoji { font-size: 1.5rem; }
-#hubs .hub-text strong { display:block; font-size: var(--text-lg); }
-#hubs .hub-text small { color: var(--text-light); }
+.events-grid li a {
+  display:block;
+  padding: var(--space-lg);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  text-decoration:none;
+  color: inherit;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.events-grid li a:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); background: var(--card-bg-hover); }
 
 /* Improve rendering performance for large sections */
 #calendar-container, .product-list {
