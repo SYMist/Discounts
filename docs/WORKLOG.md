@@ -125,6 +125,14 @@
    - 문서: `docs/SEARCH_CONSOLE.md` (일일 루틴/제외사유/유틸 사용법)
    - 도구: `apps/web/tools/list_recent_urls.py` (최근 N일 URL 후보 리스트업)
 
+## 2025-11-12
+- [x] 메인 허브 UI 개선: 가로 pill 형태로 정렬(전체·송도·김포·스페이스원)
+  - 파일: `apps/web/public/index.html`, `apps/web/public/style.css`
+- [x] /events 페이지 카드 그리드(글래스모픽) 적용
+  - 파일: `apps/web/public/events/*.html`, `apps/web/public/style.css`
+- [x] 이벤트 페이지 생성기 업데이트: 카드 그리드 클래스 반영
+  - 파일: `apps/web/tools/generate_events_pages.py`
+
 ### 백로그
 
 - [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
