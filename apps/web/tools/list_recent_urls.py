@@ -52,12 +52,20 @@ def main():
     ap.add_argument('--days', type=int, default=7)
     ap.add_argument('--limit', type=int, default=100)
     ap.add_argument('--base', type=str, default=None, help='Base URL for absolute output (default: env SITE_BASE_URL or https://discounts.deluxo.co.kr)')
+    ap.add_argument('--encode', action='store_true', help='Percent-encode non-ASCII path segments')
     args = ap.parse_args()
 
     items = sorted(iter_pages(args.days), key=lambda x: -x[0].timestamp())
     base = (args.base or DEFAULT_SITE_BASE).rstrip('/')
+    from urllib.parse import quote
     for _, url in items[:args.limit]:
-        print(f"{base}{url}")
+        if args.encode:
+            # split and encode each segment
+            parts = [quote(p) for p in url.split('/')]
+            encoded_path = '/'.join(parts)
+            print(f"{base}{encoded_path}")
+        else:
+            print(f"{base}{url}")
 
 if __name__ == '__main__':
     main()

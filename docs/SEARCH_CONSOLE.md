@@ -8,7 +8,12 @@
    - Sitemaps: `/sitemap.xml` 제출 상태와 오류/경고 확인
    - 분할된 `sitemap-*.xml`이 있는 경우 index가 모든 part를 가리키는지 확인
 2) 핵심 URL 인덱싱 요청(최대 10~20개)
-   - `python3 apps/web/tools/list_recent_urls.py --days 3 --limit 50`로 최근 URL 후보(절대 URL)를 뽑아 상위 우선 제출
+   - 최근 URL 후보 추출(절대 URL):
+     - `python3 apps/web/tools/list_recent_urls.py --days 3 --limit 50`
+     - 한글 슬러그 인코딩 필요 시 `--encode` 옵션 추가
+   - 200/리디렉션 체인 빠른 점검(선택):
+     - `python3 apps/web/tools/list_recent_urls.py --days 3 --limit 50 --encode | python3 apps/web/tools/check_urls.py`
+     - 리디렉션까지 따라가려면 `... | python3 apps/web/tools/check_urls.py -F`
 3) 제외 사유 분석
    - “크롤링됨-미인덱스”, “중복(선정하지 않음)” 우선
    - 원인 예: 내부 링크 부족, 페이지 유사도 높음, 링크 깊이, 새로 생성된 페이지군 등
@@ -24,6 +29,12 @@ python3 apps/web/tools/list_recent_urls.py --days 7 --limit 100 > recent_urls.tx
 - `--limit`: 최대 개수(기본 100)
 - `--base`: 절대 URL 베이스(기본: 환경변수 `SITE_BASE_URL` 또는 `https://discounts.deluxo.co.kr`)
   - 예) 스테이징용: `python3 ... --base https://discounts-1t9.pages.dev`
+  - `--encode`: 경로 퍼센트 인코딩
+
+추가 도구
+- `apps/web/tools/check_urls.py` : 상태/리디렉션 체인 검사기(HEAD 기본)
+  - `-F/--follow` : 리디렉션 따라가기
+  - `--no-head` : GET 사용
 
 ## 팁
 - 색인 요청은 핵심 페이지(지점 메인 행사, 고가치 브랜드/프로모션) 위주로 소량 반복이 효과적입니다.
