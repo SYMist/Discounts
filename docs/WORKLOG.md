@@ -133,6 +133,12 @@
 - [x] 이벤트 페이지 생성기 업데이트: 카드 그리드 클래스 반영
   - 파일: `apps/web/tools/generate_events_pages.py`
 
+## 2025-11-22
+- [x] Cloudflare Workers에서 prerender-worker Route 삭제로 정적 서빙으로 전환
+  - 위치: Workers & Pages → prerender-worker → Routes (`https://discounts.deluxo.co.kr/*` 제거)
+- [x] Googlebot UA 기준 메인/프리티 URL 200 응답 확인(`curl -I ...`)
+- [x] Search Console 서버 오류(5xx) 원인 정리 및 재색인 전략 정리(라이브 테스트 후 색인 생성 재요청)
+
 ### 백로그
 
 - [ ] Search Console 모니터링: URL 검사(핵심 페이지 순차 색인 요청), 제외 사유(크롤링됨‑미인덱스/중복) 원인 정리 및 대응
