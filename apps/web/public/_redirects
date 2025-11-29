@@ -1,6 +1,15 @@
 # Hotfix: force 200 rewrite for a problematic slug (GSC redirects error)
 /spaceone/에이샵-애플-11월-프로모션   /pages/spaceone-에이샵-애플-11월-프로모션.html 200
 
+# Legacy /pages/* detail URLs → pretty URLs
+/pages/songdo-:splat.html    /songdo/:splat    301
+/pages/gimpo-:splat.html     /gimpo/:splat     301
+/pages/spaceone-:splat.html  /spaceone/:splat  301
+/pages/privacy.html          /privacy.html     301
+/gimpo/스포츠-special-week-i   /gimpo/스포츠-special-week-ⅰ   301
+/pages/spaceone-pop-up-바비리다-barybody.html   /events/spaceone.html   301
+/pages/songdo-renewal-open-콰트렐즈-오렌즈-아이웨어.html   /events/songdo.html   301
+
 /songdo/*    /pages/songdo-:splat.html   200
 /gimpo/*     /pages/gimpo-:splat.html    200
 /spaceone/*  /pages/spaceone-:splat.html 200

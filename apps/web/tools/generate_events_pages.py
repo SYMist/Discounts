@@ -67,14 +67,14 @@ def load_events():
     return items
 
 
-def render_page(title, items):
+def render_page(title, items, canonical_href):
     head = f"""<!DOCTYPE html>
 <html lang=\"ko\">
 <head>
   <meta charset=\"UTF-8\" />
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
   <title>{title}</title>
-  <link rel=\"canonical\" href=\"https://discounts.deluxo.co.kr/events/\" />
+  <link rel=\"canonical\" href=\"{canonical_href}\" />
   <meta name=\"description\" content=\"현대 프리미엄 아울렛 행사 모음 – 지점별 최신 행사 한곳에서 보기\" />
   <link rel=\"stylesheet\" href=\"/style.css\" />
 </head>
@@ -106,13 +106,21 @@ def main():
 
     # 전체 페이지
     with open(os.path.join(EVENTS_DIR, 'index.html'), 'w', encoding='utf-8') as f:
-        f.write(render_page('아울렛 행사 전체 보기', items))
+        f.write(render_page('아울렛 행사 전체 보기',
+                            items,
+                            'https://discounts.deluxo.co.kr/events/'))
 
     # 지점별 페이지
     for branch in ['songdo', 'gimpo', 'spaceone']:
         subset = [it for it in items if it['branch'] == branch]
         with open(os.path.join(EVENTS_DIR, f'{branch}.html'), 'w', encoding='utf-8') as f:
-            f.write(render_page(f'[{branch}] 행사 모음', subset))
+            f.write(
+                render_page(
+                    f'[{branch}] 행사 모음',
+                    subset,
+                    f'https://discounts.deluxo.co.kr/events/{branch}.html',
+                )
+            )
 
     print(f"✅ generated events hub: {len(items)} items")
 
