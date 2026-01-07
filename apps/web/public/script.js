@@ -179,8 +179,21 @@ document.addEventListener("DOMContentLoaded", function () {
       if (dateParts.length !== 2) continue;
 
       const start = parseDate(dateParts[0]);
-      const end = parseDate(dateParts[1]);
+      let end = parseDate(dateParts[1]);
       if (!start || !end) continue;
+
+      // 시작일이 종료일보다 큰 경우 (연말-연초 이벤트) 종료일 연도 조정
+      if (start > end) {
+        // 종료일의 연도를 1년 증가
+        const [y, m, d] = end.split('-');
+        end = `${parseInt(y) + 1}-${m}-${d}`;
+        console.log(`🔄 연도 조정: ${dateParts[0]}~${dateParts[1]} → start=${start}, end=${end}`);
+      }
+
+      // FullCalendar의 end는 exclusive이므로 하루 추가
+      const endDate = new Date(end);
+      endDate.setDate(endDate.getDate() + 1);
+      const endExclusive = endDate.toISOString().split('T')[0];
 
       // URL 매핑이 없는 이벤트는 제외 (변형 ID도 체크)
       // eventId가 UUID 형식(예: 78565274-4f6e-420f-9df7-f2ba0c6c1728)이면 마지막 부분 추출
@@ -214,7 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
         grouped[key] = {
           title: `[${outletName}] ${title}`,
           start,
-          end,
+          end: endExclusive,  // FullCalendar용 exclusive 종료일
+          endDisplay: end,     // 표시용 실제 종료일
           description: desc,
           outlet: outletName,
           items: [],
@@ -300,9 +314,10 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         highlightEvents.forEach(event => {
           const li = document.createElement('li');
+          const displayEnd = event.endDisplay || event.end;
           li.innerHTML = `
             <strong>${event.title}</strong><br>
-            <small>기간: ${formatDateRange(event.start, event.end)}</small>
+            <small>기간: ${formatDateRange(event.start, displayEnd)}</small>
           `;
           li.style.cursor = 'pointer';
           li.style.marginBottom = '0.8rem';
@@ -342,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   title: event.title || '',
                   outlet: event.outlet || '',
                   start: event.start || '',
-                  end: event.end || ''
+                  end: event.endDisplay || event.end || ''
                 });
                 window.open(url, '_blank');
               } else {
@@ -397,7 +412,8 @@ document.addEventListener("DOMContentLoaded", function () {
           url = `/pages/${filename}`;
         }
 
-        li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, event.end)})</a>`;
+        const displayEnd = event.endDisplay || event.end;
+        li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, displayEnd)})</a>`;
         staticContainer.appendChild(li);
       });
     }
