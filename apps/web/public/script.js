@@ -155,9 +155,21 @@ document.addEventListener("DOMContentLoaded", function () {
   function parseSheetData(data, outletName) {
     const rows = data.values.slice(1);
     const grouped = {};
+    let skippedCount = 0;
+    let noMappingCount = 0;
+
+    console.log(`📥 [${outletName}] 시트에서 ${rows.length}개 행 수신`);
 
     for (const row of rows) {
-      if (row.length < 13 || !row[0] || !row[1]) continue;
+      // 디버깅: 첫 5개 행의 구조 출력
+      if (rows.indexOf(row) < 3) {
+        console.log(`[DEBUG] row[${rows.indexOf(row)}] 길이=${row.length}:`, row.slice(0, 5), '... eventId=', row[12]);
+      }
+
+      if (row.length < 13 || !row[0] || !row[1]) {
+        skippedCount++;
+        continue;
+      }
 
       const [title, period, , , thumbnail, , desc, , , , , , eventId] = row;
       const dateParts = period.split("~");
@@ -189,7 +201,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       
       if (!mappedFilename) {
-        console.log(`⚠️ 매핑되지 않은 이벤트 제외: ${eventId} - ${title}`);
+        noMappingCount++;
+        console.log(`⚠️ 매핑되지 않은 이벤트 제외: eventId="${eventId}", shortId="${shortId}", title="${title}"`);
         continue;
       }
 
@@ -214,7 +227,9 @@ document.addEventListener("DOMContentLoaded", function () {
       grouped[key].items.push({ brand, product, price });
     }
 
-    return Object.values(grouped);
+    const result = Object.values(grouped);
+    console.log(`📊 [${outletName}] 결과: ${result.length}개 이벤트 (스킵: ${skippedCount}, 매핑없음: ${noMappingCount})`);
+    return result;
   }
 
   function parseDate(str) {
