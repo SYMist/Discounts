@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="robots" content="noindex, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- 종료된 이벤트는 noindex 처리 -->
+  
 
   <!-- 기본 SEO 메타태그 -->
   <meta name="description" content="[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전 | 1.9 ~ 1.18" />
@@ -19,8 +21,8 @@
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
   <!-- Prefetch related pages (injected) -->
-  <link rel="prefetch" href="/songdo/아디다스-추가-할인-최대-30" as="document">
-  <link rel="prefetch" href="/songdo/파타고니아-살로몬-인기-상품-추천" as="document">
+  <link rel="prefetch" href="/songdo/브룩스브라더스-시즌오프" as="document">
+  <link rel="prefetch" href="/songdo/pop-up-계란빵-클럽" as="document">
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
@@ -44,23 +46,31 @@
   <meta name="twitter:description" content="[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전 | 1.9 ~ 1.18">
   <meta name="twitter:image" content="https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/30/78565274-4f6e-420f-9df7-f2ba0c6c1728.jpg">
 
-  <!-- JSON-LD 구조화 데이터 -->
+  <!-- JSON-LD 구조화 데이터 (진행 중: Event, 종료/날짜없음: Article) -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전",
-  "description": "[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전 | 1.9 ~ 1.18",
-  "image": "https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/30/78565274-4f6e-420f-9df7-f2ba0c6c1728.jpg",
-  "datePublished": "2026-01-07",
-  "dateModified": "2026-01-07",
-  "author": {
-    "@type": "Organization",
-    "name": "현대백화점"
+  "@type": "Event",
+  "name": "[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전",
+  "startDate": "2026-01-09",
+  "endDate": "2026-01-18",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "현대 프리미엄 아울렛 송도",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KR"
+    }
   },
-  "publisher": {
+  "image": [
+    "https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/30/78565274-4f6e-420f-9df7-f2ba0c6c1728.jpg"
+  ],
+  "description": "[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전 | 1.9 ~ 1.18",
+  "organizer": {
     "@type": "Organization",
-    "name": "현대 프리미엄 아울렛",
+    "name": "현대백화점",
     "url": "https://www.ehyundai.com"
   }
 }
@@ -208,11 +218,11 @@
     <section style="margin-top:2rem;">
       <h2>관련 행사 (송도)</h2>
       <ul style="list-style:disc; margin-left:1.25rem;">
-        <li><a href="/songdo/아디다스-추가-할인-최대-30">아디다스 추가 할인 최대 +30%</a></li>
-<li><a href="/songdo/파타고니아-살로몬-인기-상품-추천">파타고니아/살로몬 인기 상품 추천</a></li>
-<li><a href="/songdo/hdex-새해-맞이-쇼핑-찬스">HDEX 새해 맞이 쇼핑 찬스</a></li>
-<li><a href="/songdo/브룩스브라더스-시즌오프">브룩스브라더스 시즌오프</a></li>
-<li><a href="/songdo/노르디스크-쇼핑-찬스">노르디스크 쇼핑 찬스</a></li>
+        <li><a href="/songdo/브룩스브라더스-시즌오프">브룩스브라더스 시즌오프</a></li>
+<li><a href="/songdo/pop-up-계란빵-클럽">[POP-UP] 계란빵 클럽</a></li>
+<li><a href="/songdo/한섬-브랜드-스페셜-프로모션">한섬 브랜드 스페셜 프로모션</a></li>
+<li><a href="/songdo/pop-up-cc-paul">[POP-UP] CC&PAUL</a></li>
+<li><a href="/songdo/산드로-마쥬-최대-70-시즌오프-특가-제안">산드로/마쥬 최대 70% 시즌오프 특가 제안</a></li>
       </ul>
     </section>
 
@@ -223,7 +233,7 @@
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7402512452622&category=event&page=3&branchCd=B00174000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7402512452622&category=event&page=2&branchCd=B00174000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -257,7 +267,7 @@
             event_id: 'f2ba0c6c1728',
             title: '[키즈관 1주년 FESTA] 뽀로로 인기 굿즈 특가전',
             outlet: '송도',
-            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7402512452622&category=event&page=3&branchCd=B00174000'
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7402512452622&category=event&page=2&branchCd=B00174000'
           });
         });
       }

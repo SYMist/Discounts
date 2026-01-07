@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="robots" content="noindex, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- 종료된 이벤트는 noindex 처리 -->
+  
 
   <!-- 기본 SEO 메타태그 -->
   <meta name="description" content="[POP-UP STORE] 퐁신당 | 12.29 ~ 1.11" />
@@ -19,8 +21,8 @@
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
   <!-- Prefetch related pages (injected) -->
-  <link rel="prefetch" href="/gimpo/디즈니스토어-토이-피규어-1-1-프로모션" as="document">
   <link rel="prefetch" href="/gimpo/골든듀-신년-세일" as="document">
+  <link rel="prefetch" href="/gimpo/리바트-가구-프로모션-제안" as="document">
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
@@ -44,23 +46,31 @@
   <meta name="twitter:description" content="[POP-UP STORE] 퐁신당 | 12.29 ~ 1.11">
   <meta name="twitter:image" content="https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/28/7fc93818-1e31-4f3f-aad0-673a9f499d9e.jpg">
 
-  <!-- JSON-LD 구조화 데이터 -->
+  <!-- JSON-LD 구조화 데이터 (진행 중: Event, 종료/날짜없음: Article) -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "[POP-UP STORE] 퐁신당",
-  "description": "[POP-UP STORE] 퐁신당 | 12.29 ~ 1.11",
-  "image": "https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/28/7fc93818-1e31-4f3f-aad0-673a9f499d9e.jpg",
-  "datePublished": "2026-01-07",
-  "dateModified": "2026-01-07",
-  "author": {
-    "@type": "Organization",
-    "name": "현대백화점"
+  "@type": "Event",
+  "name": "[POP-UP STORE] 퐁신당",
+  "startDate": "2026-12-29",
+  "endDate": "2026-01-11",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "현대 프리미엄 아울렛 김포",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KR"
+    }
   },
-  "publisher": {
+  "image": [
+    "https://imgprism.ehyundai.com/evntCrdInf/imgPath2/202512/28/7fc93818-1e31-4f3f-aad0-673a9f499d9e.jpg"
+  ],
+  "description": "[POP-UP STORE] 퐁신당 | 12.29 ~ 1.11",
+  "organizer": {
     "@type": "Organization",
-    "name": "현대 프리미엄 아울렛",
+    "name": "현대백화점",
     "url": "https://www.ehyundai.com"
   }
 }
@@ -168,11 +178,11 @@
     <section style="margin-top:2rem;">
       <h2>관련 행사 (김포)</h2>
       <ul style="list-style:disc; margin-left:1.25rem;">
-        <li><a href="/gimpo/디즈니스토어-토이-피규어-1-1-프로모션">[디즈니스토어] 토이/피규어 1+1 프로모션</a></li>
-<li><a href="/gimpo/골든듀-신년-세일">골든듀 신년 세일</a></li>
+        <li><a href="/gimpo/골든듀-신년-세일">골든듀 신년 세일</a></li>
 <li><a href="/gimpo/리바트-가구-프로모션-제안">리바트 가구 프로모션 제안</a></li>
 <li><a href="/gimpo/신년맞이-영아우터-특집-최대-70">신년맞이 영아우터 특집 최대 70%</a></li>
 <li><a href="/gimpo/신년맞이-영캐주얼-진스포티">신년맞이 영캐주얼/진스포티</a></li>
+<li><a href="/gimpo/신년맞이-네파-up-to-70-off">신년맞이 네파 UP TO 70% OFF</a></li>
       </ul>
     </section>
 
@@ -183,7 +193,7 @@
 
     <!-- 이벤트 공식 페이지 이동 배너 -->
     <p class="event-banner" style="text-align:center; margin:1.5rem 0;">
-    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202512452289&category=event&page=3&branchCd=B00172000" target="_blank">
+    <a href="https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202512452289&category=event&page=2&branchCd=B00172000" target="_blank">
         <img
           src="../images/button_banner.png"
           alt="아울렛 페이지로 이동하기"
@@ -217,7 +227,7 @@
             event_id: '673a9f499d9e',
             title: '[POP-UP STORE] 퐁신당',
             outlet: '김포',
-            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202512452289&category=event&page=3&branchCd=B00172000'
+            link: 'https://www.ehyundai.com/newPortal/SN/SN_0201000.do?evntCrdCd=E7202512452289&category=event&page=2&branchCd=B00172000'
           });
         });
       }

@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="robots" content="noindex, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- 종료된 이벤트는 noindex 처리 -->
+  
 
   <!-- 기본 SEO 메타태그 -->
   <meta name="description" content="브룩스브라더스 시즌오프 | 1.1 ~ 1.8" />
@@ -19,8 +21,8 @@
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
   <!-- Prefetch related pages (injected) -->
-  <link rel="prefetch" href="/songdo/노르디스크-쇼핑-찬스" as="document">
   <link rel="prefetch" href="/songdo/pop-up-계란빵-클럽" as="document">
+  <link rel="prefetch" href="/songdo/한섬-브랜드-스페셜-프로모션" as="document">
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID_PLACEHOLDER"></script>
@@ -44,23 +46,31 @@
   <meta name="twitter:description" content="브룩스브라더스 시즌오프 | 1.1 ~ 1.8">
   <meta name="twitter:image" content="https://imgprism.ehyundai.com/derivedImage/fileValue/202512/24/4f6ee87a-681e-4f8b-a7ae-2abc4c9caa7b_02.jpg">
 
-  <!-- JSON-LD 구조화 데이터 -->
+  <!-- JSON-LD 구조화 데이터 (진행 중: Event, 종료/날짜없음: Article) -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "브룩스브라더스 시즌오프",
-  "description": "브룩스브라더스 시즌오프 | 1.1 ~ 1.8",
-  "image": "https://imgprism.ehyundai.com/derivedImage/fileValue/202512/24/4f6ee87a-681e-4f8b-a7ae-2abc4c9caa7b_02.jpg",
-  "datePublished": "2026-01-07",
-  "dateModified": "2026-01-07",
-  "author": {
-    "@type": "Organization",
-    "name": "현대백화점"
+  "@type": "Event",
+  "name": "브룩스브라더스 시즌오프",
+  "startDate": "2026-01-01",
+  "endDate": "2026-01-08",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "현대 프리미엄 아울렛 송도",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KR"
+    }
   },
-  "publisher": {
+  "image": [
+    "https://imgprism.ehyundai.com/derivedImage/fileValue/202512/24/4f6ee87a-681e-4f8b-a7ae-2abc4c9caa7b_02.jpg"
+  ],
+  "description": "브룩스브라더스 시즌오프 | 1.1 ~ 1.8",
+  "organizer": {
     "@type": "Organization",
-    "name": "현대 프리미엄 아울렛",
+    "name": "현대백화점",
     "url": "https://www.ehyundai.com"
   }
 }
@@ -208,11 +218,11 @@
     <section style="margin-top:2rem;">
       <h2>관련 행사 (송도)</h2>
       <ul style="list-style:disc; margin-left:1.25rem;">
-        <li><a href="/songdo/노르디스크-쇼핑-찬스">노르디스크 쇼핑 찬스</a></li>
-<li><a href="/songdo/pop-up-계란빵-클럽">[POP-UP] 계란빵 클럽</a></li>
+        <li><a href="/songdo/pop-up-계란빵-클럽">[POP-UP] 계란빵 클럽</a></li>
 <li><a href="/songdo/한섬-브랜드-스페셜-프로모션">한섬 브랜드 스페셜 프로모션</a></li>
 <li><a href="/songdo/pop-up-cc-paul">[POP-UP] CC&PAUL</a></li>
 <li><a href="/songdo/산드로-마쥬-최대-70-시즌오프-특가-제안">산드로/마쥬 최대 70% 시즌오프 특가 제안</a></li>
+<li><a href="/songdo/골스튜디오-홀리데이-프로모션">골스튜디오 홀리데이 프로모션</a></li>
       </ul>
     </section>
 
