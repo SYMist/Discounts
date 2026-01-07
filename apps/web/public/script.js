@@ -43,17 +43,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const event = info.event;
         const id = event.extendedProps.event_id;
         if (id) {
+          // UUID에서 shortId 추출
+          let shortId = id;
+          if (id.includes('-')) {
+            const parts = id.split('-');
+            shortId = parts[parts.length - 1];
+          }
+
           // 캐시된 매핑 사용 (변형 ID도 체크)
-          let filename = urlMapping[id];
+          let filename = urlMapping[id] || urlMapping[shortId];
           if (!filename) {
             // _02가 있으면 기본 ID로 시도
-            if (id.endsWith('_02')) {
-              const baseId = id.slice(0, -3);
+            if (shortId.endsWith('_02')) {
+              const baseId = shortId.slice(0, -3);
               filename = urlMapping[baseId];
             }
             // 기본 ID면 _02 변형으로 시도
             else {
-              filename = urlMapping[id + '_02'];
+              filename = urlMapping[shortId + '_02'];
             }
           }
           
@@ -161,16 +168,23 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!start || !end) continue;
 
       // URL 매핑이 없는 이벤트는 제외 (변형 ID도 체크)
-      let mappedFilename = urlMapping[eventId];
+      // eventId가 UUID 형식(예: 78565274-4f6e-420f-9df7-f2ba0c6c1728)이면 마지막 부분 추출
+      let shortId = eventId;
+      if (eventId && eventId.includes('-')) {
+        const parts = eventId.split('-');
+        shortId = parts[parts.length - 1]; // 마지막 부분 (예: f2ba0c6c1728)
+      }
+
+      let mappedFilename = urlMapping[eventId] || urlMapping[shortId];
       if (!mappedFilename) {
         // _02가 있으면 기본 ID로 시도
-        if (eventId.endsWith('_02')) {
-          const baseId = eventId.slice(0, -3);
+        if (shortId.endsWith('_02')) {
+          const baseId = shortId.slice(0, -3);
           mappedFilename = urlMapping[baseId];
         }
         // 기본 ID면 _02 변형으로 시도
         else {
-          mappedFilename = urlMapping[eventId + '_02'];
+          mappedFilename = urlMapping[shortId + '_02'];
         }
       }
       
@@ -282,19 +296,26 @@ document.addEventListener("DOMContentLoaded", function () {
           li.addEventListener('click', () => {
             const id = event.event_id;
             if (id) {
-              let filename = urlMapping[id];
+              // UUID에서 shortId 추출
+              let shortId = id;
+              if (id.includes('-')) {
+                const parts = id.split('-');
+                shortId = parts[parts.length - 1];
+              }
+
+              let filename = urlMapping[id] || urlMapping[shortId];
               if (!filename) {
                 // _02가 있으면 기본 ID로 시도
-                if (id.endsWith('_02')) {
-                  const baseId = id.slice(0, -3);
+                if (shortId.endsWith('_02')) {
+                  const baseId = shortId.slice(0, -3);
                   filename = urlMapping[baseId];
                 }
                 // 기본 ID면 _02 변형으로 시도
                 else {
-                  filename = urlMapping[id + '_02'];
+                  filename = urlMapping[shortId + '_02'];
                 }
               }
-              
+
               if (filename) {
                 const url = `/pages/${filename}`;
                 // GA: 하이라이트 클릭
@@ -307,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 window.open(url, '_blank');
               } else {
-                const url = `/pages/event-${id}.html`;
+                const url = `/pages/event-${shortId}.html`;
                 window.open(url, '_blank');
               }
             }
@@ -326,30 +347,38 @@ document.addEventListener("DOMContentLoaded", function () {
     const staticContainer = document.querySelector('#static-event-links ul');
     if (staticContainer) {
       staticContainer.innerHTML = '';
-      
+
       rawEvents.forEach(event => {
         const li = document.createElement('li');
         const id = event.event_id;
-        let url = `/pages/event-${id}.html`; // 기본 URL
-        
+
+        // UUID에서 shortId 추출
+        let shortId = id;
+        if (id && id.includes('-')) {
+          const parts = id.split('-');
+          shortId = parts[parts.length - 1];
+        }
+
+        let url = `/pages/event-${shortId}.html`; // 기본 URL
+
         // URL 매핑이 있으면 사용 (변형 ID도 체크)
-        let filename = urlMapping[id];
+        let filename = urlMapping[id] || urlMapping[shortId];
         if (!filename) {
           // _02가 있으면 기본 ID로 시도
-          if (id.endsWith('_02')) {
-            const baseId = id.slice(0, -3);
+          if (shortId.endsWith('_02')) {
+            const baseId = shortId.slice(0, -3);
             filename = urlMapping[baseId];
           }
           // 기본 ID면 _02 변형으로 시도
           else {
-            filename = urlMapping[id + '_02'];
+            filename = urlMapping[shortId + '_02'];
           }
         }
-        
+
         if (filename) {
           url = `/pages/${filename}`;
         }
-        
+
         li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, event.end)})</a>`;
         staticContainer.appendChild(li);
       });
