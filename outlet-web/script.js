@@ -206,8 +206,15 @@
 
       if (!start || !end) continue;
 
-      // FullCalendar의 end는 exclusive이므로 하루 추가
+      // 날짜 유효성 검사
+      const startDate = new Date(start);
       const endDate = new Date(end);
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        console.warn(`⚠️ 유효하지 않은 날짜: start="${start}", end="${end}", title="${title}"`);
+        continue;
+      }
+
+      // FullCalendar의 end는 exclusive이므로 하루 추가
       endDate.setDate(endDate.getDate() + 1);
       const endExclusive = endDate.toISOString().split('T')[0];
 
