@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+  <!-- 종료된 이벤트는 noindex 처리 -->
+  {{NOINDEX_TAG}}
+
   <!-- 기본 SEO 메타태그 -->
   <meta name="description" content="{{META_DESC}}" />
   <meta name="keywords" content="{{제목}}, 아울렛 세일, 현대아울렛, 할인 행사">
@@ -42,33 +45,8 @@
   <meta name="twitter:description" content="{{OG_DESC}}">
   <meta name="twitter:image" content="{{썸네일}}">
 
-  <!-- JSON-LD 구조화 데이터 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": {{제목_JSON}},
-    "startDate": "{{시작일}}",
-    "endDate": "{{종료일}}",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "현대 프리미엄 아울렛 {{지점명}}",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "KR"
-      }
-    },
-    "image": ["{{썸네일}}"],
-    "description": {{DESC_JSON}},
-    "organizer": {
-      "@type": "Organization",
-      "name": "현대백화점",
-      "url": "https://www.ehyundai.com"
-    }
-  }
-  </script>
+  <!-- JSON-LD 구조화 데이터 (진행 중: Event, 종료/날짜없음: Article) -->
+  {{JSONLD_SCHEMA}}
 
   <!-- BreadcrumbList (JSON-LD) -->
   <script type="application/ld+json">

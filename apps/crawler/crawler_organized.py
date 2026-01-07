@@ -73,23 +73,147 @@ def _fmt_md(yyyymmddhhmmss: str) -> str:
         return ""
 
 def parse_period(period_text):
+    """기간 문자열을 ISO 날짜로 변환. 다양한 형식 지원."""
+    if not period_text:
+        return "", ""
+
     # 1) 줄바꿈 제거
     clean = period_text.replace("\n", "").replace("\r", "")
     # 2) 괄호 안 설명 모두 제거
     clean = re.sub(r"\([^)]*\)", "", clean)
-    # 3) 공백(스페이스) 전부 제거
+    # 3) "까지", "부터" 등 한글 접미사 제거
+    clean = re.sub(r"(까지|부터|종료|시작)", "", clean)
+    # 4) 공백(스페이스) 전부 제거
     clean = clean.replace(" ", "")
-    # 4) '~' 기준으로 분리
+    # 5) '~' 기준으로 분리
     parts = clean.split("~")
     if len(parts) != 2:
-        return "", ""
-    # 5) ISO 포맷으로 변환
-    def to_iso(s):
-        if "." not in s:
-            return ""
-        m, d = s.split(".")
-        return f"2025-{m.zfill(2)}-{d.zfill(2)}"
-    return to_iso(parts[0]), to_iso(parts[1])
+        # ~ 없이 단일 날짜만 있는 경우
+        single = _parse_single_date(clean)
+        return single, single
+
+    return _parse_single_date(parts[0]), _parse_single_date(parts[1])
+
+def _parse_single_date(s):
+    """단일 날짜 문자열을 ISO 형식으로 변환"""
+    if not s:
+        return ""
+    s = s.strip()
+
+    # "M.D" 형식 (예: 1.4, 12.31)
+    match = re.match(r"^(\d{1,2})\.(\d{1,2})$", s)
+    if match:
+        m, d = match.groups()
+        # 현재 연도 기준으로 설정 (1월이면 다음해일 수 있음)
+        year = datetime.today().year
+        return f"{year}-{m.zfill(2)}-{d.zfill(2)}"
+
+    # "YYYY-MM-DD" 형식 (이미 ISO)
+    if re.match(r"^\d{4}-\d{2}-\d{2}$", s):
+        return s
+
+    # "YYYY.MM.DD" 형식
+    match = re.match(r"^(\d{4})\.(\d{1,2})\.(\d{1,2})$", s)
+    if match:
+        y, m, d = match.groups()
+        return f"{y}-{m.zfill(2)}-{d.zfill(2)}"
+
+    # "MM/DD" 형식
+    match = re.match(r"^(\d{1,2})/(\d{1,2})$", s)
+    if match:
+        m, d = match.groups()
+        year = datetime.today().year
+        return f"{year}-{m.zfill(2)}-{d.zfill(2)}"
+
+    return ""
+
+def is_event_expired(end_date_iso):
+    """이벤트가 종료되었는지 확인"""
+    if not end_date_iso:
+        return False  # 날짜 없으면 진행 중으로 간주
+    try:
+        end_date = datetime.strptime(end_date_iso, "%Y-%m-%d")
+        return end_date.date() < datetime.today().date()
+    except ValueError:
+        return False
+
+def get_event_status(start_date_iso, end_date_iso):
+    """이벤트 상태 반환: 'active', 'upcoming', 'expired'"""
+    today = datetime.today().date()
+
+    try:
+        if end_date_iso:
+            end_date = datetime.strptime(end_date_iso, "%Y-%m-%d").date()
+            if end_date < today:
+                return "expired"
+
+        if start_date_iso:
+            start_date = datetime.strptime(start_date_iso, "%Y-%m-%d").date()
+            if start_date > today:
+                return "upcoming"
+
+        return "active"
+    except ValueError:
+        return "active"  # 파싱 실패 시 진행 중으로 간주
+
+def _generate_jsonld_schema(title, description, start_date, end_date, event_status, branch, thumbnail, update_date):
+    """조건부 JSON-LD 스키마 생성
+    - 진행 중(active)/예정(upcoming) + 유효한 날짜 → Event 스키마
+    - 종료됨(expired) 또는 날짜 없음 → Article 스키마
+    """
+    import json as _json
+
+    # 유효한 날짜가 있고 종료되지 않은 경우에만 Event 스키마 사용
+    has_valid_dates = bool(start_date and end_date)
+
+    if has_valid_dates and event_status in ("active", "upcoming"):
+        # Event 스키마
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": title,
+            "startDate": start_date,
+            "endDate": end_date,
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "location": {
+                "@type": "Place",
+                "name": f"현대 프리미엄 아울렛 {branch}",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "KR"
+                }
+            },
+            "image": [thumbnail] if thumbnail else [],
+            "description": description,
+            "organizer": {
+                "@type": "Organization",
+                "name": "현대백화점",
+                "url": "https://www.ehyundai.com"
+            }
+        }
+    else:
+        # Article 스키마 (종료된 이벤트 또는 날짜 없음)
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": title,
+            "description": description,
+            "image": thumbnail if thumbnail else "",
+            "datePublished": start_date if start_date else update_date,
+            "dateModified": update_date,
+            "author": {
+                "@type": "Organization",
+                "name": "현대백화점"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "현대 프리미엄 아울렛",
+                "url": "https://www.ehyundai.com"
+            }
+        }
+
+    return f'<script type="application/ld+json">\n  {_json.dumps(schema, ensure_ascii=False, indent=2)}\n  </script>'
 
 # --- WebDriver 설정
 def setup_driver():
@@ -405,6 +529,22 @@ def generate_html(detail_data, event_id):
 
     title_clean = _norm_spaces(detail_data["제목"])  # 개행/연속 공백 정규화
     desc_clean = _norm_spaces(detail_data.get("혜택 설명", ""))
+
+    # 이벤트 상태 확인 (active, upcoming, expired)
+    start_iso = detail_data.get("시작일", "")
+    end_iso = detail_data.get("종료일", "")
+    event_status = get_event_status(start_iso, end_iso)
+
+    # 종료된 이벤트는 noindex 처리
+    if event_status == "expired":
+        noindex_tag = '<meta name="robots" content="noindex, follow">'
+    else:
+        noindex_tag = ""
+    html = html.replace("{{NOINDEX_TAG}}", noindex_tag)
+
+    # 이벤트 상태에 따른 스키마 타입 결정
+    html = html.replace("{{EVENT_STATUS}}", event_status)
+
     html = html.replace("{{제목}}", title_clean)
     html = html.replace("{{기간}}", detail_data["기간"])
     html = html.replace("{{상세 제목}}", detail_data["상세 제목"])
@@ -425,11 +565,24 @@ def generate_html(detail_data, event_id):
     html = html.replace("{{제목_JSON}}", _json.dumps(title_clean, ensure_ascii=False))
     html = html.replace("{{DESC_JSON}}", _json.dumps(desc_clean or meta_desc, ensure_ascii=False))
     html = html.replace("{{업데이트 날짜}}", datetime.today().strftime('%Y-%m-%d'))
-    html = html.replace("{{시작일}}", detail_data.get("시작일", ""))
-    html = html.replace("{{종료일}}", detail_data.get("종료일", ""))
+    html = html.replace("{{시작일}}", start_iso)
+    html = html.replace("{{종료일}}", end_iso)
     html = html.replace("{{지점명}}", detail_data.get("지점명", ""))
     html = html.replace("{{event_id}}", detail_data.get("id", ""))
     html = html.replace("{{상세 링크}}", detail_data.get("상세 링크", "#"))
+
+    # JSON-LD 스키마 생성 (조건부: 진행 중이고 날짜가 유효하면 Event, 그 외 Article)
+    jsonld_schema = _generate_jsonld_schema(
+        title=title_clean,
+        description=desc_clean or meta_desc,
+        start_date=start_iso,
+        end_date=end_iso,
+        event_status=event_status,
+        branch=detail_data.get("지점명", ""),
+        thumbnail=detail_data.get("썸네일", ""),
+        update_date=datetime.today().strftime('%Y-%m-%d')
+    )
+    html = html.replace("{{JSONLD_SCHEMA}}", jsonld_schema)
 
     # 상품 리스트 HTML 생성 (이미지 저장 없이 URL만 사용)
     product_html = ""
@@ -601,23 +754,56 @@ def add_comprehensive_mapping(event_id, filename):
     
     return mappings_added
 
+def _extract_event_dates_from_html(filepath):
+    """HTML 파일에서 이벤트 날짜 추출 (JSON-LD 파싱)"""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # startDate와 endDate 추출 (JSON-LD에서)
+        start_match = re.search(r'"startDate"\s*:\s*"([^"]+)"', content)
+        end_match = re.search(r'"endDate"\s*:\s*"([^"]+)"', content)
+
+        start_date = start_match.group(1) if start_match else ""
+        end_date = end_match.group(1) if end_match else ""
+
+        # noindex 태그 확인
+        has_noindex = 'name="robots" content="noindex' in content
+
+        return start_date, end_date, has_noindex
+    except Exception:
+        return "", "", False
+
 def generate_sitemap(pages_dir, base_url, output_path, split_threshold: int = 5000):
     """Generate sitemap.
+    - 진행 중/예정된 이벤트만 포함 (종료된 이벤트는 제외)
     - If URL count <= split_threshold: write a single urlset to output_path.
     - Else: write multiple part files (sitemap-1.xml, sitemap-2.xml, ...), and
       make output_path a sitemap index that points to those part files.
     """
-    urls = []  # List[Tuple[url, lastmod]]
+    urls = []  # List[Tuple[url, lastmod, priority]]
+    excluded_count = 0  # 제외된 페이지 수
+
     # ── ① 루트/정적 페이지
     today = datetime.today().strftime('%Y-%m-%d')
     site_root = base_url.rstrip('/') + '/'
-    urls.append((site_root, today))
-    urls.append((site_root + "privacy.html", today))
+    urls.append((site_root, today, "1.0"))
+    urls.append((site_root + "privacy.html", today, "0.5"))
 
-    # ── ② 상세 페이지(프리티 URL)
+    # ── ② 상세 페이지(프리티 URL) - 진행 중인 이벤트만 포함
     for filename in os.listdir(pages_dir):
         if filename.endswith(".html") and '-' in filename and not filename.startswith('index'):
             filepath = os.path.join(pages_dir, filename)
+
+            # 이벤트 날짜 확인
+            start_date, end_date, has_noindex = _extract_event_dates_from_html(filepath)
+            event_status = get_event_status(start_date, end_date)
+
+            # 종료된 이벤트 또는 noindex 페이지는 sitemap에서 제외
+            if event_status == "expired" or has_noindex:
+                excluded_count += 1
+                continue
+
             lastmod = datetime.fromtimestamp(os.path.getmtime(filepath)).strftime('%Y-%m-%d')
             name_without_ext = filename[:-5]
             if name_without_ext.startswith('songdo-'):
@@ -629,9 +815,13 @@ def generate_sitemap(pages_dir, base_url, output_path, split_threshold: int = 50
             else:
                 continue
             url = f"{base_url.rstrip('/')}/{url_path}"
-            urls.append((url, lastmod))
+            # 진행 중인 이벤트는 높은 priority
+            priority = "0.8" if event_status == "active" else "0.6"
+            urls.append((url, lastmod, priority))
 
-    # ── ③ /events 허브 페이지
+    print(f"📊 sitemap: {len(urls) - 2}개 이벤트 포함, {excluded_count}개 종료된 이벤트 제외")
+
+    # ── ③ /events 허브 페이지 (높은 priority - 색인 중요)
     events_dir = os.path.abspath(os.path.join(pages_dir, '..', 'events'))
     if os.path.isdir(events_dir):
         for fn in os.listdir(events_dir):
@@ -642,18 +832,21 @@ def generate_sitemap(pages_dir, base_url, output_path, split_threshold: int = 50
             url = f"{base_url.rstrip('/')}/events/{fn}"
             if fn == 'index.html':
                 url = f"{base_url.rstrip('/')}/events/"
-            urls.append((url, lastmod))
+            urls.append((url, lastmod, "0.9"))  # 허브 페이지는 높은 priority
 
     # helper: write one urlset part
     def _write_part(part_urls, out_file):
         part = ['<?xml version="1.0" encoding="UTF-8"?>']
         part.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-        for url, lastmod in part_urls:
+        for item in part_urls:
+            url = item[0]
+            lastmod = item[1]
+            # priority가 있으면 사용, 없으면 기본값
+            prio = item[2] if len(item) > 2 else "0.8"
             part.append("  <url>")
             part.append(f"    <loc>{url}</loc>")
             part.append(f"    <lastmod>{lastmod}</lastmod>")
             part.append("    <changefreq>daily</changefreq>")
-            prio = "1.0" if url.rstrip('/') == site_root.rstrip('/') else "0.8"
             part.append(f"    <priority>{prio}</priority>")
             part.append("  </url>")
         part.append('</urlset>')
@@ -689,8 +882,8 @@ def generate_sitemap(pages_dir, base_url, output_path, split_threshold: int = 50
         part_name = f"sitemap-{len(parts)+1}.xml"
         part_path = os.path.join(output_dir, part_name)
         _write_part(chunk, part_path)
-        # lastmod for part = max of chunk
-        part_lastmod = max((lm for _, lm in chunk), default=today)
+        # lastmod for part = max of chunk (item[1]이 lastmod)
+        part_lastmod = max((item[1] for item in chunk), default=today)
         parts.append((part_name, part_lastmod))
 
     # Write index to output_path
