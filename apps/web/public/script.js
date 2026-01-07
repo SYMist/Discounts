@@ -207,7 +207,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const clean = str.replace(/\([^)]*\)/g, '').trim();
     if (!clean.includes('.')) return null;
     const [m, d] = clean.split('.').map(p => p.padStart(2, '0'));
-    return `2025-${m}-${d}`;
+    // 현재 연도 기준으로 날짜 결정 (월이 현재보다 6개월 이상 과거면 다음해로 추정)
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    const parsedMonth = parseInt(m, 10);
+
+    // 현재 월보다 6개월 이상 뒤(예: 현재 1월인데 7월 이후 이벤트)면 지난해일 수 있음
+    // 현재 월보다 6개월 이상 앞(예: 현재 12월인데 1월 이벤트)면 내년일 수 있음
+    let year = currentYear;
+    if (parsedMonth > currentMonth + 6) {
+      year = currentYear - 1; // 지난해
+    } else if (parsedMonth < currentMonth - 6) {
+      year = currentYear + 1; // 내년
+    }
+
+    return `${year}-${m}-${d}`;
   }
 
   function loadUrlMapping() {
