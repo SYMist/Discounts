@@ -1,12 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
+// 즉시 실행 함수 - DOM 로드 상태와 무관하게 실행
+(function() {
   let calendar;
   let rawEvents = [];
   let selectedOutlet = "ALL";
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
   let urlMapping = {};  // URL 매핑 캐시
 
-  // 디버깅용 전역 노출
-  window._debug = { get rawEvents() { return rawEvents; }, get urlMapping() { return urlMapping; } };
+  // 디버깅용 전역 노출 (즉시 설정)
+  window._debug = {
+    get rawEvents() { return rawEvents; },
+    get urlMapping() { return urlMapping; },
+    get calendar() { return calendar; }
+  };
+  console.log('✅ _debug 객체가 window에 등록되었습니다.');
+
+  function init() {
 
   // GA 디버그 플래그 (?ga_debug=1 로 접근 시 활성화)
   const qs = new URLSearchParams(location.search);
@@ -566,11 +574,20 @@ document.addEventListener("DOMContentLoaded", function () {
       const b = btn.dataset.brand;
       btn.classList.toggle(
         'active',
-        b === '' 
-          ? selectedBrands.size === 0 
+        b === ''
+          ? selectedBrands.size === 0
           : selectedBrands.has(b)
       );
     });
     applyFilters();
   });
-});
+  } // end of init function
+
+  // DOM 준비 상태에 따라 init 호출
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // DOM이 이미 로드됨 - 즉시 실행
+    init();
+  }
+})();
