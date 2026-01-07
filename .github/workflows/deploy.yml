@@ -25,9 +25,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Inject API Key into script.js
+      - name: Inject API Key into script files
         run: |
           sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|' outlet-web/script.js
+          sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|' outlet-web/script-v2.js
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
