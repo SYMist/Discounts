@@ -5,6 +5,32 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
   let urlMapping = {};  // URL 매핑 캐시
 
+  // 디버깅용 전역 노출
+  window._debug = { get rawEvents() { return rawEvents; }, get urlMapping() { return urlMapping; } };
+
+  // GA 디버그 플래그 (?ga_debug=1 로 접근 시 활성화)
+  const qs = new URLSearchParams(location.search);
+  const debugMode = qs.has('ga_debug');
+  const utmParams = {
+    utm_source: qs.get('utm_source') || undefined,
+    utm_medium: qs.get('utm_medium') || undefined,
+    utm_campaign: qs.get('utm_campaign') || undefined,
+    utm_content: qs.get('utm_content') || undefined,
+    utm_term: qs.get('utm_term') || undefined,
+  };
+
+  // GA 이벤트 전송 헬퍼 (gtag 존재 시에만 동작)
+  function sendGA(eventName, params) {
+    try {
+      if (typeof window.gtag === 'function') {
+        const payload = Object.assign({}, utmParams, params || {});
+        if (debugMode) payload.debug_mode = true;
+        if (debugMode) console.log('[GA]', eventName, payload);
+        window.gtag('event', eventName, payload);
+      }
+    } catch (e) { /* no-op */ }
+  }
+
   function initCalendar(events) {
     const calendarEl = document.getElementById("calendar");
     calendar = new FullCalendar.Calendar(calendarEl, {
@@ -20,22 +46,37 @@ document.addEventListener("DOMContentLoaded", function () {
         const event = info.event;
         const id = event.extendedProps.event_id;
         if (id) {
+          // UUID에서 shortId 추출
+          let shortId = id;
+          if (id.includes('-')) {
+            const parts = id.split('-');
+            shortId = parts[parts.length - 1];
+          }
+
           // 캐시된 매핑 사용 (변형 ID도 체크)
-          let filename = urlMapping[id];
+          let filename = urlMapping[id] || urlMapping[shortId];
           if (!filename) {
             // _02가 있으면 기본 ID로 시도
-            if (id.endsWith('_02')) {
-              const baseId = id.slice(0, -3);
+            if (shortId.endsWith('_02')) {
+              const baseId = shortId.slice(0, -3);
               filename = urlMapping[baseId];
             }
             // 기본 ID면 _02 변형으로 시도
             else {
-              filename = urlMapping[id + '_02'];
+              filename = urlMapping[shortId + '_02'];
             }
           }
           
           if (filename) {
             const url = `/pages/${filename}`;
+            // GA: 캘린더 이벤트 클릭
+            sendGA('calendar_event_click', {
+              event_id: id,
+              title: event.title || '',
+              outlet: (event.extendedProps && event.extendedProps.outlet) || '',
+              start: event.startStr || event.start || '',
+              end: event.endStr || event.end || ''
+            });
             window.open(url, "_blank");
           } else {
             console.error(`매핑되지 않은 이벤트 클릭됨 - ${id}`);
@@ -117,34 +158,75 @@ document.addEventListener("DOMContentLoaded", function () {
   function parseSheetData(data, outletName) {
     const rows = data.values.slice(1);
     const grouped = {};
+    let skippedCount = 0;
+    let noMappingCount = 0;
+
+    console.log(`📥 [${outletName}] 시트에서 ${rows.length}개 행 수신`);
 
     for (const row of rows) {
-      if (row.length < 13 || !row[0] || !row[1]) continue;
+      // 디버깅: 첫 5개 행의 구조 출력
+      if (rows.indexOf(row) < 3) {
+        console.log(`[DEBUG] row[${rows.indexOf(row)}] 길이=${row.length}:`, row.slice(0, 5), '... eventId=', row[12]);
+      }
 
-      const [title, period, , , thumbnail, , desc, , , , , , eventId] = row;
-      const dateParts = period.split("~");
-      if (dateParts.length !== 2) continue;
+      if (row.length < 13 || !row[0] || !row[1]) {
+        skippedCount++;
+        continue;
+      }
 
-      const start = parseDate(dateParts[0]);
-      const end = parseDate(dateParts[1]);
+      // 시트 컬럼: A=제목, B=기간, C=시작날짜(ISO), D=종료날짜(ISO), E=썸네일, F=?, G=설명, ..., M=eventId
+      const [title, period, startDateISO, endDateISO, thumbnail, , desc, , , , , , eventId] = row;
+
+      // C, D 컬럼에 ISO 날짜가 있으면 직접 사용, 없으면 기간 텍스트 파싱
+      let start = startDateISO && startDateISO.match(/^\d{4}-\d{2}-\d{2}$/) ? startDateISO : null;
+      let end = endDateISO && endDateISO.match(/^\d{4}-\d{2}-\d{2}$/) ? endDateISO : null;
+
+      // ISO 날짜가 없으면 기간 텍스트에서 파싱 (fallback)
+      if (!start || !end) {
+        const dateParts = period.split("~");
+        if (dateParts.length !== 2) continue;
+        start = start || parseDate(dateParts[0]);
+        end = end || parseDate(dateParts[1]);
+
+        // 시작일이 종료일보다 큰 경우 (연말-연초 이벤트) 종료일 연도 조정
+        if (start && end && start > end) {
+          const [y, m, d] = end.split('-');
+          end = `${parseInt(y) + 1}-${m}-${d}`;
+          console.log(`🔄 연도 조정: ${dateParts[0]}~${dateParts[1]} → start=${start}, end=${end}`);
+        }
+      }
+
       if (!start || !end) continue;
 
+      // FullCalendar의 end는 exclusive이므로 하루 추가
+      const endDate = new Date(end);
+      endDate.setDate(endDate.getDate() + 1);
+      const endExclusive = endDate.toISOString().split('T')[0];
+
       // URL 매핑이 없는 이벤트는 제외 (변형 ID도 체크)
-      let mappedFilename = urlMapping[eventId];
+      // eventId가 UUID 형식(예: 78565274-4f6e-420f-9df7-f2ba0c6c1728)이면 마지막 부분 추출
+      let shortId = eventId;
+      if (eventId && eventId.includes('-')) {
+        const parts = eventId.split('-');
+        shortId = parts[parts.length - 1]; // 마지막 부분 (예: f2ba0c6c1728)
+      }
+
+      let mappedFilename = urlMapping[eventId] || urlMapping[shortId];
       if (!mappedFilename) {
         // _02가 있으면 기본 ID로 시도
-        if (eventId.endsWith('_02')) {
-          const baseId = eventId.slice(0, -3);
+        if (shortId.endsWith('_02')) {
+          const baseId = shortId.slice(0, -3);
           mappedFilename = urlMapping[baseId];
         }
         // 기본 ID면 _02 변형으로 시도
         else {
-          mappedFilename = urlMapping[eventId + '_02'];
+          mappedFilename = urlMapping[shortId + '_02'];
         }
       }
       
       if (!mappedFilename) {
-        console.log(`⚠️ 매핑되지 않은 이벤트 제외: ${eventId} - ${title}`);
+        noMappingCount++;
+        console.log(`⚠️ 매핑되지 않은 이벤트 제외: eventId="${eventId}", shortId="${shortId}", title="${title}"`);
         continue;
       }
 
@@ -153,7 +235,8 @@ document.addEventListener("DOMContentLoaded", function () {
         grouped[key] = {
           title: `[${outletName}] ${title}`,
           start,
-          end,
+          end: endExclusive,  // FullCalendar용 exclusive 종료일
+          endDisplay: end,     // 표시용 실제 종료일
           description: desc,
           outlet: outletName,
           items: [],
@@ -169,14 +252,31 @@ document.addEventListener("DOMContentLoaded", function () {
       grouped[key].items.push({ brand, product, price });
     }
 
-    return Object.values(grouped);
+    const result = Object.values(grouped);
+    console.log(`📊 [${outletName}] 결과: ${result.length}개 이벤트 (스킵: ${skippedCount}, 매핑없음: ${noMappingCount})`);
+    return result;
   }
 
   function parseDate(str) {
     const clean = str.replace(/\([^)]*\)/g, '').trim();
     if (!clean.includes('.')) return null;
     const [m, d] = clean.split('.').map(p => p.padStart(2, '0'));
-    return `2025-${m}-${d}`;
+    // 현재 연도 기준으로 날짜 결정 (월이 현재보다 6개월 이상 과거면 다음해로 추정)
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    const parsedMonth = parseInt(m, 10);
+
+    // 현재 월보다 6개월 이상 뒤(예: 현재 1월인데 7월 이후 이벤트)면 지난해일 수 있음
+    // 현재 월보다 6개월 이상 앞(예: 현재 12월인데 1월 이벤트)면 내년일 수 있음
+    let year = currentYear;
+    if (parsedMonth > currentMonth + 6) {
+      year = currentYear - 1; // 지난해
+    } else if (parsedMonth < currentMonth - 6) {
+      year = currentYear + 1; // 내년
+    }
+
+    return `${year}-${m}-${d}`;
   }
 
   function loadUrlMapping() {
@@ -222,9 +322,10 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         highlightEvents.forEach(event => {
           const li = document.createElement('li');
+          const displayEnd = event.endDisplay || event.end;
           li.innerHTML = `
             <strong>${event.title}</strong><br>
-            <small>기간: ${formatDateRange(event.start, event.end)}</small>
+            <small>기간: ${formatDateRange(event.start, displayEnd)}</small>
           `;
           li.style.cursor = 'pointer';
           li.style.marginBottom = '0.8rem';
@@ -236,24 +337,39 @@ document.addEventListener("DOMContentLoaded", function () {
           li.addEventListener('click', () => {
             const id = event.event_id;
             if (id) {
-              let filename = urlMapping[id];
+              // UUID에서 shortId 추출
+              let shortId = id;
+              if (id.includes('-')) {
+                const parts = id.split('-');
+                shortId = parts[parts.length - 1];
+              }
+
+              let filename = urlMapping[id] || urlMapping[shortId];
               if (!filename) {
                 // _02가 있으면 기본 ID로 시도
-                if (id.endsWith('_02')) {
-                  const baseId = id.slice(0, -3);
+                if (shortId.endsWith('_02')) {
+                  const baseId = shortId.slice(0, -3);
                   filename = urlMapping[baseId];
                 }
                 // 기본 ID면 _02 변형으로 시도
                 else {
-                  filename = urlMapping[id + '_02'];
+                  filename = urlMapping[shortId + '_02'];
                 }
               }
-              
+
               if (filename) {
                 const url = `/pages/${filename}`;
+                // GA: 하이라이트 클릭
+                sendGA('highlight_click', {
+                  event_id: id,
+                  title: event.title || '',
+                  outlet: event.outlet || '',
+                  start: event.start || '',
+                  end: event.endDisplay || event.end || ''
+                });
                 window.open(url, '_blank');
               } else {
-                const url = `/pages/event-${id}.html`;
+                const url = `/pages/event-${shortId}.html`;
                 window.open(url, '_blank');
               }
             }
@@ -272,31 +388,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const staticContainer = document.querySelector('#static-event-links ul');
     if (staticContainer) {
       staticContainer.innerHTML = '';
-      
+
       rawEvents.forEach(event => {
         const li = document.createElement('li');
         const id = event.event_id;
-        let url = `/pages/event-${id}.html`; // 기본 URL
-        
+
+        // UUID에서 shortId 추출
+        let shortId = id;
+        if (id && id.includes('-')) {
+          const parts = id.split('-');
+          shortId = parts[parts.length - 1];
+        }
+
+        let url = `/pages/event-${shortId}.html`; // 기본 URL
+
         // URL 매핑이 있으면 사용 (변형 ID도 체크)
-        let filename = urlMapping[id];
+        let filename = urlMapping[id] || urlMapping[shortId];
         if (!filename) {
           // _02가 있으면 기본 ID로 시도
-          if (id.endsWith('_02')) {
-            const baseId = id.slice(0, -3);
+          if (shortId.endsWith('_02')) {
+            const baseId = shortId.slice(0, -3);
             filename = urlMapping[baseId];
           }
           // 기본 ID면 _02 변형으로 시도
           else {
-            filename = urlMapping[id + '_02'];
+            filename = urlMapping[shortId + '_02'];
           }
         }
-        
+
         if (filename) {
           url = `/pages/${filename}`;
         }
-        
-        li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, event.end)})</a>`;
+
+        const displayEnd = event.endDisplay || event.end;
+        li.innerHTML = `<a href="${url}">${event.title} (${formatDateRange(event.start, displayEnd)})</a>`;
         staticContainer.appendChild(li);
       });
     }
@@ -423,6 +548,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // URL 매핑 로드 후 데이터 로드
   loadUrlMapping().then(() => {
     checkApiAndLoad();
+    // GA 디버그 모드일 때 핑 전송
+    if (debugMode) sendGA('debug_ping', { page: location.pathname });
   });
   // 브랜드 필터 클릭 핸들러 (단 한 번만 등록)
   document.getElementById('brand-filter-bar').addEventListener('click', e => {
