@@ -174,21 +174,29 @@ document.addEventListener("DOMContentLoaded", function () {
         continue;
       }
 
-      const [title, period, , , thumbnail, , desc, , , , , , eventId] = row;
-      const dateParts = period.split("~");
-      if (dateParts.length !== 2) continue;
+      // 시트 컬럼: A=제목, B=기간, C=시작날짜(ISO), D=종료날짜(ISO), E=썸네일, F=?, G=설명, ..., M=eventId
+      const [title, period, startDateISO, endDateISO, thumbnail, , desc, , , , , , eventId] = row;
 
-      const start = parseDate(dateParts[0]);
-      let end = parseDate(dateParts[1]);
-      if (!start || !end) continue;
+      // C, D 컬럼에 ISO 날짜가 있으면 직접 사용, 없으면 기간 텍스트 파싱
+      let start = startDateISO && startDateISO.match(/^\d{4}-\d{2}-\d{2}$/) ? startDateISO : null;
+      let end = endDateISO && endDateISO.match(/^\d{4}-\d{2}-\d{2}$/) ? endDateISO : null;
 
-      // 시작일이 종료일보다 큰 경우 (연말-연초 이벤트) 종료일 연도 조정
-      if (start > end) {
-        // 종료일의 연도를 1년 증가
-        const [y, m, d] = end.split('-');
-        end = `${parseInt(y) + 1}-${m}-${d}`;
-        console.log(`🔄 연도 조정: ${dateParts[0]}~${dateParts[1]} → start=${start}, end=${end}`);
+      // ISO 날짜가 없으면 기간 텍스트에서 파싱 (fallback)
+      if (!start || !end) {
+        const dateParts = period.split("~");
+        if (dateParts.length !== 2) continue;
+        start = start || parseDate(dateParts[0]);
+        end = end || parseDate(dateParts[1]);
+
+        // 시작일이 종료일보다 큰 경우 (연말-연초 이벤트) 종료일 연도 조정
+        if (start && end && start > end) {
+          const [y, m, d] = end.split('-');
+          end = `${parseInt(y) + 1}-${m}-${d}`;
+          console.log(`🔄 연도 조정: ${dateParts[0]}~${dateParts[1]} → start=${start}, end=${end}`);
+        }
       }
+
+      if (!start || !end) continue;
 
       // FullCalendar의 end는 exclusive이므로 하루 추가
       const endDate = new Date(end);
