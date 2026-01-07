@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectedBrands = new Set();  // 복수 선택을 위한 Set
   let urlMapping = {};  // URL 매핑 캐시
 
+  // 디버깅용 전역 노출
+  window._debug = { get rawEvents() { return rawEvents; }, get urlMapping() { return urlMapping; } };
+
   // GA 디버그 플래그 (?ga_debug=1 로 접근 시 활성화)
   const qs = new URLSearchParams(location.search);
   const debugMode = qs.has('ga_debug');
