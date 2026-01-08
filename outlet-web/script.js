@@ -1,4 +1,4 @@
-// 즉시 실행 함수 - DOM 로드 상태와 무관하게 실행
+// 즉시 실행 함수 - DOM 로드 상태와 무관하게 실행 (v20260108)
 (function() {
   let calendar;
   let rawEvents = [];
