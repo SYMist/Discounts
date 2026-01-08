@@ -29,6 +29,7 @@ jobs:
         run: |
           sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|' outlet-web/script.js
           sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|' outlet-web/script-v2.js
+          sed -i 's|{{GOOGLE_API_KEY}}|${{ secrets.GOOGLE_API_KEY }}|' outlet-web/script-v3.js
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
